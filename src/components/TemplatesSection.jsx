@@ -1,107 +1,77 @@
 // src/components/TemplatesSection.jsx
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { 
+  FaGithub, 
+  FaExternalLinkAlt, 
+  FaDownload, 
+  FaCheckCircle,
+  FaTimes,
+  FaEye,
+  FaReact,
+  FaCss3Alt,
+  FaJs,
+  FaNodeJs,
+  FaDatabase,
+  FaCloud,
+  FaPalette,
+  FaShoppingCart,
+  FaChartLine,
+  FaMobileAlt,
+  FaWordpress,
+  FaVuejs,
+  FaAngular,
+  FaBootstrap,
+  FaNpm,
+  FaServer,
+  FaCode,
+  FaSearch
+} from "react-icons/fa";
+import { SiTailwindcss, SiFramer, SiTypescript, SiNextdotjs, SiVuedotjs, SiFirebase, SiMongodb, SiExpress, SiPostgresql, SiGraphql } from "react-icons/si";
+import portfolioV1Img from "../assets/portfolio_v1.png";
 
 const templates = [
   {
     id: 1,
-    name: "NexaDash",
-    category: "Dashboard",
-    badge: "popular",
-    rating: 4.8,
-    reviews: 214,
+    name: "Portfolio v1",
+    category: "Portfolio",
     color: "#E6F1FB",
     accent: "#378ADD",
-    icon: "📊",
-    description: "Analytics dashboard dengan chart interaktif dan dark mode.",
-    downloadUrl: "https://github.com/username/nama-repo/archive/refs/heads/main.zip",
-    demoUrl: "https://nexadash-demo.netlify.app",
-    size: "2.4 MB",
-    version: "v2.1.0",
-  },
-  {
-    id: 2,
-    name: "LaunchKit",
-    category: "Landing Page",
-    badge: "new",
-    rating: 4.6,
-    reviews: 89,
-    color: "#E1F5EE",
-    accent: "#1D9E75",
-    icon: "🚀",
-    description: "Landing page modern untuk startup dengan animasi smooth.",
-    downloadUrl: "https://github.com/username/launchkit/archive/refs/heads/main.zip",
-    demoUrl: "https://launchkit-demo.netlify.app",
-    size: "1.8 MB",
-    version: "v1.0.3",
-  },
-  {
-    id: 3,
-    name: "FolioX",
-    category: "Portfolio",
-    badge: null,
-    rating: 4.5,
-    reviews: 142,
-    color: "#EEEDFE",
-    accent: "#7F77DD",
-    icon: "🎨",
-    description: "Portfolio minimalis untuk desainer dan developer kreatif.",
-    downloadUrl: "https://github.com/username/foliox/archive/refs/heads/main.zip",
-    demoUrl: "https://foliox-demo.netlify.app",
-    size: "1.2 MB",
-    version: "v3.0.1",
-  },
-  {
-    id: 4,
-    name: "ShopEase",
-    category: "E-Commerce",
-    badge: "new",
-    rating: 4.7,
-    reviews: 63,
-    color: "#FAEEDA",
-    accent: "#BA7517",
-    icon: "🛒",
-    description: "Template toko online lengkap dengan keranjang dan checkout.",
-    downloadUrl: "https://github.com/username/shopease/archive/refs/heads/main.zip",
-    demoUrl: "https://shopease-demo.netlify.app",
-    size: "3.1 MB",
-    version: "v1.2.0",
-  },
-  {
-    id: 5,
-    name: "AdminPro",
-    category: "Dashboard",
-    badge: null,
-    rating: 4.9,
-    reviews: 381,
-    color: "#FCEBEB",
-    accent: "#E24B4A",
-    icon: "⚙️",
-    description: "Admin panel lengkap dengan manajemen user dan role.",
-    downloadUrl: "https://github.com/username/adminpro/archive/refs/heads/main.zip",
-    demoUrl: "https://adminpro-demo.netlify.app",
-    size: "4.2 MB",
-    version: "v4.0.0",
-  },
-  {
-    id: 6,
-    name: "CreativeMe",
-    category: "Portfolio",
-    badge: "popular",
-    rating: 4.4,
-    reviews: 97,
-    color: "#FBEAF0",
-    accent: "#D4537E",
-    icon: "✦",
-    description: "Portfolio bold dan ekspresif untuk seniman dan fotografer.",
-    downloadUrl: "https://github.com/username/creativeme/archive/refs/heads/main.zip",
-    demoUrl: "https://creativeme-demo.netlify.app",
-    size: "2.0 MB",
-    version: "v2.3.1",
+    image: portfolioV1Img,
+    description: "Portfolio v1 dengan React.js, Tailwind CSS, dan Framer Motion. Modern, responsif, dan interaktif.",
+    downloadUrl: "https://github.com/amirsr43/portofolio_v1/archive/refs/heads/main.zip",
+    demoUrl: "https://portofv1.netlify.app/",
+    techStack: ["React", "Tailwind CSS", "Framer Motion"],
+    // size: "2.4 MB",
+    // version: "v2.1.0",
   },
 ];
 
 const categories = ["Semua", "Dashboard", "Landing Page", "Portfolio", "E-Commerce"];
+
+// Tech stack icon mapping
+const getTechIcon = (tech) => {
+  const icons = {
+    "React": <FaReact size={12} />,
+    "Tailwind CSS": <SiTailwindcss size={12} />,
+    "Framer Motion": <SiFramer size={12} />,
+    "TypeScript": <SiTypescript size={12} />,
+    "Next.js": <SiNextdotjs size={12} />,
+    "Vue.js": <SiVuedotjs size={12} />,
+    "Angular": <FaAngular size={12} />,
+    "Node.js": <FaNodeJs size={12} />,
+    "Express": <SiExpress size={12} />,
+    "MongoDB": <SiMongodb size={12} />,
+    "PostgreSQL": <SiPostgresql size={12} />,
+    "GraphQL": <SiGraphql size={12} />,
+    "Firebase": <SiFirebase size={12} />,
+    "Bootstrap": <FaBootstrap size={12} />,
+    "jQuery": <FaJs size={12} />,
+    "WordPress": <FaWordpress size={12} />,
+    "Vue": <FaVuejs size={12} />,
+  };
+  return icons[tech] || <FaCode size={12} />;
+};
 
 const containerVariants = {
   hidden: {},
@@ -114,32 +84,11 @@ const cardVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
 };
 
-function Stars({ rating }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-      {Array.from({ length: 5 }, (_, i) => (
-        <span
-          key={i}
-          style={{
-            fontSize: "11px",
-            color: i < Math.round(rating) ? "#EF9F27" : "#D1D0CB",
-          }}
-        >
-          ★
-        </span>
-      ))}
-      <span style={{ fontSize: "12px", color: "var(--muted)", marginLeft: "4px" }}>
-        {rating} ({rating >= 100 ? rating : rating})
-      </span>
-    </div>
-  );
-}
-
 function BadgePill({ badge }) {
   if (!badge) return null;
   const styles = {
-    popular: { bg: "#EEEDFE", color: "#3C3489", label: "⭐ Popular" },
-    new: { bg: "#E1F5EE", color: "#085041", label: "✦ New" },
+    popular: { bg: "#EEEDFE", color: "#3C3489", label: <><FaChartLine size={10} style={{ marginRight: "4px" }} /> Popular</> },
+    new: { bg: "#E1F5EE", color: "#085041", label: <><FaCheckCircle size={10} style={{ marginRight: "4px" }} /> New</> },
   };
   const s = styles[badge];
   return (
@@ -155,10 +104,49 @@ function BadgePill({ badge }) {
         background: s.bg,
         color: s.color,
         letterSpacing: "0.02em",
+        zIndex: 2,
+        display: "flex",
+        alignItems: "center",
+        gap: "4px",
       }}
     >
       {s.label}
     </span>
+  );
+}
+
+function TechStackBadges({ techStack }) {
+  if (!techStack || techStack.length === 0) return null;
+  
+  return (
+    <div style={{ 
+      display: "flex", 
+      flexWrap: "wrap", 
+      gap: "6px", 
+      marginBottom: "12px",
+      alignItems: "center"
+    }}>
+      {techStack.map((tech, index) => (
+        <span
+          key={index}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            fontSize: "10px",
+            fontWeight: 500,
+            padding: "3px 8px",
+            borderRadius: "6px",
+            background: "#F0F0F0",
+            color: "#444",
+            letterSpacing: "0.01em",
+          }}
+        >
+          {getTechIcon(tech)}
+          <span>{tech}</span>
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -185,7 +173,7 @@ function DownloadToast({ name, onClose }) {
         minWidth: "260px",
       }}
     >
-      <span style={{ fontSize: "20px" }}>✅</span>
+      <FaCheckCircle style={{ fontSize: "20px", color: "#4CAF50" }} />
       <div>
         <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "var(--text)" }}>
           Download dimulai!
@@ -205,9 +193,11 @@ function DownloadToast({ name, onClose }) {
           fontSize: "16px",
           padding: "0",
           lineHeight: 1,
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        ✕
+        <FaTimes />
       </button>
     </motion.div>
   );
@@ -215,12 +205,12 @@ function DownloadToast({ name, onClose }) {
 
 function TemplateCard({ template, onDownload }) {
   const [downloading, setDownloading] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const handleDownload = (e) => {
     e.stopPropagation();
     setDownloading(true);
 
-    // Trigger download file dari GitHub
     const link = document.createElement("a");
     link.href = template.downloadUrl;
     link.download = `${template.name.toLowerCase()}.zip`;
@@ -234,7 +224,6 @@ function TemplateCard({ template, onDownload }) {
 
   const handleDemo = (e) => {
     e.stopPropagation();
-    // Buka demo di tab baru
     window.open(template.demoUrl, "_blank");
   };
 
@@ -251,19 +240,44 @@ function TemplateCard({ template, onDownload }) {
         cursor: "pointer",
       }}
     >
-      {/* Preview Area */}
+      {/* Preview Area with Image */}
       <div
         style={{
-          height: "160px",
-          background: template.color,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          height: "180px",
           position: "relative",
+          overflow: "hidden",
+          background: template.color,
         }}
       >
         <BadgePill badge={template.badge} />
-        <span style={{ fontSize: "56px", opacity: 0.75 }}>{template.icon}</span>
+        
+        {/* Gambar Template */}
+        {template.image && !imageError ? (
+          <img
+            src={template.image}
+            alt={template.name}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top",
+            }}
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: template.color,
+            }}
+          >
+            <FaPalette style={{ fontSize: "56px", opacity: 0.6 }} />
+          </div>
+        )}
 
         {/* Version tag */}
         <span
@@ -274,9 +288,11 @@ function TemplateCard({ template, onDownload }) {
             fontSize: "11px",
             padding: "2px 8px",
             borderRadius: "6px",
-            background: "rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.9)",
             color: "#444",
             fontWeight: 500,
+            backdropFilter: "blur(4px)",
+            zIndex: 2,
           }}
         >
           {template.version}
@@ -316,7 +332,8 @@ function TemplateCard({ template, onDownload }) {
           {template.description}
         </p>
 
-        <Stars rating={template.rating} />
+        {/* Tech Stack Badges */}
+        <TechStackBadges techStack={template.techStack} />
 
         {/* Footer */}
         <div
@@ -331,7 +348,7 @@ function TemplateCard({ template, onDownload }) {
           }}
         >
           <span style={{ fontSize: "12px", color: "var(--muted)" }}>
-            📦 {template.size}
+            {template.size}
           </span>
 
           <div style={{ display: "flex", gap: "8px" }}>
@@ -353,7 +370,8 @@ function TemplateCard({ template, onDownload }) {
                 transition: "all 0.2s",
               }}
             >
-              👁️ Demo
+              <FaEye size={14} />
+              Demo
             </motion.button>
 
             <motion.button
@@ -382,7 +400,8 @@ function TemplateCard({ template, onDownload }) {
                 </>
               ) : (
                 <>
-                  ↓ Download
+                  <FaDownload size={12} />
+                  Download
                 </>
               )}
             </motion.button>
@@ -410,7 +429,9 @@ const TemplatesSection = () => {
   return (
     <section style={{ padding: "80px 24px", position: "relative" }}>
       <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin { 
+          to { transform: rotate(360deg); } 
+        }
       `}</style>
 
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
@@ -483,7 +504,7 @@ const TemplatesSection = () => {
             animate="show"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
               gap: "24px",
             }}
           >
@@ -499,10 +520,56 @@ const TemplatesSection = () => {
 
         {/* Empty State */}
         {filtered.length === 0 && (
-          <div style={{ textAlign: "center", padding: "60px 0", color: "var(--muted)" }}>
-            <p style={{ fontSize: "40px", marginBottom: "12px" }}>🔍</p>
-            <p style={{ fontSize: "16px" }}>Tidak ada template untuk kategori ini.</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            style={{ 
+              textAlign: "center", 
+              padding: "80px 20px", 
+              color: "var(--muted)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "20px"
+            }}
+          >
+            {/* Icon Search di Tengah */}
+            <div
+              style={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                background: "rgba(0,0,0,0.05)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px",
+              }}
+            >
+              <FaSearch style={{ fontSize: "40px", opacity: 0.6 }} />
+            </div>
+            
+            {/* Tulisan Tidak Ada Template */}
+            <div>
+              <p style={{ 
+                fontSize: "18px", 
+                fontWeight: 600, 
+                margin: "0 0 8px 0",
+                color: "var(--text)"
+              }}>
+                Tidak Ada Template Ditemukan
+              </p>
+              <p style={{ 
+                fontSize: "14px", 
+                margin: 0,
+                color: "var(--muted)"
+              }}>
+                Tidak ada template untuk kategori "{activeFilter}"
+              </p>
+            </div>
+          </motion.div>
         )}
       </div>
 
