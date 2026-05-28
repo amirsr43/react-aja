@@ -29,6 +29,7 @@ import {
 } from "react-icons/fa";
 import { SiTailwindcss, SiFramer, SiTypescript, SiNextdotjs, SiVuedotjs, SiFirebase, SiMongodb, SiExpress, SiPostgresql, SiGraphql } from "react-icons/si";
 import portfolioV1Img from "../assets/portfolio_v1.png";
+import dashboardV1Img from "../assets/dashboard_v1.png";
 
 const templates = [
   {
@@ -42,6 +43,20 @@ const templates = [
     downloadUrl: "https://github.com/amirsr43/portofolio_v1/archive/refs/heads/main.zip",
     demoUrl: "https://portofv1.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
+    // size: "2.4 MB",
+    // version: "v2.1.0",
+  },
+  {
+    id: 2,
+    name: "Dashboard v1",
+    category: "Dashboard",
+    color: "#E6F1FB",
+    accent: "#378ADD",
+    image: dashboardV1Img,
+    description: "Dashboard v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    downloadUrl: "https://github.com/amirsr43/dashboard_v1/archive/refs/heads/main.zip",
+    demoUrl: "https://dashbv1.netlify.app/",
+    techStack: ["React", "Tailwind CSS"],
     // size: "2.4 MB",
     // version: "v2.1.0",
   },
