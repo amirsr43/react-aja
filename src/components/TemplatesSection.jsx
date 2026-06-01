@@ -30,6 +30,7 @@ import {
 import { SiTailwindcss, SiFramer, SiTypescript, SiNextdotjs, SiVuedotjs, SiFirebase, SiMongodb, SiExpress, SiPostgresql, SiGraphql } from "react-icons/si";
 import portfolioV1Img from "../assets/portfolio_v1.png";
 import dashboardV1Img from "../assets/dashboard_v1.png";
+import landingPageV1Img from "../assets/landingpage_v1.png";
 
 const templates = [
   {
@@ -57,6 +58,20 @@ const templates = [
     downloadUrl: "https://github.com/amirsr43/dashboard_v1/archive/refs/heads/main.zip",
     demoUrl: "https://dashbv1.netlify.app/",
     techStack: ["React", "Tailwind CSS"],
+    // size: "2.4 MB",
+    // version: "v2.1.0",
+  },
+  {
+    id: 3,
+    name: "Foodfolio",
+    category: "Landing Page",
+    color: "#E6F1FB",
+    accent: "#378ADD",
+    image: landingPageV1Img,
+    description: "Landing Page v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    downloadUrl: "https://github.com/amirsr43/landing-page-v1/archive/refs/heads/main.zip",
+    demoUrl: "https://foodpolio.netlify.app/",
+    techStack: ["React", "Tailwind CSS", "Framer Motion"],
     // size: "2.4 MB",
     // version: "v2.1.0",
   },
