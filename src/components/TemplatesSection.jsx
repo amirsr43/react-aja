@@ -31,6 +31,7 @@ import { SiTailwindcss, SiFramer, SiTypescript, SiNextdotjs, SiVuedotjs, SiFireb
 import portfolioV1Img from "../assets/portfolio_v1.png";
 import dashboardV1Img from "../assets/dashboard_v1.png";
 import landingPageV1Img from "../assets/landingpage_v1.png";
+import EcommerceV1Img from "../assets/ecommerce_v1.png";
 
 const templates = [
   {
@@ -71,6 +72,20 @@ const templates = [
     description: "Landing Page v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
     downloadUrl: "https://github.com/amirsr43/landing-page-v1/archive/refs/heads/main.zip",
     demoUrl: "https://foodpolio.netlify.app/",
+    techStack: ["React", "Tailwind CSS", "Framer Motion"],
+    // size: "2.4 MB",
+    // version: "v2.1.0",
+  },
+  {
+    id: 3,
+    name: "ZestifyCart",
+    category: "E-Commerce",
+    color: "#E6F1FB",
+    accent: "#378ADD",
+    image: EcommerceV1Img,
+    description: "E-Commerce v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    downloadUrl: "https://github.com/amirsr43/ecommerce-v1/archive/refs/heads/main.zip",
+    demoUrl: "https://zestifycart.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
     // size: "2.4 MB",
     // version: "v2.1.0",
