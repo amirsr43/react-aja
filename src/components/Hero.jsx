@@ -3,6 +3,13 @@ import { motion } from "framer-motion";
 import { Zap, ArrowRight } from "lucide-react";
 
 const Hero = () => {
+  const handleExplore = () => {
+    const section = document.getElementById("templates");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section style={{ padding: "80px 24px", textAlign: "center" }}>
       <motion.div
@@ -33,7 +40,7 @@ const Hero = () => {
           color: "var(--text)"
         }}>
           Modern React
-          <span style={{ 
+          <span style={{
             background: "linear-gradient(135deg, #7c3aed, #0ea5e9)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent"
@@ -42,8 +49,8 @@ const Hero = () => {
           </span>
         </h1>
 
-        <p style={{ 
-          fontSize: "18px", 
+        <p style={{
+          fontSize: "18px",
           color: "var(--muted)",
           maxWidth: "500px",
           margin: "0 auto 32px"
@@ -51,17 +58,20 @@ const Hero = () => {
           Koleksi template React modern, responsif, dan siap pakai.
         </p>
 
-        <button style={{
-          padding: "12px 24px",
-          background: "linear-gradient(135deg, #7c3aed, #0ea5e9)",
-          color: "white",
-          border: "none",
-          borderRadius: "12px",
-          cursor: "pointer",
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "8px"
-        }}>
+        <button
+          onClick={handleExplore}
+          style={{
+            padding: "12px 24px",
+            background: "linear-gradient(135deg, #7c3aed, #0ea5e9)",
+            color: "white",
+            border: "none",
+            borderRadius: "12px",
+            cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px"
+          }}
+        >
           Explore Templates <ArrowRight size={15} />
         </button>
       </motion.div>

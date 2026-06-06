@@ -472,7 +472,7 @@ const TemplatesSection = () => {
   };
 
   return (
-    <section style={{ padding: "80px 24px", position: "relative" }}>
+    <section id="templates" style={{ padding: "80px 24px", position: "relative" }}>
       <style>{`
         @keyframes spin { 
           to { transform: rotate(360deg); } 

@@ -76,7 +76,7 @@ function tokenize(code) {
         html += `<span style="color:${COLORS.cm}">${esc(line.slice(i))}</span>`;
         break;
       }
-      const kws = ["import","export","default","from","const","let","var","return","function","=>"];
+      const kws = ["import", "export", "default", "from", "const", "let", "var", "return", "function", "=>"];
       let matched = false;
       for (const kw of kws) {
         if (line.startsWith(kw, i) && !/\w/.test(line[i + kw.length] || "")) {
@@ -144,26 +144,26 @@ const S = {
     boxShadow: "0 0 0 1px #7c3aed18, 0 32px 64px rgba(0,0,0,0.5)",
   },
   titlebar: {
-    display: "flex", 
-    alignItems: "center", 
+    display: "flex",
+    alignItems: "center",
     gap: "8px",
-    padding: "10px 16px", 
+    padding: "10px 16px",
     borderBottom: "1px solid var(--border)",
     background: "var(--surface-2)",
     flexWrap: "wrap",
   },
   tabsContainer: {
-    display: "flex", 
-    gap: "2px", 
+    display: "flex",
+    gap: "2px",
     marginLeft: "12px",
     flexWrap: "wrap",
     flex: 1,
   },
   tab: (active) => ({
-    padding: "4px 13px", 
-    fontSize: 12, 
+    padding: "4px 13px",
+    fontSize: 12,
     fontFamily: "monospace",
-    borderRadius: "6px 6px 0 0", 
+    borderRadius: "6px 6px 0 0",
     cursor: "pointer",
     color: active ? "var(--text)" : "var(--muted)",
     border: active ? "1px solid var(--border)" : "1px solid transparent",
@@ -175,44 +175,44 @@ const S = {
   iconBtn: (copied) => ({
     background: "transparent",
     border: `1px solid ${copied ? "#4ade80" : "var(--border)"}`,
-    borderRadius: "6px", 
+    borderRadius: "6px",
     padding: "4px 12px",
     color: copied ? "#4ade80" : "var(--muted)",
-    cursor: "pointer", 
+    cursor: "pointer",
     fontSize: 12,
-    display: "flex", 
-    alignItems: "center", 
+    display: "flex",
+    alignItems: "center",
     gap: 6,
-    fontFamily: "monospace", 
+    fontFamily: "monospace",
     transition: "all .15s",
     whiteSpace: "nowrap",
   }),
   codePane: {
-    fontFamily: "monospace", 
-    fontSize: 12.5, 
+    fontFamily: "monospace",
+    fontSize: 12.5,
     lineHeight: 1.8,
-    padding: "14px", 
+    padding: "14px",
     overflow: "auto",
     maxHeight: "600px",
   },
   statusbar: {
-    display: "flex", 
-    alignItems: "center", 
+    display: "flex",
+    alignItems: "center",
     justifyContent: "space-between",
-    padding: "5px 16px", 
+    padding: "5px 16px",
     background: "#0a0a0e",
     borderTop: "1px solid var(--border)",
-    fontSize: 11, 
-    fontFamily: "monospace", 
+    fontSize: 11,
+    fontFamily: "monospace",
     color: "#3a3a60",
     flexWrap: "wrap",
     gap: "8px",
   },
   badge: {
-    background: "#7c3aed15", 
+    background: "#7c3aed15",
     color: "var(--accent)",
-    padding: "2px 8px", 
-    borderRadius: 4, 
+    padding: "2px 8px",
+    borderRadius: 4,
     fontSize: 11,
     border: "1px solid #7c3aed30",
   },
@@ -272,8 +272,8 @@ export default function CodePreview() {
           <div style={S.tabsContainer}>
             {Object.keys(FILES).map((f) => (
               <button
-                key={f} 
-                style={S.tab(f === currentFile)} 
+                key={f}
+                style={S.tab(f === currentFile)}
                 onClick={() => setCurrentFile(f)}
                 onMouseEnter={(e) => {
                   if (f !== currentFile) {
@@ -291,8 +291,8 @@ export default function CodePreview() {
             ))}
           </div>
           <div>
-            <button 
-              style={S.iconBtn(copied)} 
+            <button
+              style={S.iconBtn(copied)}
               onClick={copyCode}
               onMouseEnter={(e) => {
                 if (!copied) {
