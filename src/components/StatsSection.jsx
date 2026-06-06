@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FaCubes, FaGift, FaCode, FaBolt } from "react-icons/fa";
 
 const stats = [
-  { value: 4,   suffix: "+",    label: "Templates",   icon: FaCubes, color: "#7c3aed" },
+  { value: 5,   suffix: "+",    label: "Templates",   icon: FaCubes, color: "#7c3aed" },
   { value: 100, suffix: "%",    label: "Gratis",      icon: FaGift,  color: "#0ea5e9" },
   { value: 3,   suffix: "",     label: "Tech Stacks", icon: FaCode,  color: "#10b981" },
   { value: 1,   suffix: " mnt", label: "Setup Time",  icon: FaBolt,  color: "#f59e0b" },

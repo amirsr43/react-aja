@@ -30,6 +30,7 @@ import {
 import { SiTailwindcss, SiFramer, SiTypescript, SiNextdotjs, SiVuedotjs, SiFirebase, SiMongodb, SiExpress, SiPostgresql, SiGraphql } from "react-icons/si";
 import portfolioV1Img from "../assets/portfolio_v1.png";
 import dashboardV1Img from "../assets/dashboard_v1.png";
+import dashboardV2Img from "../assets/dashboard_v2.png";
 import landingPageV1Img from "../assets/landingpage_v1.png";
 import EcommerceV1Img from "../assets/ecommerce_v1.png";
 
@@ -77,7 +78,7 @@ const templates = [
     // version: "v2.1.0",
   },
   {
-    id: 3,
+    id: 4,
     name: "ZestifyCart",
     category: "E-Commerce",
     color: "#E6F1FB",
@@ -87,6 +88,20 @@ const templates = [
     downloadUrl: "https://github.com/amirsr43/ecommerce-v1/archive/refs/heads/main.zip",
     demoUrl: "https://zestifycart.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
+    // size: "2.4 MB",
+    // version: "v2.1.0",
+  },
+  {
+    id: 5,
+    name: "Dashboard v2",
+    category: "Dashboard",
+    color: "#E6F1FB",
+    accent: "#378ADD",
+    image: dashboardV2Img,
+    description: "Dashboard v2 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    downloadUrl: "https://github.com/amirsr43/dashboard_v2/archive/refs/heads/main.zip",
+    demoUrl: "https://dashbv2.netlify.app/",
+    techStack: ["React", "Tailwind CSS"],
     // size: "2.4 MB",
     // version: "v2.1.0",
   },
