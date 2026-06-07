@@ -6,22 +6,22 @@ const steps = [
   {
     icon: Search,
     step: "01",
-    title: "Pilih Template",
-    desc: "Browse koleksi template, lihat preview langsung di demo, pilih yang paling cocok.",
+    title: "Choose a Template",
+    desc: "Browse the template collection, preview it live in the demo, and pick the one that fits best.",
     color: "#7c3aed",
   },
   {
     icon: Download,
     step: "02",
     title: "Download ZIP",
-    desc: "Klik tombol download, file ZIP langsung dari GitHub. Ga perlu akun, ga perlu login.",
+    desc: "Click the download button, get the ZIP file straight from GitHub. No account, no login required.",
     color: "#0ea5e9",
   },
   {
     icon: Rocket,
     step: "03",
-    title: "Langsung Jalan",
-    desc: "Extract → npm install → npm run dev. Kurang dari satu menit udah jalan di localhost.",
+    title: "Ready to Go",
+    desc: "Extract → npm install → npm run dev. Up and running on localhost in less than a minute.",
     color: "#10b981",
   },
 ];
@@ -47,7 +47,7 @@ const HowItWorks = () => {
               marginBottom: "10px",
             }}
           >
-            Cara Pakai
+            How It Works
           </p>
           <h2
             style={{
@@ -57,10 +57,10 @@ const HowItWorks = () => {
               margin: "0 0 12px",
             }}
           >
-            3 Langkah, Beres
+            3 Steps, Done
           </h2>
           <p style={{ fontSize: "16px", color: "var(--muted)", margin: 0 }}>
-            Ga ada yang ribet. Serius.
+            Nothing complicated. Seriously.
           </p>
         </motion.div>
 
@@ -137,7 +137,7 @@ const HowItWorks = () => {
                     marginBottom: "8px",
                   }}
                 >
-                  Langkah {step.step}
+                  Step {step.step}
                 </span>
 
                 <h3

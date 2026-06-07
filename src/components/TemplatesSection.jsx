@@ -42,7 +42,7 @@ const templates = [
     color: "#E6F1FB",
     accent: "#378ADD",
     image: portfolioV1Img,
-    description: "Portfolio v1 dengan React.js, Tailwind CSS, dan Framer Motion. Modern, responsif, dan interaktif.",
+    description: "Portfolio v1 built with React.js, Tailwind CSS, and Framer Motion. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/portofolio_v1/archive/refs/heads/main.zip",
     demoUrl: "https://portofv1.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
@@ -56,7 +56,7 @@ const templates = [
     color: "#E6F1FB",
     accent: "#378ADD",
     image: dashboardV1Img,
-    description: "Dashboard v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    description: "Dashboard v1 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/dashboard_v1/archive/refs/heads/main.zip",
     demoUrl: "https://dashbv1.netlify.app/",
     techStack: ["React", "Tailwind CSS"],
@@ -70,7 +70,7 @@ const templates = [
     color: "#E6F1FB",
     accent: "#378ADD",
     image: landingPageV1Img,
-    description: "Landing Page v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    description: "Landing Page v1 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/landing-page-v1/archive/refs/heads/main.zip",
     demoUrl: "https://foodpolio.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
@@ -84,7 +84,7 @@ const templates = [
     color: "#E6F1FB",
     accent: "#378ADD",
     image: EcommerceV1Img,
-    description: "E-Commerce v1 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    description: "E-Commerce v1 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/ecommerce-v1/archive/refs/heads/main.zip",
     demoUrl: "https://zestifycart.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
@@ -98,7 +98,7 @@ const templates = [
     color: "#E6F1FB",
     accent: "#378ADD",
     image: dashboardV2Img,
-    description: "Dashboard v2 dengan React.js, Tailwind CSS. Modern, responsif, dan interaktif.",
+    description: "Dashboard v2 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/dashboard_v2/archive/refs/heads/main.zip",
     demoUrl: "https://dashbv2.netlify.app/",
     techStack: ["React", "Tailwind CSS"],
@@ -107,7 +107,7 @@ const templates = [
   },
 ];
 
-const categories = ["Semua", "Dashboard", "Landing Page", "Portfolio", "E-Commerce"];
+const categories = ["All", "Dashboard", "Landing Page", "Portfolio", "E-Commerce"];
 
 // Tech stack icon mapping
 const getTechIcon = (tech) => {
@@ -236,10 +236,10 @@ function DownloadToast({ name, onClose }) {
       <FaCheckCircle style={{ fontSize: "20px", color: "#4CAF50" }} />
       <div>
         <p style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "var(--text)" }}>
-          Download dimulai!
+          Download started!
         </p>
         <p style={{ margin: 0, fontSize: "12px", color: "var(--muted)" }}>
-          {name} sedang diunduh dari GitHub...
+          {name} is being downloaded from GitHub...
         </p>
       </div>
       <button
@@ -473,11 +473,11 @@ function TemplateCard({ template, onDownload }) {
 }
 
 const TemplatesSection = () => {
-  const [activeFilter, setActiveFilter] = useState("Semua");
+  const [activeFilter, setActiveFilter] = useState("All");
   const [toast, setToast] = useState(null);
 
   const filtered =
-    activeFilter === "Semua"
+    activeFilter === "All"
       ? templates
       : templates.filter((t) => t.category === activeFilter);
 
@@ -513,10 +513,10 @@ const TemplatesSection = () => {
               margin: "0 0 12px",
             }}
           >
-            Pilih Template Favoritmu
+            Pick Your Favorite Template
           </h2>
           <p style={{ fontSize: "16px", color: "var(--muted)", margin: 0 }}>
-            Mulai lebih cepat — pilih, demo, download, langsung pakai.
+            Start faster — browse, preview, download, and use right away.
           </p>
         </motion.div>
 
@@ -619,14 +619,14 @@ const TemplatesSection = () => {
                 margin: "0 0 8px 0",
                 color: "var(--text)"
               }}>
-                Tidak Ada Template Ditemukan
+                No Templates Found
               </p>
               <p style={{ 
                 fontSize: "14px", 
                 margin: 0,
                 color: "var(--muted)"
               }}>
-                Tidak ada template untuk kategori "{activeFilter}"
+                No templates available for the "{activeFilter}" category.
               </p>
             </div>
           </motion.div>

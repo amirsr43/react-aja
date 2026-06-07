@@ -7,6 +7,8 @@ import CodePreview from "./components/CodePreview";
 import HowItWorks from "./components/HowItWorks";
 import TemplatesSection from "./components/TemplatesSection";
 import ScrollToTop from "./components/ScrollToTop";
+import FeedbackButton from "./components/FeedbackButton";
+import SupportButton from "./components/SupportButton";
 import Footer from "./components/Footer";
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
       <TemplatesSection />
       <Footer />
       <ScrollToTop />
+      <FeedbackButton />
+      <SupportButton />
     </>
   );
 }

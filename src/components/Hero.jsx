@@ -55,7 +55,7 @@ const Hero = () => {
           maxWidth: "500px",
           margin: "0 auto 32px"
         }}>
-          Koleksi template React modern, responsif, dan siap pakai.
+          A collection of modern, responsive, and ready-to-use React templates.
         </p>
 
         <button

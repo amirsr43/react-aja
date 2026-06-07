@@ -5,7 +5,7 @@ import { FaCode, FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 
 const navLinks = [
   { label: "Templates", id: "templates" },
-  { label: "Cara Pakai", id: "how-it-works" },
+  { label: "How It Works", id: "how-it-works" },
 ];
 
 const Navbar = ({ dark, toggleDark }) => {

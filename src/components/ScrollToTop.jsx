@@ -25,7 +25,7 @@ const ScrollToTop = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.92 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          title="Scroll ke atas"
+          title="Scroll to top"
           style={{
             position: "fixed",
             bottom: "28px",

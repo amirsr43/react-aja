@@ -5,9 +5,9 @@ import { FaCubes, FaGift, FaCode, FaBolt } from "react-icons/fa";
 
 const stats = [
   { value: 5,   suffix: "+",    label: "Templates",   icon: FaCubes, color: "#7c3aed" },
-  { value: 100, suffix: "%",    label: "Gratis",      icon: FaGift,  color: "#0ea5e9" },
+  { value: 100, suffix: "%",    label: "Free",        icon: FaGift,  color: "#0ea5e9" },
   { value: 3,   suffix: "",     label: "Tech Stacks", icon: FaCode,  color: "#10b981" },
-  { value: 1,   suffix: " mnt", label: "Setup Time",  icon: FaBolt,  color: "#f59e0b" },
+  { value: 1,   suffix: " min", label: "Setup Time",  icon: FaBolt,  color: "#f59e0b" },
 ];
 
 function AnimatedCounter({ value, suffix }) {
