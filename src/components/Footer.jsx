@@ -16,7 +16,7 @@ const Footer = () => {
     <footer
       style={{
         borderTop: "1px solid var(--border)",
-        background: "var(--surface)",
+        background: "var(--surface-2)",
         padding: "60px 24px 40px",
         position: "relative",
         overflow: "hidden",
@@ -30,7 +30,7 @@ const Footer = () => {
           left: "-10%",
           width: "40%",
           height: "40%",
-          background: "radial-gradient(circle, rgba(55,138,221,0.03) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(61,127,255,0.06) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -41,7 +41,7 @@ const Footer = () => {
           right: "-10%",
           width: "40%",
           height: "40%",
-          background: "radial-gradient(circle, rgba(55,138,221,0.03) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -77,7 +77,7 @@ const Footer = () => {
           >
             <div
               style={{
-                background: "rgba(55,138,221,0.1)",
+                background: "rgba(61,127,255,0.10)",
                 padding: "10px",
                 borderRadius: "14px",
                 display: "flex",
@@ -91,7 +91,7 @@ const Footer = () => {
               style={{
                 fontSize: "24px",
                 fontWeight: "bold",
-                background: "linear-gradient(135deg, #fff 0%, var(--accent) 100%)",
+                background: "linear-gradient(135deg, var(--text) 0%, var(--accent) 100%)",
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -174,7 +174,7 @@ const Footer = () => {
         <div
           style={{
             height: "1px",
-            background: "linear-gradient(90deg, transparent, var(--border), var(--accent), var(--border), transparent)",
+            background: "linear-gradient(90deg, transparent, var(--border-glow), var(--accent), var(--border-glow), transparent)",
             marginBottom: "32px",
           }}
         />

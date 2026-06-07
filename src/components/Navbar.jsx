@@ -8,12 +8,12 @@ const navLinks = [
   { label: "How It Works", id: "how-it-works" },
 ];
 
-const Navbar = ({ dark, toggleDark }) => {
-  const [scrolled, setScrolled]     = useState(false);
-  const [activeSection, setActive]  = useState("home");
-  const [logoHover, setLogoHover]   = useState(false);
-  const [menuOpen, setMenuOpen]     = useState(false);
-  const [isMobile, setIsMobile]     = useState(
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActive] = useState("home");
+  const [logoHover, setLogoHover] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
 
@@ -58,9 +58,7 @@ const Navbar = ({ dark, toggleDark }) => {
     setMenuOpen(false);
   };
 
-  const navBg = scrolled
-    ? dark ? "rgba(10,10,15,0.85)" : "rgba(255,255,255,0.85)"
-    : "transparent";
+  const navBg = scrolled ? "var(--nav-bg)" : "transparent";
 
   const btnBase = {
     padding: "7px 15px",
@@ -137,9 +135,9 @@ const Navbar = ({ dark, toggleDark }) => {
           </span>
         </div>
 
-        {/* ── Desktop Nav ── */}
+        {/* ── Desktop Nav Links (Top Right Corner) ── */}
         {!isMobile && (
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             {navLinks.map(({ label, id }) => {
               const isActive = activeSection === id;
               return (
@@ -147,20 +145,20 @@ const Navbar = ({ dark, toggleDark }) => {
                   key={id}
                   onClick={() => scrollTo(id)}
                   style={{
-                    ...btnBase,
-                    background: isActive ? "rgba(124,58,237,0.12)" : "transparent",
+                    background: "transparent",
+                    border: "none",
                     color: isActive ? "var(--accent)" : "var(--muted)",
                     fontWeight: isActive ? 600 : 500,
+                    fontSize: "14px",
+                    cursor: "pointer",
+                    padding: "6px 12px",
+                    transition: "color 0.2s ease",
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = "var(--border)";
-                      e.currentTarget.style.color = "var(--text)";
-                    }
+                    e.currentTarget.style.color = "var(--text)";
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.background = "transparent";
                       e.currentTarget.style.color = "var(--muted)";
                     }
                   }}
@@ -169,31 +167,12 @@ const Navbar = ({ dark, toggleDark }) => {
                 </button>
               );
             })}
-
-            {/* Dark toggle */}
-            <button
-              onClick={toggleDark}
-              style={{ ...darkToggleBtn, marginLeft: "6px" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--border)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-            >
-              {dark ? <FaSun size={15} /> : <FaMoon size={15} />}
-            </button>
           </div>
         )}
 
         {/* ── Mobile Right Controls ── */}
         {isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <button
-              onClick={toggleDark}
-              style={darkToggleBtn}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--border)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-            >
-              {dark ? <FaSun size={15} /> : <FaMoon size={15} />}
-            </button>
-
             <button
               onClick={() => setMenuOpen((v) => !v)}
               style={{
@@ -240,7 +219,7 @@ const Navbar = ({ dark, toggleDark }) => {
                 left: 0,
                 right: 0,
                 zIndex: 99,
-                background: dark ? "rgba(14,14,20,0.97)" : "rgba(255,255,255,0.97)",
+                background: "var(--nav-bg)",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
                 borderBottom: "1px solid var(--border)",
@@ -266,7 +245,7 @@ const Navbar = ({ dark, toggleDark }) => {
                       padding: "12px 14px",
                       borderRadius: "10px",
                       border: "none",
-                      background: isActive ? "rgba(124,58,237,0.1)" : "transparent",
+                      background: isActive ? "rgba(61,127,255,0.10)" : "transparent",
                       color: isActive ? "var(--accent)" : "var(--text)",
                       fontWeight: isActive ? 600 : 500,
                       fontSize: "15px",

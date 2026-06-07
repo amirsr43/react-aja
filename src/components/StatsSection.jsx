@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { FaCubes, FaGift, FaCode, FaBolt } from "react-icons/fa";
 
 const stats = [
-  { value: 5,   suffix: "+",    label: "Templates",   icon: FaCubes, color: "#7c3aed" },
-  { value: 100, suffix: "%",    label: "Free",        icon: FaGift,  color: "#0ea5e9" },
-  { value: 3,   suffix: "",     label: "Tech Stacks", icon: FaCode,  color: "#10b981" },
-  { value: 1,   suffix: " min", label: "Setup Time",  icon: FaBolt,  color: "#f59e0b" },
+  { value: 5, suffix: "+", label: "Templates", icon: FaCubes, color: "#3d7fff" },
+  { value: 100, suffix: "%", label: "Free", icon: FaGift, color: "#06b6d4" },
+  { value: 3, suffix: "", label: "Tech Stacks", icon: FaCode, color: "#6366f1" },
+  { value: 1, suffix: " min", label: "Setup Time", icon: FaBolt, color: "#38bdf8" },
 ];
 
 function AnimatedCounter({ value, suffix }) {
@@ -70,11 +70,14 @@ const StatsSection = () => {
             transition={{ delay: i * 0.08, duration: 0.4 }}
             whileHover={{ y: -3, transition: { duration: 0.2 } }}
             style={{
-              padding: "22px 20px",
-              borderRadius: "14px",
+              padding: "24px 20px",
+              borderRadius: "18px",
               border: "1px solid var(--border)",
-              background: "var(--surface)",
+              background: "var(--card-bg)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
               textAlign: "center",
+              boxShadow: "0 10px 30px rgba(42, 107, 242, 0.04), inset 0 1px 0 rgba(255,255,255,0.6)",
             }}
           >
             <div style={{

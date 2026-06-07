@@ -8,21 +8,21 @@ const steps = [
     step: "01",
     title: "Choose a Template",
     desc: "Browse the template collection, preview it live in the demo, and pick the one that fits best.",
-    color: "#7c3aed",
+    color: "#3d7fff",
   },
   {
     icon: Download,
     step: "02",
     title: "Download ZIP",
     desc: "Click the download button, get the ZIP file straight from GitHub. No account, no login required.",
-    color: "#0ea5e9",
+    color: "#6366f1",
   },
   {
     icon: Rocket,
     step: "03",
     title: "Ready to Go",
     desc: "Extract → npm install → npm run dev. Up and running on localhost in less than a minute.",
-    color: "#10b981",
+    color: "#06b6d4",
   },
 ];
 
@@ -83,11 +83,14 @@ const HowItWorks = () => {
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 style={{
                   padding: "28px",
-                  borderRadius: "16px",
+                  borderRadius: "18px",
                   border: "1px solid var(--border)",
-                  background: "var(--surface)",
+                  background: "var(--card-bg)",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
                   position: "relative",
                   overflow: "hidden",
+                  boxShadow: "0 4px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04)",
                 }}
               >
                 {/* Step number watermark */}

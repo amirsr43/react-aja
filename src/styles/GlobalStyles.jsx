@@ -1,35 +1,46 @@
-const GlobalStyles = ({ dark }) => (
+// src/styles/GlobalStyles.jsx
+const GlobalStyles = () => (
   <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     :root {
-      --bg: ${dark ? "#0a0a0f" : "#ffffff"};
-      --surface: ${dark ? "#111118" : "#f8f8fc"};
-      --surface-2: ${dark ? "#18181f" : "#f0f0f8"};
-      --border: ${dark ? "#ffffff12" : "#e4e4f0"};
-      --text: ${dark ? "#f0f0ff" : "#0a0a1a"};
-      --muted: ${dark ? "#6b6b8a" : "#6b6b8a"};
-      --accent: #7c3aed;
-      --accent-bg: ${dark ? "#7c3aed15" : "#7c3aed10"};
-      --accent-subtle: ${dark ? "#7c3aed35" : "#7c3aed30"};
-      --nav-bg: ${dark ? "rgba(10,10,15,0.85)" : "rgba(255,255,255,0.85)"};
+      --bg:            #f8fafc;
+      --surface:       #ffffff;
+      --surface-2:     #f1f5f9;
+      --surface-3:     #e2e8f0;
+      --border:        #e2e8f0;
+      --border-glow:   rgba(42, 107, 242, 0.08);
+      --text:          #0f172a;
+      --muted:         #64748b;
+      --accent:        #2a6bf2;
+      --accent-2:      #4a78ee;
+      --accent-bg:     rgba(42, 107, 242, 0.05);
+      --accent-subtle: rgba(42, 107, 242, 0.08);
+      --glow-blue:     rgba(42, 107, 242, 0.06);
+      --glow-indigo:   rgba(74, 120, 238, 0.04);
+      --nav-bg:        rgba(248, 250, 252, 0.8);
+      --card-bg:       rgba(255, 255, 255, 0.8);
+      --gradient-hero: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
     }
 
     body {
       margin: 0;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', 'DM Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       transition: background 0.3s ease, color 0.3s ease;
+      background-image: radial-gradient(ellipse at 15% 15%, rgba(42, 107, 242, 0.05) 0%, transparent 45%),
+                        radial-gradient(ellipse at 85% 75%, rgba(74, 120, 238, 0.04) 0%, transparent 45%);
     }
 
-    ::selection { background: #7c3aed33; }
+    ::selection { background: rgba(42, 107, 242, 0.15); }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: rgba(42, 107, 242, 0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(42, 107, 242, 0.25); }
   `}</style>
 );
 
