@@ -30,6 +30,7 @@ import {
 import { SiTailwindcss, SiFramer, SiTypescript, SiNextdotjs, SiVuedotjs, SiFirebase, SiMongodb, SiExpress, SiPostgresql, SiGraphql } from "react-icons/si";
 import portfolioV1Img from "../assets/portfolio_v1.png";
 import portfolioV2Img from "../assets/portfolio_v2.png";
+import portfolioV3Img from "../assets/portfolio_v3.png";
 import dashboardV1Img from "../assets/dashboard_v1.png";
 import dashboardV2Img from "../assets/dashboard_v2.png";
 import landingPageV1Img from "../assets/landingpage_v1.png";
@@ -106,6 +107,18 @@ const templates = [
     description: "Portfolio v2 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/portofolio_v2/archive/refs/heads/main.zip",
     demoUrl: "https://portofv2.netlify.app/",
+    techStack: ["React", "Tailwind CSS", "Framer Motion"],
+  },
+  {
+    id: 7,
+    name: "Portfolio v3",
+    category: "Portfolio",
+    color: "rgba(61,127,255,0.10)",
+    accent: "#3d7fff",
+    image: portfolioV3Img,
+    description: "Portfolio v3 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
+    downloadUrl: "https://github.com/amirsr43/portofolio_v3/archive/refs/heads/main.zip",
+    demoUrl: "https://portofv3.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
   },
 ];
