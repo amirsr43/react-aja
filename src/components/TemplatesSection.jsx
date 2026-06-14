@@ -24,6 +24,7 @@ import portfolioV3Img from "../assets/portfolio_v3.png";
 import dashboardV1Img from "../assets/dashboard_v1.png";
 import dashboardV2Img from "../assets/dashboard_v2.png";
 import landingPageV1Img from "../assets/landingpage_v1.png";
+import landingPageV2Img from "../assets/landingpage_v2.png";
 import EcommerceV1Img from "../assets/ecommerce_v1.png";
 
 export const templates = [
@@ -109,6 +110,18 @@ export const templates = [
     description: "Portfolio v3 built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
     downloadUrl: "https://github.com/amirsr43/portofolio_v3/archive/refs/heads/main.zip",
     demoUrl: "https://portofv3.netlify.app/",
+    techStack: ["React", "Tailwind CSS", "Framer Motion"],
+  },
+  {
+    id: 8,
+    name: "Vitecomp",
+    category: "Landing Page",
+    color: "rgba(61,127,255,0.10)",
+    accent: "#3d7fff",
+    image: landingPageV2Img,
+    description: "Vitecomp landing page built with React.js and Tailwind CSS. Modern, responsive, and interactive.",
+    downloadUrl: "https://github.com/amirsr43/landing-page-v2/archive/refs/heads/main.zip",
+    demoUrl: "https://vitecomp.netlify.app/",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
   },
 ];
