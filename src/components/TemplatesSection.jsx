@@ -1,29 +1,19 @@
 // src/components/TemplatesSection.jsx
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  FaGithub, 
-  FaExternalLinkAlt, 
-  FaDownload, 
+import {
+  FaDownload,
   FaCheckCircle,
   FaTimes,
   FaEye,
   FaReact,
-  FaCss3Alt,
   FaJs,
   FaNodeJs,
-  FaDatabase,
-  FaCloud,
   FaPalette,
-  FaShoppingCart,
-  FaChartLine,
-  FaMobileAlt,
   FaWordpress,
   FaVuejs,
   FaAngular,
   FaBootstrap,
-  FaNpm,
-  FaServer,
   FaCode,
   FaSearch
 } from "react-icons/fa";
@@ -36,7 +26,7 @@ import dashboardV2Img from "../assets/dashboard_v2.png";
 import landingPageV1Img from "../assets/landingpage_v1.png";
 import EcommerceV1Img from "../assets/ecommerce_v1.png";
 
-const templates = [
+export const templates = [
   {
     id: 1,
     name: "Portfolio v1",
@@ -125,7 +115,6 @@ const templates = [
 
 const categories = ["All", "Dashboard", "Landing Page", "Portfolio", "E-Commerce"];
 
-// Tech stack icon mapping
 const getTechIcon = (tech) => {
   const icons = {
     "React": <FaReact size={12} />,
@@ -160,47 +149,14 @@ const cardVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
 };
 
-function BadgePill({ badge }) {
-  if (!badge) return null;
-  const styles = {
-    popular: { bg: "rgba(61,127,255,0.20)", color: "#7eb8ff", label: <><FaChartLine size={10} style={{ marginRight: "4px" }} /> Popular</> },
-    new: { bg: "rgba(6,182,212,0.20)", color: "#67e8f9", label: <><FaCheckCircle size={10} style={{ marginRight: "4px" }} /> New</> },
-  };
-  const s = styles[badge];
-  return (
-    <span
-      style={{
-        position: "absolute",
-        top: "10px",
-        left: "10px",
-        fontSize: "11px",
-        fontWeight: 600,
-        padding: "3px 10px",
-        borderRadius: "999px",
-        background: s.bg,
-        color: s.color,
-        letterSpacing: "0.02em",
-        zIndex: 2,
-        display: "flex",
-        alignItems: "center",
-        gap: "4px",
-        backdropFilter: "blur(8px)",
-        border: "1px solid rgba(255,255,255,0.12)",
-      }}
-    >
-      {s.label}
-    </span>
-  );
-}
-
 function TechStackBadges({ techStack }) {
   if (!techStack || techStack.length === 0) return null;
-  
+
   return (
-    <div style={{ 
-      display: "flex", 
-      flexWrap: "wrap", 
-      gap: "6px", 
+    <div style={{
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "6px",
       marginBottom: "12px",
       alignItems: "center"
     }}>
@@ -287,6 +243,16 @@ function DownloadToast({ name, onClose }) {
 function TemplateCard({ template, onDownload }) {
   const [downloading, setDownloading] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   const handleDownload = (e) => {
     e.stopPropagation();
@@ -313,19 +279,24 @@ function TemplateCard({ template, onDownload }) {
       variants={cardVariants}
       layout
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         borderRadius: "18px",
         border: "1px solid var(--border)",
-        background: "var(--card-bg)",
+        background: isHovered
+          ? `radial-gradient(350px circle at ${mousePosition.x}px ${mousePosition.y}px, ${template.accent}12, var(--card-bg) 70%)`
+          : "var(--card-bg)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
         overflow: "hidden",
         cursor: "pointer",
+        position: "relative",
         boxShadow: "0 10px 30px rgba(42, 107, 242, 0.04), inset 0 1px 0 rgba(255,255,255,0.6)",
         transition: "box-shadow 0.2s ease, border-color 0.2s ease",
       }}
     >
-      {/* Preview Area with Image */}
       <div
         style={{
           height: "180px",
@@ -334,9 +305,6 @@ function TemplateCard({ template, onDownload }) {
           background: template.color,
         }}
       >
-        <BadgePill badge={template.badge} />
-        
-        {/* Gambar Template */}
         {template.image && !imageError ? (
           <img
             src={template.image}
@@ -363,28 +331,8 @@ function TemplateCard({ template, onDownload }) {
             <FaPalette style={{ fontSize: "56px", opacity: 0.6 }} />
           </div>
         )}
-
-        {/* Version tag */}
-        <span
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "10px",
-            fontSize: "11px",
-            padding: "2px 8px",
-            borderRadius: "6px",
-            background: "rgba(255,255,255,0.9)",
-            color: "#444",
-            fontWeight: 500,
-            backdropFilter: "blur(4px)",
-            zIndex: 2,
-          }}
-        >
-          {template.version}
-        </span>
       </div>
 
-      {/* Card Body */}
       <div style={{ padding: "16px" }}>
         <div style={{ display: "flex", alignItems: "start", justifyContent: "space-between", marginBottom: "6px" }}>
           <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "var(--text)" }}>
@@ -409,7 +357,7 @@ function TemplateCard({ template, onDownload }) {
 
         <p
           style={{
-            margin: "0 0 12px",
+            margin: "12px 0 12px",
             fontSize: "13px",
             color: "var(--muted)",
             lineHeight: 1.5,
@@ -418,10 +366,8 @@ function TemplateCard({ template, onDownload }) {
           {template.description}
         </p>
 
-        {/* Tech Stack Badges */}
         <TechStackBadges techStack={template.techStack} />
 
-        {/* Footer */}
         <div
           style={{
             display: "flex",
@@ -433,17 +379,15 @@ function TemplateCard({ template, onDownload }) {
             gap: "8px",
           }}
         >
-          <span style={{ fontSize: "12px", color: "var(--muted)" }}>
-            {template.size}
-          </span>
-
-          <div style={{ display: "flex", gap: "8px" }}>
+          <div style={{ display: "flex", gap: "8px", width: "100%" }}>
             <motion.button
               onClick={handleDemo}
               whileTap={{ scale: 0.96 }}
               style={{
+                flex: 1,
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: "6px",
                 fontSize: "13px",
                 fontWeight: 600,
@@ -455,8 +399,6 @@ function TemplateCard({ template, onDownload }) {
                 cursor: "pointer",
                 transition: "all 0.2s",
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(61,127,255,0.14)"; e.currentTarget.style.borderColor = "rgba(61,127,255,0.4)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "rgba(61,127,255,0.06)"; e.currentTarget.style.borderColor = "var(--border-glow)"; }}
             >
               <FaEye size={14} />
               Demo
@@ -467,8 +409,10 @@ function TemplateCard({ template, onDownload }) {
               whileTap={{ scale: 0.96 }}
               disabled={downloading}
               style={{
+                flex: 1,
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: "6px",
                 fontSize: "13px",
                 fontWeight: 600,
@@ -586,8 +530,8 @@ const TemplatesSection = () => {
                 transition: "all 0.2s",
                 boxShadow: activeFilter === cat ? "0 4px 16px rgba(61,127,255,0.35)" : "none",
               }}
-              onMouseEnter={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(61,127,255,0.10)"; e.currentTarget.style.color = "var(--text)"; }}}
-              onMouseLeave={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(61,127,255,0.04)"; e.currentTarget.style.color = "var(--muted)"; }}}
+              onMouseEnter={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(61,127,255,0.10)"; e.currentTarget.style.color = "var(--text)"; } }}
+              onMouseLeave={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(61,127,255,0.04)"; e.currentTarget.style.color = "var(--muted)"; } }}
             >
               {cat}
             </button>
@@ -623,9 +567,9 @@ const TemplatesSection = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            style={{ 
-              textAlign: "center", 
-              padding: "80px 20px", 
+            style={{
+              textAlign: "center",
+              padding: "80px 20px",
               color: "var(--muted)",
               display: "flex",
               flexDirection: "column",
@@ -637,32 +581,32 @@ const TemplatesSection = () => {
             {/* Icon Search di Tengah */}
             <div
               style={{
-              width: "80px",
-              height: "80px",
-              borderRadius: "50%",
-              background: "rgba(61,127,255,0.08)",
-              border: "1px solid var(--border)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "8px",
-            }}
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                background: "rgba(61,127,255,0.08)",
+                border: "1px solid var(--border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "8px",
+              }}
             >
               <FaSearch style={{ fontSize: "40px", opacity: 0.6 }} />
             </div>
-            
+
             {/* Tulisan Tidak Ada Template */}
             <div>
-              <p style={{ 
-                fontSize: "18px", 
-                fontWeight: 600, 
+              <p style={{
+                fontSize: "18px",
+                fontWeight: 600,
                 margin: "0 0 8px 0",
                 color: "var(--text)"
               }}>
                 No Templates Found
               </p>
-              <p style={{ 
-                fontSize: "14px", 
+              <p style={{
+                fontSize: "14px",
                 margin: 0,
                 color: "var(--muted)"
               }}>

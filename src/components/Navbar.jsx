@@ -6,9 +6,27 @@ import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 const navLinks = [
   { label: "Templates", id: "templates" },
   { label: "How It Works", id: "how-it-works" },
+  { label: "FAQ", id: "faq" },
 ];
 
 const Navbar = () => {
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || "light";
+    }
+    return "light";
+  });
+
+  // Apply theme to HTML tag
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActive] = useState("home");
   const [logoHover, setLogoHover] = useState(false);
@@ -34,7 +52,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 20);
 
       // deteksi section aktif
-      const ids = ["how-it-works", "templates"];
+      const ids = ["how-it-works", "templates", "faq"];
       let current = "home";
       for (const id of ids) {
         const el = document.getElementById(id);
@@ -170,12 +188,29 @@ const Navbar = () => {
                 </button>
               );
             })}
+            <button
+              onClick={toggleTheme}
+              style={{
+                ...darkToggleBtn,
+                marginLeft: "12px",
+              }}
+              title="Toggle Theme"
+            >
+              {theme === "light" ? <FaMoon size={15} /> : <FaSun size={15} />}
+            </button>
           </div>
         )}
 
         {/* ── Mobile Right Controls ── */}
         {isMobile && (
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <button
+              onClick={toggleTheme}
+              style={darkToggleBtn}
+              title="Toggle Theme"
+            >
+              {theme === "light" ? <FaMoon size={15} /> : <FaSun size={15} />}
+            </button>
             <button
               onClick={() => setMenuOpen((v) => !v)}
               style={{

@@ -202,7 +202,23 @@ const Footer = () => {
               margin: 0,
             }}
           >
-            © {currentYear} ReactAja. All rights reserved.
+            Created with by{" "}
+            <a
+              href="https://portfolio-amirramadhan.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "var(--accent)",
+                textDecoration: "none",
+                fontWeight: 600,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-2)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--accent)")}
+            >
+              Amir
+            </a>
+            . © {currentYear} ReactAja. All rights reserved.
           </p>
         </motion.div>
       </div>

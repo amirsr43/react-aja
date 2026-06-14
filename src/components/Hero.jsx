@@ -1,8 +1,19 @@
-// src/components/Hero.jsx
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Zap, ArrowDown } from "lucide-react";
 
+const words = ["Free React", "Tailwind CSS", "Modern UI", "Open Source"];
+
 const Hero = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleScrollToTemplates = () => {
     const el = document.getElementById("templates");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -70,15 +81,25 @@ const Hero = () => {
           }}
         >
           Find & Download{" "}
-          <span style={{
-            background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text"
-          }}>
-            Free React
-          </span>
-          {" "}Templates
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+              style={{
+                display: "inline-block",
+                background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text"
+              }}
+            >
+              {words[index]}
+            </motion.span>
+          </AnimatePresence>{" "}
+          Templates
         </motion.h1>
 
         {/* Subtitle */}

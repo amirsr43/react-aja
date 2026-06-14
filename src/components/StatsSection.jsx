@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCubes, FaGift, FaCode, FaBolt } from "react-icons/fa";
 
+import { templates } from "./TemplatesSection";
+
 const stats = [
-  { value: 5, suffix: "+", label: "Templates", icon: FaCubes, color: "#3d7fff" },
+  { value: templates.length, suffix: "+", label: "Templates", icon: FaCubes, color: "#3d7fff" },
   { value: 100, suffix: "%", label: "Free", icon: FaGift, color: "#06b6d4" },
   { value: 3, suffix: "", label: "Tech Stacks", icon: FaCode, color: "#6366f1" },
   { value: 1, suffix: " min", label: "Setup Time", icon: FaBolt, color: "#38bdf8" },
@@ -14,32 +16,49 @@ function AnimatedCounter({ value, suffix }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
+  const prevValue = useRef(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const duration = 1000;
-          const totalFrames = Math.round(duration / 16);
-          let frame = 0;
-          const timer = setInterval(() => {
-            frame++;
-            // Ease out quad
-            const progress = 1 - Math.pow(1 - frame / totalFrames, 2);
-            const current = Math.round(progress * value);
-            setCount(current);
-            if (frame >= totalFrames) {
-              setCount(value);
-              clearInterval(timer);
-            }
-          }, 16);
+    let timer = null;
+
+    const runAnimation = (start, end, duration) => {
+      const totalFrames = Math.round(duration / 16);
+      let frame = 0;
+      timer = setInterval(() => {
+        frame++;
+        const progress = 1 - Math.pow(1 - frame / totalFrames, 2); // Ease out quad
+        const current = Math.round(start + progress * (end - start));
+        setCount(current);
+        prevValue.current = current;
+        if (frame >= totalFrames) {
+          setCount(end);
+          clearInterval(timer);
+          prevValue.current = end;
         }
-      },
-      { threshold: 0.6 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+      }, 16);
+    };
+
+    if (!started.current) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !started.current) {
+            started.current = true;
+            runAnimation(0, value, 1000);
+          }
+        },
+        { threshold: 0.6 }
+      );
+      if (ref.current) observer.observe(ref.current);
+      return () => {
+        observer.disconnect();
+        if (timer) clearInterval(timer);
+      };
+    } else {
+      runAnimation(prevValue.current, value, 600);
+      return () => {
+        if (timer) clearInterval(timer);
+      };
+    }
   }, [value]);
 
   return (
