@@ -9,8 +9,7 @@ const Footer = () => {
   const socialLinks = [
     { name: "LinkedIn", icon: FaLinkedin, href: "https://www.linkedin.com/in/amir-syahrul-ramadhan-9a61b124a", color: "#0077b5" },
     { name: "GitHub", icon: FaGithub, href: "https://github.com/amirsr43", color: "#6e5494" },
-    { name: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/reactaja.dev", color: "#E4405F" },
-    { name: "Tiktok", icon: FaTiktok, href: "https://www.tiktok.com/@reactaja_template", color: "#000000" },
+    { name: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/amirsyahrulramadhan", color: "#E4405F" },
   ];
 
   return (
