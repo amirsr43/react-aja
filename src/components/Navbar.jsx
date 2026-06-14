@@ -1,7 +1,7 @@
 // src/components/Navbar.jsx
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaCode, FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 
 const navLinks = [
   { label: "Templates", id: "templates" },
@@ -117,10 +117,13 @@ const Navbar = () => {
               transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
               display: "flex",
               alignItems: "center",
-              color: "var(--accent)",
             }}
           >
-            <FaCode size={20} />
+            <img 
+              src="/logo.png" 
+              alt="ReactAja" 
+              style={{ width: "24px", height: "24px", objectFit: "contain" }} 
+            />
           </div>
           <span
             style={{

@@ -1,6 +1,6 @@
 // src/components/Footer.jsx
 import { motion } from "framer-motion";
-import { Code2 } from "lucide-react";
+
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
@@ -85,7 +85,11 @@ const Footer = () => {
                 justifyContent: "center",
               }}
             >
-              <Code2 size={28} style={{ color: "var(--accent)" }} />
+              <img 
+                src="/logo.png" 
+                alt="ReactAja" 
+                style={{ width: "28px", height: "28px", objectFit: "contain" }} 
+              />
             </div>
             <span
               style={{
