@@ -30,7 +30,7 @@ const Footer = () => {
           left: "-10%",
           width: "40%",
           height: "40%",
-          background: "radial-gradient(circle, rgba(61,127,255,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -41,7 +41,7 @@ const Footer = () => {
           right: "-10%",
           width: "40%",
           height: "40%",
-          background: "radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -68,6 +68,7 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             style={{
               display: "flex",
@@ -77,7 +78,8 @@ const Footer = () => {
           >
             <div
               style={{
-                background: "rgba(61,127,255,0.10)",
+                background: "rgba(255, 255, 255, 0.06)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
                 padding: "10px",
                 borderRadius: "14px",
                 display: "flex",
@@ -95,13 +97,13 @@ const Footer = () => {
               style={{
                 fontSize: "24px",
                 fontWeight: "bold",
-                background: "linear-gradient(135deg, var(--text) 0%, var(--accent) 100%)",
+                background: "linear-gradient(135deg, var(--text) 0%, var(--accent-2) 100%)",
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
             >
-              React<span style={{ color: "var(--accent)", background: "none", WebkitTextFillColor: "initial" }}>Aja</span>
+              React<span style={{ color: "var(--accent-2)", background: "none", WebkitTextFillColor: "initial" }}>Aja</span>
             </span>
           </motion.div>
 
@@ -109,6 +111,7 @@ const Footer = () => {
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
             style={{
               fontSize: "14px",
@@ -125,6 +128,7 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             style={{
               display: "flex",
@@ -178,7 +182,7 @@ const Footer = () => {
         <div
           style={{
             height: "1px",
-            background: "linear-gradient(90deg, transparent, var(--border-glow), var(--accent), var(--border-glow), transparent)",
+            background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05), transparent)",
             marginBottom: "32px",
           }}
         />
@@ -187,6 +191,7 @@ const Footer = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
           style={{
             display: "flex",

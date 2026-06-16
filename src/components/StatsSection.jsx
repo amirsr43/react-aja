@@ -6,36 +6,34 @@ import { FaCubes, FaGift, FaCode, FaBolt } from "react-icons/fa";
 import { templates } from "./TemplatesSection";
 
 const stats = [
-  { value: templates.length, suffix: "+", label: "Templates", icon: FaCubes, color: "#3d7fff" },
-  { value: 100, suffix: "%", label: "Free", icon: FaGift, color: "#06b6d4" },
-  { value: 3, suffix: "", label: "Tech Stacks", icon: FaCode, color: "#6366f1" },
-  { value: 1, suffix: " min", label: "Setup Time", icon: FaBolt, color: "#38bdf8" },
+  { value: templates.length, suffix: "+", label: "Templates", icon: FaCubes, color: "#ffffff" },
+  { value: 100, suffix: "%", label: "Free", icon: FaGift, color: "#ffffff" },
+  { value: 3, suffix: "", label: "Tech Stacks", icon: FaCode, color: "#ffffff" },
+  { value: 1, suffix: " min", label: "Setup Time", icon: FaBolt, color: "#ffffff" },
 ];
 
 function AnimatedCounter({ value, suffix }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
-  const prevValue = useRef(0);
+  const rafRef = useRef(null);
 
   useEffect(() => {
-    let timer = null;
-
     const runAnimation = (start, end, duration) => {
-      const totalFrames = Math.round(duration / 16);
-      let frame = 0;
-      timer = setInterval(() => {
-        frame++;
-        const progress = 1 - Math.pow(1 - frame / totalFrames, 2); // Ease out quad
-        const current = Math.round(start + progress * (end - start));
+      const startTime = performance.now();
+
+      const tick = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 2); // ease out quad
+        const current = Math.round(start + eased * (end - start));
         setCount(current);
-        prevValue.current = current;
-        if (frame >= totalFrames) {
-          setCount(end);
-          clearInterval(timer);
-          prevValue.current = end;
+        if (progress < 1) {
+          rafRef.current = requestAnimationFrame(tick);
         }
-      }, 16);
+      };
+
+      rafRef.current = requestAnimationFrame(tick);
     };
 
     if (!started.current) {
@@ -51,12 +49,12 @@ function AnimatedCounter({ value, suffix }) {
       if (ref.current) observer.observe(ref.current);
       return () => {
         observer.disconnect();
-        if (timer) clearInterval(timer);
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
       };
     } else {
-      runAnimation(prevValue.current, value, 600);
+      runAnimation(count, value, 600);
       return () => {
-        if (timer) clearInterval(timer);
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
       };
     }
   }, [value]);
@@ -86,6 +84,7 @@ const StatsSection = () => {
             key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: i * 0.08, duration: 0.4 }}
             whileHover={{ y: -3, transition: { duration: 0.2 } }}
             style={{
@@ -93,8 +92,6 @@ const StatsSection = () => {
               borderRadius: "18px",
               border: "1px solid var(--border)",
               background: "var(--card-bg)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
               textAlign: "center",
               boxShadow: "0 10px 30px rgba(42, 107, 242, 0.04), inset 0 1px 0 rgba(255,255,255,0.6)",
             }}

@@ -1,5 +1,5 @@
 // src/components/TemplatesSection.jsx
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaDownload,
@@ -256,16 +256,37 @@ function DownloadToast({ name, onClose }) {
 function TemplateCard({ template, onDownload }) {
   const [downloading, setDownloading] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef(null);
+  const rafRef = useRef(null);
+  const isHoveredRef = useRef(false);
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+  // Throttle mouse move dengan RAF — tidak trigger re-render sama sekali
+  const handleMouseMove = useCallback((e) => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      if (!cardRef.current || !isHoveredRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      cardRef.current.style.background = `radial-gradient(350px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.06), var(--card-bg) 70%)`;
     });
-  };
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    isHoveredRef.current = true;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    isHoveredRef.current = false;
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    if (cardRef.current) {
+      cardRef.current.style.background = "var(--card-bg)";
+    }
+  }, []);
 
   const handleDownload = (e) => {
     e.stopPropagation();
@@ -289,24 +310,20 @@ function TemplateCard({ template, onDownload }) {
 
   return (
     <motion.div
+      ref={cardRef}
       variants={cardVariants}
-      layout
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={{
         borderRadius: "18px",
         border: "1px solid var(--border)",
-        background: isHovered
-          ? `radial-gradient(350px circle at ${mousePosition.x}px ${mousePosition.y}px, ${template.accent}12, var(--card-bg) 70%)`
-          : "var(--card-bg)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
+        background: "var(--card-bg)",
         overflow: "hidden",
         cursor: "pointer",
         position: "relative",
-        boxShadow: "0 10px 30px rgba(42, 107, 242, 0.04), inset 0 1px 0 rgba(255,255,255,0.6)",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03)",
         transition: "box-shadow 0.2s ease, border-color 0.2s ease",
       }}
     >
@@ -322,6 +339,8 @@ function TemplateCard({ template, onDownload }) {
           <img
             src={template.image}
             alt={template.name}
+            loading="lazy"
+            decoding="async"
             style={{
               width: "100%",
               height: "100%",
@@ -406,8 +425,8 @@ function TemplateCard({ template, onDownload }) {
                 fontWeight: 600,
                 padding: "8px 16px",
                 borderRadius: "10px",
-                border: "1px solid var(--border-glow)",
-                background: "rgba(61,127,255,0.06)",
+                border: "1px solid var(--border)",
+                background: "rgba(255, 255, 255, 0.04)",
                 color: "var(--text)",
                 cursor: "pointer",
                 transition: "all 0.2s",
@@ -432,10 +451,10 @@ function TemplateCard({ template, onDownload }) {
                 padding: "8px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: downloading ? "rgba(99,102,241,0.4)" : `linear-gradient(135deg, ${template.accent}, ${template.accent}cc)`,
-                color: "#fff",
+                background: downloading ? "rgba(255, 255, 255, 0.3)" : "#ffffff",
+                color: "#000000",
                 cursor: downloading ? "not-allowed" : "pointer",
-                boxShadow: downloading ? "none" : `0 4px 16px ${template.accent}50`,
+                boxShadow: downloading ? "none" : "0 4px 16px rgba(255, 255, 255, 0.08)",
                 transition: "all 0.2s",
               }}
             >
@@ -481,14 +500,15 @@ const TemplatesSection = () => {
       `}</style>
 
       {/* Background glow effects */}
-      <div style={{ position: "absolute", top: "10%", right: "-5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(61,127,255,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "10%", left: "-5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "10%", right: "-5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", left: "-5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%)", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           style={{ textAlign: "center", marginBottom: "48px" }}
         >
@@ -515,6 +535,7 @@ const TemplatesSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           style={{
             display: "flex",
@@ -534,17 +555,17 @@ const TemplatesSection = () => {
                 padding: "7px 18px",
                 borderRadius: "999px",
                 border: "1px solid",
-                borderColor: activeFilter === cat ? "var(--accent)" : "var(--border)",
+                borderColor: activeFilter === cat ? "rgba(255, 255, 255, 0.25)" : "var(--border)",
                 background: activeFilter === cat
-                  ? "linear-gradient(135deg, #3d7fff, #6366f1)"
-                  : "rgba(61,127,255,0.04)",
-                color: activeFilter === cat ? "#fff" : "var(--muted)",
+                  ? "#ffffff"
+                  : "rgba(255, 255, 255, 0.04)",
+                color: activeFilter === cat ? "#000000" : "var(--muted)",
                 cursor: "pointer",
                 transition: "all 0.2s",
-                boxShadow: activeFilter === cat ? "0 4px 16px rgba(61,127,255,0.35)" : "none",
+                boxShadow: activeFilter === cat ? "0 4px 16px rgba(255, 255, 255, 0.15)" : "none",
               }}
-              onMouseEnter={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(61,127,255,0.10)"; e.currentTarget.style.color = "var(--text)"; } }}
-              onMouseLeave={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(61,127,255,0.04)"; e.currentTarget.style.color = "var(--muted)"; } }}
+              onMouseEnter={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)"; e.currentTarget.style.color = "var(--text)"; } }}
+              onMouseLeave={e => { if (activeFilter !== cat) { e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)"; e.currentTarget.style.color = "var(--muted)"; } }}
             >
               {cat}
             </button>

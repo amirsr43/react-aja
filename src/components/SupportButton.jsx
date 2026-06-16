@@ -88,14 +88,14 @@ export default function SupportButton() {
         whileTap={{ scale: 0.94 }}
         style={{
           position:       "fixed",
-          bottom:         "140px",   // stacked above FeedbackButton (84px) and ScrollToTop (28px)
+          bottom:         "84px",   // stacked cleanly above ScrollToTop (28px)
           right:          "28px",
           width:          "44px",
           height:         "44px",
           borderRadius:   "12px",
           border:         "1px solid var(--border)",
           background:     "var(--surface)",
-          color:          "#f59e0b",
+          color:          "var(--text)",
           cursor:         "pointer",
           display:        "flex",
           alignItems:     "center",
@@ -108,9 +108,9 @@ export default function SupportButton() {
           fontSize:       "20px",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background   = "#f59e0b18";
-          e.currentTarget.style.borderColor  = "#f59e0b50";
-          e.currentTarget.style.boxShadow    = "0 8px 28px rgba(245,158,11,0.25)";
+          e.currentTarget.style.background   = "rgba(255, 255, 255, 0.08)";
+          e.currentTarget.style.borderColor  = "rgba(255, 255, 255, 0.15)";
+          e.currentTarget.style.boxShadow    = "0 8px 24px rgba(255, 255, 255, 0.08)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.background   = "var(--surface)";
@@ -132,8 +132,8 @@ export default function SupportButton() {
             position: absolute;
             inset: -4px;
             border-radius: 16px;
-            border: 2px solid #f59e0b;
-            animation: supportPulse 2.4s ease-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            animation: supportPulse 2.4s ease-out 3;
             pointer-events: none;
           }
         `}</style>
@@ -218,9 +218,9 @@ export default function SupportButton() {
 
                 <div style={{ textAlign: "center", padding: "0 20px 20px" }}>
                   <motion.div
-                    animate={{ rotate: [0, -10, 10, -10, 0] }}
-                    transition={{ repeat: Infinity, repeatDelay: 3, duration: 0.5 }}
-                    style={{ fontSize: "44px", lineHeight: 1, marginBottom: "10px" }}
+                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                    transition={{ duration: 0.5 }}
+                    style={{ fontSize: "44px", lineHeight: 1, marginBottom: "10px", display: "inline-block" }}
                   >
                     ☕
                   </motion.div>

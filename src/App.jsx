@@ -1,30 +1,17 @@
-import GlobalStyles from "./styles/GlobalStyles";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import StatsSection from "./components/StatsSection";
-import HowItWorks from "./components/HowItWorks";
-import TemplatesSection from "./components/TemplatesSection";
-import FAQSection from "./components/FAQSection";
-import ScrollToTop from "./components/ScrollToTop";
-import FeedbackButton from "./components/FeedbackButton";
-import SupportButton from "./components/SupportButton";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Animations from "./pages/Animations";
+import Templates from "./pages/Templates";
 
 function App() {
   return (
-    <>
-      <GlobalStyles />
-      <Navbar />
-      <Hero />
-      <StatsSection />
-      <HowItWorks />
-      <TemplatesSection />
-      <FAQSection />
-      <Footer />
-      <ScrollToTop />
-      <FeedbackButton />
-      <SupportButton />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/animations" element={<Animations />} />
+        <Route path="/templates" element={<Templates />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

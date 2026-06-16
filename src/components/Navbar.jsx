@@ -1,31 +1,25 @@
 // src/components/Navbar.jsx
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaHome, FaThLarge, FaPlay } from "react-icons/fa";
 
 const navLinks = [
-  { label: "Templates", id: "templates" },
-  { label: "How It Works", id: "how-it-works" },
-  { label: "FAQ", id: "faq" },
+  { label: "Home", id: "home", href: "/", icon: FaHome },
+  { label: "Templates",   id: "templates",   href: "/templates", icon: FaThLarge },
+  { label: "Animation UI", id: "animations", href: "/animations", icon: FaPlay },
 ];
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "light";
-    }
-    return "light";
-  });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const theme = "dark";
 
-  // Apply theme to HTML tag
+  // Force dark theme on mount
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+    document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+  }, []);
 
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActive] = useState("home");
@@ -52,7 +46,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 20);
 
       // deteksi section aktif
-      const ids = ["how-it-works", "templates", "faq"];
+      const ids = ["how-it-works"];
       let current = "home";
       for (const id of ids) {
         const el = document.getElementById(id);
@@ -70,10 +64,46 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSection, scrolled]);
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id, href) => {
+    if (href) {
+      if (href === "/") {
+        if (location.pathname !== "/") {
+          navigate("/");
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }, 100);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else {
+        navigate(href);
+      }
+      setMenuOpen(false);
+      return;
+    }
+    // Kalau sedang di halaman lain, balik ke home dulu lalu scroll
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
     setMenuOpen(false);
+  };
+
+  const handleLogoClick = () => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const navBg = scrolled ? "var(--nav-bg)" : "transparent";
@@ -125,7 +155,7 @@ const Navbar = () => {
           style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
           onMouseEnter={() => setLogoHover(true)}
           onMouseLeave={() => setLogoHover(false)}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={handleLogoClick}
         >
           <div
             style={{
@@ -159,12 +189,14 @@ const Navbar = () => {
         {/* ── Desktop Nav Links (Top Right Corner) ── */}
         {!isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            {navLinks.map(({ label, id }) => {
-              const isActive = activeSection === id;
+            {navLinks.map(({ label, id, href }) => {
+              const isActive = href
+                ? location.pathname === href
+                : activeSection === id;
               return (
                 <button
                   key={id}
-                  onClick={() => scrollTo(id)}
+                  onClick={() => scrollTo(id, href)}
                   style={{
                     background: "transparent",
                     border: "none",
@@ -188,117 +220,95 @@ const Navbar = () => {
                 </button>
               );
             })}
-            <button
-              onClick={toggleTheme}
-              style={{
-                ...darkToggleBtn,
-                marginLeft: "12px",
-              }}
-              title="Toggle Theme"
-            >
-              {theme === "light" ? <FaMoon size={15} /> : <FaSun size={15} />}
-            </button>
           </div>
         )}
 
-        {/* ── Mobile Right Controls ── */}
-        {isMobile && (
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <button
-              onClick={toggleTheme}
-              style={darkToggleBtn}
-              title="Toggle Theme"
-            >
-              {theme === "light" ? <FaMoon size={15} /> : <FaSun size={15} />}
-            </button>
-            <button
-              onClick={() => setMenuOpen((v) => !v)}
-              style={{
-                ...darkToggleBtn,
-                color: menuOpen ? "var(--accent)" : "var(--text)",
-                borderColor: menuOpen ? "var(--accent)" : "var(--border)",
-              }}
-            >
-              {menuOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
-            </button>
-          </div>
-        )}
       </nav>
 
-      {/* ── Mobile Dropdown Menu ── */}
-      <AnimatePresence>
-        {isMobile && menuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                position: "fixed",
-                inset: 0,
-                zIndex: 98,
-                background: "rgba(0,0,0,0.3)",
-              }}
-            />
+      {/* ── Mobile Bottom Navigation Bar ── */}
+      {isMobile && (
+        <div className="bottom-nav-bar">
+          {navLinks.map(({ label, id, href, icon: Icon }) => {
+            const isActive = href
+              ? location.pathname === href
+              : activeSection === id;
+            return (
+              <button
+                key={id}
+                onClick={() => scrollTo(id, href)}
+                className={`tab-item ${isActive ? "active" : ""}`}
+              >
+                <Icon size={18} />
+                <span>{label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
-            {/* Menu Panel */}
-            <motion.div
-              key="menu"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              style={{
-                position: "fixed",
-                top: "57px",
-                left: 0,
-                right: 0,
-                zIndex: 99,
-                background: "var(--nav-bg)",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                borderBottom: "1px solid var(--border)",
-                padding: "12px 20px 20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "4px",
-              }}
-            >
-              {navLinks.map(({ label, id }, i) => {
-                const isActive = activeSection === id;
-                return (
-                  <motion.button
-                    key={id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    onClick={() => scrollTo(id)}
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      textAlign: "left",
-                      padding: "12px 14px",
-                      borderRadius: "10px",
-                      border: "none",
-                      background: isActive ? "rgba(61,127,255,0.10)" : "transparent",
-                      color: isActive ? "var(--accent)" : "var(--text)",
-                      fontWeight: isActive ? 600 : 500,
-                      fontSize: "15px",
-                      cursor: "pointer",
-                      transition: "all 0.15s",
-                    }}
-                  >
-                    {label}
-                  </motion.button>
-                );
-              })}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Style definitions for bottom tab bar */}
+      <style>{`
+        @media (max-width: 767px) {
+          body {
+            padding-bottom: 100px !important;
+          }
+          #support-trigger {
+            bottom: 160px !important;
+          }
+          button[title="Scroll to top"] {
+            bottom: 104px !important;
+          }
+        }
+
+        .bottom-nav-bar {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          right: 20px;
+          height: 64px;
+          background: rgba(10, 10, 10, 0.7);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 20px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          z-index: 1000;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border: none;
+          color: var(--muted);
+          font-size: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          gap: 4px;
+          width: 33%;
+          height: 100%;
+        }
+
+        .tab-item.active {
+          color: var(--text);
+        }
+
+        .tab-item.active svg {
+          transform: translateY(-2px);
+          color: var(--text);
+          filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+        }
+
+        .tab-item svg {
+          transition: transform 0.2s ease, color 0.2s ease;
+        }
+      `}</style>
     </>
   );
 };
