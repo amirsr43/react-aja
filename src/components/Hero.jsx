@@ -1,15 +1,11 @@
+// src/components/Hero.jsx
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Zap, ArrowDown } from "lucide-react";
+import { Zap, ArrowRight } from "lucide-react";
 import { ColorBends } from "./ColorBends";
 
-// Import template screenshots
-import portfolioV1Img from "../assets/portfolio_v1.png";
-import portfolioV2Img from "../assets/portfolio_v2.png";
-import portfolioV3Img from "../assets/portfolio_v3.png";
-
-const words = ["Free React", "Tailwind CSS", "Animation UI", "Open Source"];
+const words = ["UI Component", "React JS", "Tailwind CSS", "Open Source"];
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -22,8 +18,8 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleScrollToTemplates = () => {
-    navigate("/templates");
+  const handleStart = () => {
+    navigate("/docs");
   };
 
   return (
@@ -61,7 +57,7 @@ const Hero = () => {
             className="hero-badge"
           >
             <Zap size={12} style={{ color: "var(--accent)" }} />
-            <span>100% Free & Open Source</span>
+            <span>npm i reactaja-ui - 100% Free & Open Source</span>
           </motion.div>
 
           {/* Heading */}
@@ -71,7 +67,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="hero-heading"
           >
-            Find & Download{" "}
+            Premium{" "}
             <span className="heading-accent-wrapper">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -86,7 +82,7 @@ const Hero = () => {
                 </motion.span>
               </AnimatePresence>
             </span>{" "}
-            Assets
+            Library
           </motion.h1>
 
           {/* Subtitle */}
@@ -96,7 +92,8 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="hero-subtitle"
           >
-            A curated library of responsive React.js templates and copy-paste UI animations. Build your next web application in minutes with zero friction.
+            Accelerate your web development workflow with a curated library of clean, 
+            responsive, and animated React components. Install via npm and start importing components in seconds.
           </motion.p>
 
           {/* CTA Button */}
@@ -104,109 +101,85 @@ const Hero = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex gap-4"
           >
             <button 
-              onClick={handleScrollToTemplates}
+              onClick={handleStart}
               className="cta-button"
             >
-              Explore Templates
+              Get Started
+              <ArrowRight size={16} />
             </button>
           </motion.div>
         </div>
 
-        {/* Right Column: Premium Mockup Stack */}
+        {/* Right Column: Code Editor Mockup Showcase */}
         <div className="hero-showcase-side">
-          {/* Mockup 1 (Portfolio v1 - Back Left) */}
           <motion.div
-            initial={{ opacity: 0, x: 50, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ 
               opacity: 1, 
-              x: 0, 
-              y: 0,
-              translateY: [0, -10, 0] 
+              scale: 1,
+              y: [0, -10, 0]
             }}
             transition={{ 
-              x: { duration: 0.6, delay: 0.2 },
-              y: { duration: 0.6, delay: 0.2 },
-              translateY: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+              scale: { duration: 0.6, delay: 0.3 },
+              y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
             }}
-            whileHover={{ scale: 1.05, zIndex: 30, rotate: -3 }}
-            className="browser-mockup mockup-1"
+            className="showcase-card-wrapper"
           >
-            <div className="browser-header">
-              <span className="dot dot-red" />
-              <span className="dot dot-yellow" />
-              <span className="dot dot-green" />
-            </div>
-            <div className="mockup-img-container">
-              <img src={portfolioV1Img} alt="Portfolio V1 Screenshot" />
-            </div>
-          </motion.div>
-
-          {/* Mockup 2 (Portfolio v2 - Back Right) */}
-          <motion.div
-            initial={{ opacity: 0, x: 50, y: -20 }}
-            animate={{ 
-              opacity: 1, 
-              x: 0, 
-              y: 0,
-              translateY: [0, -12, 0]
-            }}
-            transition={{ 
-              x: { duration: 0.6, delay: 0.3 },
-              y: { duration: 0.6, delay: 0.3 },
-              translateY: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-            }}
-            whileHover={{ scale: 1.05, zIndex: 30, rotate: 3 }}
-            className="browser-mockup mockup-2"
-          >
-            <div className="browser-header">
-              <span className="dot dot-red" />
-              <span className="dot dot-yellow" />
-              <span className="dot dot-green" />
-            </div>
-            <div className="mockup-img-container">
-              <img src={portfolioV2Img} alt="Portfolio V2 Screenshot" />
-            </div>
-          </motion.div>
-
-          {/* Mockup 3 (Portfolio v3 - Front Center) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              y: 0,
-              translateY: [0, -8, 0]
-            }}
-            transition={{ 
-              scale: { duration: 0.6, delay: 0.4 },
-              y: { duration: 0.6, delay: 0.4 },
-              translateY: { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }
-            }}
-            whileHover={{ scale: 1.06, zIndex: 35, rotate: 0 }}
-            className="browser-mockup mockup-3"
-          >
-            <div className="browser-header">
-              <span className="dot dot-red" />
-              <span className="dot dot-yellow" />
-              <span className="dot dot-green" />
-            </div>
-            <div className="mockup-img-container">
-              <img src={portfolioV3Img} alt="Portfolio V3 Screenshot" />
+            <div className="code-mockup-card">
+              {/* Window Header */}
+              <div className="code-mockup-header">
+                <div className="dot red" />
+                <div className="dot yellow" />
+                <div className="dot green" />
+                <span className="window-tab">Button.jsx</span>
+              </div>
+              
+              {/* Window Content */}
+              <div className="code-mockup-body">
+                <pre className="code-mockup-pre">
+                  <code>
+                    <span className="code-keyword">import</span>{" "}
+                    <span className="code-variable">React</span>{" "}
+                    <span className="code-keyword">from</span>{" "}
+                    <span className="code-string">"react"</span>;
+                    {"\n\n"}
+                    <span className="code-keyword">export const</span>{" "}
+                    <span className="code-function">Button</span> = ({"{"}{" "}
+                    <span className="code-variable">children</span>{" "}{"}"}) =&gt; {"{"}
+                    {"\n"}
+                    {"  "}
+                    <span className="code-keyword">return</span> (
+                    {"\n"}
+                    {"    "}&lt;<span className="code-tag">button</span>{" "}
+                    <span className="code-attr">className</span>=
+                    <span className="code-string">"px-4 py-2 bg-indigo-600 rounded-lg hover:scale-105 transition"</span>&gt;
+                    {"\n"}
+                    {"      "}
+                    <span className="code-variable">{"{children}"}</span>
+                    {"\n"}
+                    {"    "}&lt;/<span className="code-tag">button</span>&gt;
+                    {"\n"}
+                    {"  "});
+                    {"\n"}
+                    {"}"};
+                  </code>
+                </pre>
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Styled class definitions */}
       <style>{`
         .hero-section {
-          padding: 90px 24px 80px;
+          padding: 100px 24px 80px;
           position: relative;
           overflow: hidden;
           background: var(--gradient-hero);
-          min-height: 640px;
+          min-height: 600px;
           display: flex;
           align-items: center;
         }
@@ -273,7 +246,7 @@ const Hero = () => {
           z-index: 1;
           display: grid;
           grid-template-columns: 1fr;
-          gap: 60px;
+          gap: 48px;
           align-items: center;
           text-align: left;
         }
@@ -301,7 +274,6 @@ const Hero = () => {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(10px);
           margin-bottom: 20px;
-          box-shadow: 0 4px 12px rgba(255, 255, 255, 0.01);
         }
 
         .hero-badge span {
@@ -313,171 +285,138 @@ const Hero = () => {
         }
 
         .hero-heading {
-          font-size: clamp(36px, 5vw, 52px);
+          font-size: clamp(34px, 4.5vw, 50px);
           font-weight: 800;
           margin-bottom: 20px;
           color: var(--text);
-          line-height: 1.12;
+          line-height: 1.15;
           letter-spacing: -0.03em;
         }
 
         .heading-accent-wrapper {
           display: inline-block;
-          min-width: 200px;
+          min-width: 260px;
           vertical-align: bottom;
         }
 
         .heading-word {
           display: inline-block;
-          background: linear-gradient(135deg, var(--text) 0%, var(--accent-2) 100%);
+          background: linear-gradient(135deg, #ffffff 0%, var(--accent-2) 100%);
           WebkitBackgroundClip: text;
           WebkitTextFillColor: transparent;
           background-clip: text;
         }
 
         .hero-subtitle {
-          font-size: clamp(15px, 2vw, 17px);
+          font-size: clamp(14.5px, 2vw, 16.5px);
           color: var(--muted);
-          max-width: 540px;
+          max-width: 520px;
           margin: 0 0 36px;
           line-height: 1.6;
-          font-weight: 450;
+          font-weight: 400;
         }
 
         .cta-button {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 14px 30px;
+          gap: 10px;
+          padding: 14px 28px;
           background: #ffffff;
           color: #000000;
-          font-size: 15px;
+          font-size: 14.5px;
           font-weight: 600;
           border-radius: 999px;
           border: none;
           cursor: pointer;
-          box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .cta-button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+          background: #f4f4f5;
         }
 
         .cta-button:active {
           transform: translateY(0);
         }
 
-        /* Right Column Showcase Layout */
+        /* Right column mockup editor */
         .hero-showcase-side {
-          position: relative;
-          width: 100%;
-          height: 380px;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 40px;
+          width: 100%;
+          position: relative;
         }
 
-        @media (min-width: 1024px) {
-          .hero-showcase-side {
-            height: 480px;
-            margin-top: 0;
-          }
+        .showcase-card-wrapper {
+          width: 100%;
+          max-width: 420px;
+          z-index: 10;
         }
 
-        /* Browser Mockup Shell */
-        .browser-mockup {
-          position: absolute;
-          background: rgba(10, 10, 10, 0.65);
+        .code-mockup-card {
+          background: rgba(10, 10, 10, 0.6);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 10px;
+          border-radius: 16px;
           overflow: hidden;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.01);
-          backdrop-filter: blur(8px);
-          transition: border-color 0.3s;
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          width: 100%;
         }
 
-        .browser-mockup:hover {
-          border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .browser-header {
-          height: 24px;
-          background: rgba(255, 255, 255, 0.03);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        .code-mockup-header {
+          height: 36px;
+          background: rgba(255, 255, 255, 0.02);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           display: flex;
           align-items: center;
           gap: 6px;
-          padding: 0 12px;
+          padding: 0 16px;
+          position: relative;
         }
 
-        .browser-header .dot {
-          width: 6px;
-          height: 6px;
+        .code-mockup-header .dot {
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
-          display: inline-block;
         }
 
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
+        .code-mockup-header .dot.red { background: #ff5f56; }
+        .code-mockup-header .dot.yellow { background: #ffbd2e; }
+        .code-mockup-header .dot.green { background: #27c93f; }
 
-        .mockup-img-container {
-          width: 100%;
-          aspect-ratio: 16/10;
-          overflow: hidden;
-          background: #121212;
+        .window-tab {
+          font-size: 11px;
+          color: #8e8e93;
+          font-weight: 500;
+          margin-left: 12px;
+          font-family: inherit;
         }
 
-        .mockup-img-container img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: top;
-          transition: transform 0.8s ease;
+        .code-mockup-body {
+          padding: 24px;
+          text-align: left;
+          background: #050505;
         }
 
-        .browser-mockup:hover .mockup-img-container img {
-          transform: scale(1.03);
+        .code-mockup-pre {
+          margin: 0;
+          font-family: 'DM Mono', monospace;
+          font-size: 13px;
+          line-height: 1.5;
         }
 
-        /* Mockup Stacking Position coordinates */
-        .mockup-1 {
-          width: 150px;
-          left: 5%;
-          top: 15%;
-          z-index: 10;
-          transform: rotate(-6deg);
-        }
-
-        .mockup-2 {
-          width: 150px;
-          right: 5%;
-          top: 25%;
-          z-index: 12;
-          transform: rotate(6deg);
-        }
-
-        .mockup-3 {
-          width: 190px;
-          bottom: 8%;
-          z-index: 15;
-          transform: rotate(-2deg);
-        }
-
-        @media (min-width: 640px) {
-          .mockup-1 { width: 240px; left: 10%; }
-          .mockup-2 { width: 240px; right: 10%; }
-          .mockup-3 { width: 290px; }
-        }
-
-        @media (min-width: 1024px) {
-          .mockup-1 { width: 250px; left: 0%; top: 12%; }
-          .mockup-2 { width: 250px; right: 0%; top: 20%; }
-          .mockup-3 { width: 310px; bottom: 8%; }
-        }
+        .code-keyword { color: #f43f5e; }
+        .code-variable { color: #e4e4e7; }
+        .code-string { color: #10b981; }
+        .code-function { color: #60a5fa; }
+        .code-tag { color: #a855f7; }
+        .code-attr { color: #fb923c; }
+        .code-value { color: #f43f5e; }
       `}</style>
     </section>
   );

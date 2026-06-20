@@ -26,7 +26,7 @@ const TIERS = [
     emoji:   "⚡",
     icon:    Zap,
     label:   "Give me a boost",
-    desc:    "Keep the templates flowing!",
+    desc:    "Keep the components flowing!",
     color:   "#7c3aed",
     bg:      "#7c3aed14",
     border:  "#7c3aed40",
@@ -238,7 +238,7 @@ export default function SupportButton() {
                     color: "var(--muted)",
                     lineHeight: 1.5,
                   }}>
-                    All templates are <strong style={{ color: "var(--text)" }}>free forever</strong>. If they saved you time,
+                    All components are <strong style={{ color: "var(--text)" }}>free forever</strong>. If they saved you time,
                     consider buying me a coffee! ❤️
                   </p>
                 </div>

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
-import Animations from "./pages/Animations";
-import Templates from "./pages/Templates";
+import Docs from "./pages/Docs";
 import Maintenance from "./pages/Maintenance";
 import { IS_MAINTENANCE, BYPASS_KEY } from "./config";
 
@@ -43,9 +42,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/animations" element={<Animations />} />
-        <Route path="/templates" element={<Templates />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/docs" element={<Navigate to="/docs/introduction" replace />} />
+        <Route path="/docs/:docId" element={<Docs />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

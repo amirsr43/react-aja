@@ -2,12 +2,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaHome, FaThLarge, FaPlay } from "react-icons/fa";
+import { FaHome, FaBookOpen, FaGithub } from "react-icons/fa";
 
 const navLinks = [
   { label: "Home", id: "home", href: "/", icon: FaHome },
-  { label: "Templates",   id: "templates",   href: "/templates", icon: FaThLarge },
-  { label: "Animation UI", id: "animations", href: "/animations", icon: FaPlay },
+  { label: "Docs", id: "docs", href: "/docs", icon: FaBookOpen },
 ];
 
 const Navbar = () => {
@@ -150,79 +149,124 @@ const Navbar = () => {
           transition: "all 0.3s ease",
         }}
       >
-        {/* ── Logo ── */}
-        <div
-          style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
-          onMouseEnter={() => setLogoHover(true)}
-          onMouseLeave={() => setLogoHover(false)}
-          onClick={handleLogoClick}
-        >
+        {/* ── Left Side Container (Logo + Separator + Links) ── */}
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* Logo */}
           <div
-            style={{
-              transform: logoHover
-                ? "rotate(18deg) scale(1.15)"
-                : "rotate(0deg) scale(1)",
-              transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
-              display: "flex",
-              alignItems: "center",
-            }}
+            style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
+            onMouseEnter={() => setLogoHover(true)}
+            onMouseLeave={() => setLogoHover(false)}
+            onClick={handleLogoClick}
           >
-            <img 
-              src="/logo.png" 
-              alt="ReactAja" 
-              style={{ width: "24px", height: "24px", objectFit: "contain" }} 
-            />
+            <div
+              style={{
+                transform: logoHover
+                  ? "rotate(18deg) scale(1.15)"
+                  : "rotate(0deg) scale(1)",
+                transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <img 
+                src="/logo.png" 
+                alt="ReactAja" 
+                style={{ width: "24px", height: "24px", objectFit: "contain" }} 
+              />
+            </div>
+            <span
+              style={{
+                fontWeight: "bold",
+                fontSize: "16px",
+                color: "var(--text)",
+                opacity: logoHover ? 0.75 : 1,
+                transition: "opacity 0.2s",
+              }}
+            >
+              React<span style={{ color: "var(--accent)" }}>Aja</span>
+            </span>
           </div>
-          <span
-            style={{
-              fontWeight: "bold",
-              fontSize: "16px",
-              color: "var(--text)",
-              opacity: logoHover ? 0.75 : 1,
-              transition: "opacity 0.2s",
-            }}
-          >
-            React<span style={{ color: "var(--accent)" }}>Aja</span>
-          </span>
+
+          {/* Separator / Slash */}
+          {!isMobile && (
+            <span style={{ color: "rgba(255, 255, 255, 0.15)", fontSize: "14px", userSelect: "none" }}>
+              /
+            </span>
+          )}
+
+          {/* Desktop Nav Links */}
+          {!isMobile && (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              {navLinks.map(({ label, id, href }) => {
+                const isActive = href
+                  ? location.pathname === href
+                  : activeSection === id;
+                return (
+                  <button
+                    key={id}
+                    onClick={() => scrollTo(id, href)}
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: isActive ? "var(--text)" : "var(--muted)",
+                      fontWeight: isActive ? 600 : 500,
+                      fontSize: "14px",
+                      cursor: "pointer",
+                      padding: "6px 12px",
+                      transition: "color 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = "var(--text)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = "var(--muted)";
+                      }
+                    }}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {/* ── Desktop Nav Links (Top Right Corner) ── */}
+        {/* ── GitHub Button (Right Aligned) ── */}
         {!isMobile && (
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            {navLinks.map(({ label, id, href }) => {
-              const isActive = href
-                ? location.pathname === href
-                : activeSection === id;
-              return (
-                <button
-                  key={id}
-                  onClick={() => scrollTo(id, href)}
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    color: isActive ? "var(--accent)" : "var(--muted)",
-                    fontWeight: isActive ? 600 : 500,
-                    fontSize: "14px",
-                    cursor: "pointer",
-                    padding: "6px 12px",
-                    transition: "color 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "var(--text)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = "var(--muted)";
-                    }
-                  }}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
+          <a
+            href="https://github.com/amirsr43"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "6px 14px",
+              borderRadius: "8px",
+              border: "1px solid var(--border)",
+              background: "rgba(255,255,255,0.03)",
+              color: "var(--text)",
+              fontSize: "13px",
+              fontWeight: 600,
+              textDecoration: "none",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.07)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+              e.currentTarget.style.borderColor = "var(--border)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            <FaGithub size={14} />
+            <span>GitHub</span>
+          </a>
         )}
-
       </nav>
 
       {/* ── Mobile Bottom Navigation Bar ── */}

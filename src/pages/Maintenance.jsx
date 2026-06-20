@@ -113,7 +113,7 @@ const Maintenance = () => {
           {/* Status Badge */}
           <div className="status-badge">
             <span className="status-dot animate-pulse" />
-            <span>SISTEM SEDANG DIPERBARUI</span>
+            <span>SYSTEM UNDER MAINTENANCE</span>
           </div>
 
           {/* Heading & Intro */}
@@ -121,14 +121,14 @@ const Maintenance = () => {
             Under Maintenance
           </h1>
           <p className="maintenance-text">
-            Halo! Kami sedang melakukan pemeliharaan sistem rutin, 
-            Proses ini tidak akan berlangsung lama. Terima kasih atas kesabaran Anda!
+            Hello! We are currently performing routine system maintenance. 
+            This process won't take long. Thank you for your patience!
           </p>
 
           {/* Progress Indicator */}
           <div className="progress-section">
             <div className="progress-header">
-              <span className="progress-label">Upgrade Kemajuan</span>
+              <span className="progress-label">Upgrade Progress</span>
               <span className="progress-percent">85%</span>
             </div>
             <div className="progress-track">
@@ -156,7 +156,7 @@ const Maintenance = () => {
                 exit={{ opacity: 0 }}
                 onClick={() => setShowBypass(true)}
                 className="bypass-toggle-btn"
-                title="Bypass Halaman"
+                title="Bypass Page"
               >
                 <Lock size={14} />
                 <span>Bypass</span>
@@ -173,7 +173,7 @@ const Maintenance = () => {
                 <Lock size={14} className="bypass-form-lock" />
                 <input
                   type="password"
-                  placeholder="Masukkan Kunci Bypass..."
+                  placeholder="Enter Bypass Key..."
                   value={passcode}
                   onChange={(e) => setPasscode(e.target.value)}
                   className={`bypass-input ${bypassError ? "error" : ""}`}
@@ -190,7 +190,7 @@ const Maintenance = () => {
                   }} 
                   className="bypass-cancel-btn"
                 >
-                  Batal
+                  Cancel
                 </button>
               </motion.form>
             )}
