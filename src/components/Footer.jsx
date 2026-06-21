@@ -7,8 +7,8 @@ const Footer = () => {
 
   const productLinks = [
     { name: "Docs", href: "/docs/introduction" },
-    { name: "Components", href: "/docs/introduction" },
-    { name: "Animations", href: "/docs/introduction" }
+    { name: "Components", href: "/docs/profile-card" },
+    { name: "Animations", href: "/docs/interactive-timeline" }
   ];
 
   const communityLinks = [

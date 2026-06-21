@@ -2,38 +2,39 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaHome, FaBookOpen, FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", id: "home", href: "/", icon: FaHome },
-  { label: "Docs", id: "docs", href: "/docs", icon: FaBookOpen },
+  { label: "Home", id: "home", href: "/" },
+  { label: "Docs", id: "docs", href: "/docs" },
 ];
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = "dark";
 
-  // Force dark theme on mount
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", "dark");
     localStorage.setItem("theme", "dark");
   }, []);
 
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActive] = useState("home");
   const [logoHover, setLogoHover] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
 
+  // Is the user on the Docs page?
+  const isDocsPage = location.pathname.startsWith("/docs");
+
   // Resize listener
   useEffect(() => {
     const onResize = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      if (!mobile) setMenuOpen(false); // tutup menu kalau resize ke desktop
+      if (!mobile) setMenuOpen(false);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -43,34 +44,32 @@ const Navbar = () => {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      // deteksi section aktif
-      const ids = ["how-it-works"];
-      let current = "home";
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 90) current = id;
-      }
-      setActive(current);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Tutup menu saat scroll
+  // Close menu on route change
   useEffect(() => {
-    if (menuOpen) setMenuOpen(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSection, scrolled]);
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close dropdown on outside click (only used on home page)
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClick = (e) => {
+      if (!e.target.closest(".navbar-root")) setMenuOpen(false);
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [menuOpen]);
 
   const scrollTo = (id, href) => {
     if (href) {
       if (href === "/") {
         if (location.pathname !== "/") {
           navigate("/");
-          setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }, 100);
+          setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
         } else {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -80,7 +79,6 @@ const Navbar = () => {
       setMenuOpen(false);
       return;
     }
-    // Kalau sedang di halaman lain, balik ke home dulu lalu scroll
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
@@ -97,59 +95,34 @@ const Navbar = () => {
   const handleLogoClick = () => {
     if (location.pathname !== "/") {
       navigate("/");
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 100);
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  const navBg = scrolled ? "var(--nav-bg)" : "transparent";
-
-  const btnBase = {
-    padding: "7px 15px",
-    borderRadius: "8px",
-    border: "none",
-    fontSize: "14px",
-    fontWeight: 500,
-    cursor: "pointer",
-    transition: "all 0.2s",
-    background: "transparent",
-  };
-
-  const darkToggleBtn = {
-    padding: "8px 10px",
-    borderRadius: "8px",
-    border: "1px solid var(--border)",
-    background: "transparent",
-    cursor: "pointer",
-    color: "var(--text)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "all 0.2s",
-  };
-
   return (
     <>
       <nav
+        className="navbar-root"
         style={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
+          left: 0,
+          right: 0,
           zIndex: 100,
-          padding: "13px 24px",
+          padding: "13px 20px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
-          background: navBg,
+          background: scrolled ? "var(--nav-bg)" : "transparent",
           backdropFilter: scrolled ? "blur(16px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
           transition: "all 0.3s ease",
         }}
       >
-        {/* ── Left Side Container (Logo + Separator + Links) ── */}
+        {/* ── Left: Logo + Desktop Links ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           {/* Logo */}
           <div
@@ -160,19 +133,13 @@ const Navbar = () => {
           >
             <div
               style={{
-                transform: logoHover
-                  ? "rotate(18deg) scale(1.15)"
-                  : "rotate(0deg) scale(1)",
+                transform: logoHover ? "rotate(18deg) scale(1.15)" : "rotate(0deg) scale(1)",
                 transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
                 display: "flex",
                 alignItems: "center",
               }}
             >
-              <img 
-                src="/logo.png" 
-                alt="ReactAja" 
-                style={{ width: "24px", height: "24px", objectFit: "contain" }} 
-              />
+              <img src="/logo.png" alt="ReactAja" style={{ width: "24px", height: "24px", objectFit: "contain" }} />
             </div>
             <span
               style={{
@@ -187,170 +154,262 @@ const Navbar = () => {
             </span>
           </div>
 
-          {/* Separator / Slash */}
-          {!isMobile && (
-            <span style={{ color: "rgba(255, 255, 255, 0.15)", fontSize: "14px", userSelect: "none" }}>
-              /
-            </span>
-          )}
-
           {/* Desktop Nav Links */}
           {!isMobile && (
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              {navLinks.map(({ label, id, href }) => {
-                const isActive = href
-                  ? location.pathname === href
-                  : activeSection === id;
-                return (
-                  <button
-                    key={id}
-                    onClick={() => scrollTo(id, href)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: isActive ? "var(--text)" : "var(--muted)",
-                      fontWeight: isActive ? 600 : 500,
-                      fontSize: "14px",
-                      cursor: "pointer",
-                      padding: "6px 12px",
-                      transition: "color 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = "var(--text)";
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = "var(--muted)";
-                      }
-                    }}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
+            <>
+              <span style={{ color: "rgba(255,255,255,0.15)", fontSize: "14px", userSelect: "none" }}>/</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                {navLinks.map(({ label, id, href }) => {
+                  const isActive = href === "/docs" ? isDocsPage : (location.pathname === "/" && href === "/");
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => scrollTo(id, href)}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        color: isActive ? "var(--text)" : "var(--muted)",
+                        fontWeight: isActive ? 600 : 500,
+                        fontSize: "14px",
+                        cursor: "pointer",
+                        padding: "6px 12px",
+                        transition: "color 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = "var(--text)"; }}
+                      onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = "var(--muted)"; }}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
 
-        {/* ── GitHub Button (Right Aligned) ── */}
-        {!isMobile && (
-          <a
-            href="https://github.com/amirsr43"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "6px 14px",
-              borderRadius: "8px",
-              border: "1px solid var(--border)",
-              background: "rgba(255,255,255,0.03)",
-              color: "var(--text)",
-              fontSize: "13px",
-              fontWeight: 600,
-              textDecoration: "none",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.07)";
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-              e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            <FaGithub size={14} />
-            <span>GitHub</span>
-          </a>
-        )}
+        {/* ── Right: GitHub (desktop) or Hamburger (mobile) ── */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          {!isMobile && (
+            <a
+              href="https://github.com/amirsr43"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "6px 14px",
+                borderRadius: "8px",
+                border: "1px solid var(--border)",
+                background: "rgba(255,255,255,0.03)",
+                color: "var(--text)",
+                fontSize: "13px",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.07)";
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                e.currentTarget.style.borderColor = "var(--border)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <FaGithub size={14} />
+              <span>GitHub</span>
+            </a>
+          )}
+
+          {/* Hamburger button — mobile only */}
+          {isMobile && (
+            <button
+              onClick={() => {
+                if (isDocsPage) {
+                  // On docs page: open docs sidebar via event
+                  window.dispatchEvent(new CustomEvent("openDocsSidebar"));
+                } else {
+                  // On home page: toggle nav dropdown
+                  setMenuOpen((o) => !o);
+                }
+              }}
+              style={{
+                background: menuOpen ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#ffffff",
+                width: "38px",
+                height: "38px",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                flexShrink: 0,
+              }}
+              aria-label="Toggle menu"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {menuOpen && !isDocsPage ? (
+                  <motion.span
+                    key="x"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    style={{ display: "flex" }}
+                  >
+                    <X size={18} />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    style={{ display: "flex" }}
+                  >
+                    <Menu size={18} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          )}
+        </div>
       </nav>
 
-      {/* ── Mobile Bottom Navigation Bar ── */}
-      {isMobile && (
-        <div className="bottom-nav-bar">
-          {navLinks.map(({ label, id, href, icon: Icon }) => {
-            const isActive = href
-              ? location.pathname === href
-              : activeSection === id;
-            return (
-              <button
-                key={id}
-                onClick={() => scrollTo(id, href)}
-                className={`tab-item ${isActive ? "active" : ""}`}
-              >
-                <Icon size={18} />
-                <span>{label}</span>
-              </button>
-            );
-          })}
-        </div>
-      )}
+      {/* ── Mobile Dropdown — only on home page ── */}
+      <AnimatePresence>
+        {isMobile && menuOpen && !isDocsPage && (
+          <motion.div
+            className="navbar-root"
+            initial={{ opacity: 0, y: -10, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.96 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            style={{
+              position: "fixed",
+              top: "64px",
+              right: "16px",
+              zIndex: 99,
+              background: "rgba(8, 8, 10, 0.95)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "16px",
+              padding: "8px",
+              minWidth: "190px",
+              boxShadow: "0 24px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+            }}
+          >
+            {navLinks.map(({ label, id, href }) => {
+              const isActive = href === "/docs" ? isDocsPage : (location.pathname === "/" && href === "/");
+              return (
+                <button
+                  key={id}
+                  onClick={() => scrollTo(id, href)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                    padding: "11px 14px",
+                    background: isActive ? "rgba(255,255,255,0.07)" : "transparent",
+                    border: "none",
+                    borderRadius: "10px",
+                    color: isActive ? "#ffffff" : "#8e8e93",
+                    fontSize: "14px",
+                    fontWeight: isActive ? 600 : 500,
+                    cursor: "pointer",
+                    textAlign: "left",
+                    transition: "all 0.15s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                    e.currentTarget.style.color = "#ffffff";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = isActive ? "rgba(255,255,255,0.07)" : "transparent";
+                    e.currentTarget.style.color = isActive ? "#ffffff" : "#8e8e93";
+                  }}
+                >
+                  {label}
+                </button>
+              );
+            })}
 
-      {/* Style definitions for bottom tab bar */}
+            <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", margin: "6px 0" }} />
+
+            <a
+              href="https://github.com/amirsr43"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "11px 14px",
+                background: "transparent",
+                border: "none",
+                borderRadius: "10px",
+                color: "#8e8e93",
+                fontSize: "14px",
+                fontWeight: 500,
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "all 0.15s ease",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                e.currentTarget.style.color = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#8e8e93";
+              }}
+            >
+              <FaGithub size={14} />
+              <span>GitHub</span>
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Global responsive overrides */}
       <style>{`
+        body { padding-bottom: 0 !important; }
+        #support-trigger { bottom: 24px !important; }
+        button[title="Scroll to top"] { bottom: 80px !important; }
+
         @media (max-width: 767px) {
-          body {
-            padding-bottom: 100px !important;
-          }
-          #support-trigger {
-            bottom: 160px !important;
-          }
-          button[title="Scroll to top"] {
-            bottom: 104px !important;
-          }
+          .hero-section { padding-top: 70px !important; }
+          .hero-showcase-side { display: none !important; }
+          .hero-heading { font-size: clamp(28px, 8vw, 42px) !important; }
+          .heading-accent-wrapper { min-width: unset !important; }
+          .hero-subtitle { font-size: 14px !important; }
+          .cta-button { padding: 12px 22px !important; font-size: 13.5px !important; }
         }
 
-        .bottom-nav-bar {
-          position: fixed;
-          bottom: 20px;
-          left: 20px;
-          right: 20px;
-          height: 64px;
-          background: rgba(10, 10, 10, 0.7);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 20px;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          z-index: 1000;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-
-        .tab-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background: transparent;
-          border: none;
-          color: var(--muted);
-          font-size: 10px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          gap: 4px;
-          width: 33%;
-          height: 100%;
-        }
-
-        .tab-item.active {
-          color: var(--text);
-        }
-
-        .tab-item.active svg {
-          transform: translateY(-2px);
-          color: var(--text);
-          filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
-        }
-
-        .tab-item svg {
-          transition: transform 0.2s ease, color 0.2s ease;
+        @media (max-width: 480px) {
+          .docs-page-layout { padding-top: 64px !important; }
+          .docs-container { padding: 0 14px 60px !important; gap: 20px !important; }
+          .docs-title { font-size: 26px !important; }
+          .docs-description { font-size: 13.5px !important; }
+          .docs-tabs-header { flex-wrap: wrap; gap: 8px; }
+          .docs-tabs-triggers { flex-wrap: wrap; }
+          .docs-tab-trigger { padding: 5px 10px !important; font-size: 11.5px !important; }
+          .docs-copy-source-btn { font-size: 11px !important; padding: 5px 9px !important; }
+          .format-selectors-row { gap: 12px !important; }
+          .tab-code-pane { padding: 14px !important; }
+          .code-pre-element { font-size: 11px !important; }
+          .doc-variant-section { padding: 16px !important; }
+          .site-footer { padding: 40px 16px 24px !important; }
         }
       `}</style>
     </>

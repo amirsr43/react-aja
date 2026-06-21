@@ -62,11 +62,12 @@ const THEME_PRESETS = [
 ];
 
 export default function ProfileCardCustomizer() {
-  const [activeTab, setActiveTab] = useState("preview"); // "preview" | "code"
+  const [activeTab, setActiveTab] = useState("preview"); // "preview" | "code" | "prompt"
   const [langType, setLangType] = useState("js"); // "js" | "ts"
   const [styleType, setStyleType] = useState("css"); // "css" | "tailwind"
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedCSS, setCopiedCSS] = useState(false);
+  const [copiedPrompt, setCopiedPrompt] = useState(false);
 
   // Customizer States
   const [name, setName] = useState("Amir.");
@@ -170,6 +171,12 @@ export default function ProfileCardCustomizer() {
     setTimeout(() => setCopiedCSS(false), 2000);
   };
 
+  const handleCopyPrompt = (promptText) => {
+    navigator.clipboard.writeText(promptText);
+    setCopiedPrompt(true);
+    setTimeout(() => setCopiedPrompt(false), 2000);
+  };
+
   return (
     <div className="docs-component-body">
       {/* Tab Controls */}
@@ -187,7 +194,24 @@ export default function ProfileCardCustomizer() {
           >
             Source Code
           </button>
+          {currentDoc.prompt && (
+            <button 
+              onClick={() => setActiveTab("prompt")}
+              className={`docs-tab-trigger ${activeTab === "prompt" ? "active" : ""}`}
+            >
+              AI Prompt
+            </button>
+          )}
         </div>
+        {activeTab === "prompt" && currentDoc.prompt && (
+          <button 
+            onClick={() => handleCopyPrompt(currentDoc.prompt)}
+            className="docs-copy-source-btn"
+          >
+            {copiedPrompt ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+            <span>{copiedPrompt ? "Copied!" : "Copy Prompt"}</span>
+          </button>
+        )}
       </div>
 
       {/* Tab Content Display */}
@@ -337,7 +361,7 @@ export default function ProfileCardCustomizer() {
               </div>
             </div>
           </div>
-        ) : (
+        ) : activeTab === "code" ? (
           <div className="tab-code-pane">
             <div className="multi-code-container">
               {/* Format selectors row */}
@@ -419,6 +443,23 @@ export default function ProfileCardCustomizer() {
                 </div>
               )}
             </div>
+          </div>
+        ) : (
+          <div className="tab-prompt-pane" style={{
+            padding: "24px",
+            background: "rgba(0, 0, 0, 0.25)",
+            border: "1px solid rgba(255, 255, 255, 0.05)",
+            borderRadius: "12px",
+            color: "#f0f0f5",
+            lineHeight: "1.6",
+            fontSize: "14.5px"
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
+              <span style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", background: "rgba(139, 92, 246, 0.15)", color: "#a78bfa", padding: "4px 8px", borderRadius: "6px" }}>
+                AI Generation Prompt
+              </span>
+            </div>
+            <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{currentDoc.prompt}</p>
           </div>
         )}
       </div>

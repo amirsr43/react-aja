@@ -2,19 +2,23 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Zap, ArrowRight } from "lucide-react";
-import { ColorBends } from "./ColorBends";
+import { Zap, ArrowRight, Code, Sparkles } from "lucide-react";
 
-const words = ["UI Component", "React JS", "Tailwind CSS", "Open Source"];
+// Import some light floating preview components
+import { CosmicThemeSwitch } from "./ui/FluidSwitch";
+import AnimatedProfileStack from "./ui/AnimatedProfileStack";
+
+const words = ["UI Components", "Animations", "Tailwind CSS", "Vanilla CSS"];
 
 const Hero = () => {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
+  const [isSwitchDark, setIsSwitchDark] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 2800);
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
@@ -24,117 +28,138 @@ const Hero = () => {
 
   return (
     <section className="hero-section">
-      {/* ColorBends Background Animation */}
-      <div className="hero-animation-wrapper">
-        <ColorBends
-          color="#A855F7"
-          speed={0.2}
-          frequency={1.0}
-          noise={0.15}
-          bandWidth={0.14}
-          rotation={90}
-          fadeTop={0.75}
-          iterations={1}
-          intensity={1.3}
-        />
-      </div>
-
       {/* Abstract Dotted Grid Background */}
       <div className="hero-dot-grid" />
       
       {/* Background Soft Glow Blobs */}
       <div className="hero-glow-blob-1" />
       <div className="hero-glow-blob-2" />
+      <div className="hero-glow-blob-3" />
 
       <div className="hero-container">
         {/* Left Column: Text & CTA */}
         <div className="hero-text-side">
           {/* Premium Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="hero-badge"
           >
-            <Zap size={12} style={{ color: "var(--accent)" }} />
-            <span>npm i reactaja-ui - 100% Free & Open Source</span>
+            <Zap size={13} className="hero-badge-icon" />
+            <span>Open Source</span>
           </motion.div>
 
           {/* Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="hero-heading"
           >
-            Premium{" "}
+            Build Beautiful Interfaces
+            <br />
+            With Premium{" "}
             <span className="heading-accent-wrapper">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={index}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
                   className="heading-word"
                 >
                   {words[index]}
                 </motion.span>
               </AnimatePresence>
-            </span>{" "}
-            Library
+            </span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="hero-subtitle"
           >
-            Accelerate your web development workflow with a curated library of clean, 
-            responsive, and animated React components. Install via npm and start importing components in seconds.
+            Accelerate your web design workflow. A premium catalog of highly polished, responsive React components. 
+            Customize with prompts, copy the source code, and drop them directly into your project.
           </motion.p>
 
-          {/* CTA Button */}
+          {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex gap-4"
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            className="hero-btn-row"
           >
             <button 
               onClick={handleStart}
-              className="cta-button"
+              className="cta-button primary"
             >
-              Get Started
+              Explore Components
               <ArrowRight size={16} />
+            </button>
+            
+            <button 
+              onClick={() => navigate("/docs/installation")}
+              className="cta-button secondary"
+            >
+              <Code size={16} />
+              Setup Guide
             </button>
           </motion.div>
         </div>
 
-        {/* Right Column: Code Editor Mockup Showcase */}
+        {/* Right Column: Code Editor Mockup & Floating Previews */}
         <div className="hero-showcase-side">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              y: [0, -10, 0]
-            }}
-            transition={{ 
-              scale: { duration: 0.6, delay: 0.3 },
-              y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
-            }}
-            className="showcase-card-wrapper"
-          >
-            <div className="code-mockup-card">
+          <div className="showcase-card-wrapper">
+            
+            {/* Floating Component 1: Segment Switch / Cosmic Switch */}
+            <motion.div 
+              className="floating-el float-el-1"
+              initial={{ opacity: 0, x: -30, y: -20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <div className="floating-el-header">
+                <Sparkles size={11} color="#a78bfa" />
+                <span>Cosmic Toggle</span>
+              </div>
+              <CosmicThemeSwitch isDark={isSwitchDark} onChange={setIsSwitchDark} />
+            </motion.div>
+
+            {/* Floating Component 2: Profile Stack */}
+            <motion.div 
+              className="floating-el float-el-2"
+              initial={{ opacity: 0, x: 30, y: 40 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              <AnimatedProfileStack pulse={true} />
+            </motion.div>
+
+            {/* Main Code Editor mockup */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                y: [0, -8, 0]
+              }}
+              transition={{ 
+                scale: { duration: 0.6, delay: 0.4 },
+                y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="code-mockup-card"
+            >
               {/* Window Header */}
               <div className="code-mockup-header">
                 <div className="dot red" />
                 <div className="dot yellow" />
                 <div className="dot green" />
-                <span className="window-tab">Button.jsx</span>
+                <span className="window-tab">AnimatedPill.jsx</span>
               </div>
               
               {/* Window Content */}
@@ -145,97 +170,119 @@ const Hero = () => {
                     <span className="code-variable">React</span>{" "}
                     <span className="code-keyword">from</span>{" "}
                     <span className="code-string">"react"</span>;
+                    {"\n"}
+                    <span className="code-keyword">import</span>{" "}
+                    <span className="code-keyword">{"{"}</span>{" "}
+                    <span className="code-variable">motion</span>{" "}
+                    <span className="code-keyword">{"}"}</span>{" "}
+                    <span className="code-keyword">from</span>{" "}
+                    <span className="code-string">"framer-motion"</span>;
                     {"\n\n"}
-                    <span className="code-keyword">export const</span>{" "}
-                    <span className="code-function">Button</span> = ({"{"}{" "}
-                    <span className="code-variable">children</span>{" "}{"}"}) =&gt; {"{"}
+                    <span className="code-keyword">export default function</span>{" "}
+                    <span className="code-function">ProfileStack</span>() {"{"}
                     {"\n"}
                     {"  "}
                     <span className="code-keyword">return</span> (
                     {"\n"}
-                    {"    "}&lt;<span className="code-tag">button</span>{" "}
-                    <span className="code-attr">className</span>=
-                    <span className="code-string">"px-4 py-2 bg-indigo-600 rounded-lg hover:scale-105 transition"</span>&gt;
+                    {"    "}&lt;<span className="code-tag">motion.div</span>{" "}
+                    <span className="code-attr">whileHover</span>=
+                    <span className="code-keyword">{"{ "}</span>
+                    <span className="code-attr">scale</span>: <span className="code-number">1.05</span>
+                    <span className="code-keyword">{" }"}</span>
                     {"\n"}
                     {"      "}
-                    <span className="code-variable">{"{children}"}</span>
+                    <span className="code-attr">className</span>=
+                    <span className="code-string">"glass-pill shadow-lg"</span>&gt;
                     {"\n"}
-                    {"    "}&lt;/<span className="code-tag">button</span>&gt;
+                    {"      "}&lt;<span className="code-tag">span</span>&gt;Active Users&lt;/<span className="code-tag">span</span>&gt;
+                    {"\n"}
+                    {"    "}&lt;/<span className="code-tag">motion.div</span>&gt;
                     {"\n"}
                     {"  "});
                     {"\n"}
-                    {"}"};
+                    {"}"}
                   </code>
                 </pre>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
 
       <style>{`
         .hero-section {
-          padding: 100px 24px 80px;
+          padding: 140px 24px 100px;
           position: relative;
           overflow: hidden;
-          background: var(--gradient-hero);
-          min-height: 600px;
+          background: #000000;
+          min-height: calc(100vh - 80px);
           display: flex;
           align-items: center;
+          justify-content: center;
         }
 
-        .hero-animation-wrapper {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 0;
-          pointer-events: none;
-        }
-        .hero-animation-wrapper::after {
-          content: '';
+        /* Dotted grid pattern with center radial mask */
+        .hero-dot-grid {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to bottom, #000000 0%, transparent 15%, transparent 85%, #000000 100%);
+          background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+          background-size: 32px 32px;
+          mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+          -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
           pointer-events: none;
           z-index: 1;
         }
 
-        .hero-dot-grid {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-          background-size: 24px 24px;
-          pointer-events: none;
-          z-index: 0;
-        }
-
+        /* Floating Aurora Gradient Blobs */
         .hero-glow-blob-1 {
           position: absolute;
-          top: -20px;
-          left: 15%;
-          width: 320px;
-          height: 320px;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
-          filter: blur(30px);
+          top: -10%;
+          left: 10%;
+          width: 550px;
+          height: 550px;
+          background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+          filter: blur(80px);
           pointer-events: none;
           z-index: 0;
+          animation: hero-blob-anim-1 16s infinite alternate ease-in-out;
         }
 
         .hero-glow-blob-2 {
           position: absolute;
-          bottom: 20px;
-          right: 15%;
-          width: 320px;
-          height: 320px;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
-          filter: blur(30px);
+          bottom: 5%;
+          right: 5%;
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+          filter: blur(80px);
           pointer-events: none;
           z-index: 0;
+          animation: hero-blob-anim-2 20s infinite alternate ease-in-out;
+        }
+
+        .hero-glow-blob-3 {
+          position: absolute;
+          top: 30%;
+          right: 35%;
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, rgba(236, 72, 153, 0.04) 0%, transparent 70%);
+          filter: blur(60px);
+          pointer-events: none;
+          z-index: 0;
+          animation: hero-blob-anim-1 12s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes hero-blob-anim-1 {
+          0% { transform: translate(0px, 0px) scale(1); }
+          50% { transform: translate(40px, -60px) scale(1.1); }
+          100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        @keyframes hero-blob-anim-2 {
+          0% { transform: translate(0px, 0px) scale(1); }
+          50% { transform: translate(-50px, 40px) scale(0.9); }
+          100% { transform: translate(30px, -30px) scale(1.05); }
         }
 
         .hero-container {
@@ -243,17 +290,16 @@ const Hero = () => {
           width: 100%;
           margin: 0 auto;
           position: relative;
-          z-index: 1;
+          z-index: 10;
           display: grid;
           grid-template-columns: 1fr;
-          gap: 48px;
+          gap: 60px;
           align-items: center;
-          text-align: left;
         }
 
         @media (min-width: 1024px) {
           .hero-container {
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1.15fr 0.85fr;
             gap: 40px;
           }
         }
@@ -262,87 +308,123 @@ const Hero = () => {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          text-align: left;
         }
 
+        /* Custom premium gradient badge */
         .hero-badge {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          padding: 6px 12px;
-          border-radius: 999px;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(10px);
-          margin-bottom: 20px;
+          padding: 7px 14px;
+          border-radius: 99px;
+          border: 1px solid rgba(167, 139, 250, 0.2);
+          background: linear-gradient(135deg, rgba(167, 139, 250, 0.08) 0%, rgba(129, 140, 248, 0.03) 100%);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          margin-bottom: 24px;
+          box-shadow: 0 4px 15px rgba(124, 58, 237, 0.05);
+        }
+
+        .hero-badge-icon {
+          color: #a78bfa;
+          filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.6));
         }
 
         .hero-badge span {
-          font-size: 10px;
-          font-weight: 700;
-          color: var(--accent);
-          letter-spacing: 0.08em;
+          font-size: 11px;
+          font-weight: 750;
+          color: #c084fc;
+          letter-spacing: 0.05em;
           text-transform: uppercase;
         }
 
         .hero-heading {
-          font-size: clamp(34px, 4.5vw, 50px);
+          font-size: clamp(38px, 5.2vw, 56px);
           font-weight: 800;
           margin-bottom: 20px;
-          color: var(--text);
-          line-height: 1.15;
-          letter-spacing: -0.03em;
+          color: #ffffff;
+          line-height: 1.12;
+          letter-spacing: -0.035em;
+          font-family: 'Outfit', sans-serif;
         }
 
         .heading-accent-wrapper {
           display: inline-block;
-          min-width: 260px;
+          min-width: 250px;
           vertical-align: bottom;
         }
 
         .heading-word {
           display: inline-block;
-          background: linear-gradient(135deg, #ffffff 0%, var(--accent-2) 100%);
+          background: linear-gradient(135deg, #a78bfa 0%, #6366f1 50%, #3b82f6 100%);
           WebkitBackgroundClip: text;
           WebkitTextFillColor: transparent;
           background-clip: text;
         }
 
         .hero-subtitle {
-          font-size: clamp(14.5px, 2vw, 16.5px);
-          color: var(--muted);
-          max-width: 520px;
-          margin: 0 0 36px;
-          line-height: 1.6;
+          font-size: clamp(15px, 2.2vw, 17px);
+          color: rgba(255, 255, 255, 0.55);
+          max-width: 580px;
+          margin: 0 0 40px;
+          line-height: 1.65;
           font-weight: 400;
+        }
+
+        .hero-btn-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+          width: 100%;
         }
 
         .cta-button {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 10px;
-          padding: 14px 28px;
-          background: #ffffff;
-          color: #000000;
+          padding: 15px 30px;
           font-size: 14.5px;
           font-weight: 600;
           border-radius: 999px;
-          border: none;
           cursor: pointer;
-          box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
-          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          font-family: inherit;
         }
 
-        .cta-button:hover {
+        .cta-button.primary {
+          background: #ffffff;
+          color: #000000;
+          border: none;
+          box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button.primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+          box-shadow: 0 15px 35px rgba(255, 255, 255, 0.18);
           background: #f4f4f5;
+        }
+
+        .cta-button.secondary {
+          background: rgba(255, 255, 255, 0.03);
+          color: rgba(255, 255, 255, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(8px);
+        }
+
+        .cta-button.secondary:hover {
+          transform: translateY(-2px);
+          background: rgba(255, 255, 255, 0.06);
+          color: #ffffff;
+          border-color: rgba(255, 255, 255, 0.15);
         }
 
         .cta-button:active {
           transform: translateY(0);
         }
 
-        /* Right column mockup editor */
+        /* Right column mockup & floating tags */
         .hero-showcase-side {
           display: flex;
           justify-content: center;
@@ -353,70 +435,142 @@ const Hero = () => {
 
         .showcase-card-wrapper {
           width: 100%;
-          max-width: 420px;
-          z-index: 10;
+          max-width: 440px;
+          position: relative;
         }
 
-        .code-mockup-card {
-          background: rgba(10, 10, 10, 0.6);
+        /* Floating Components */
+        .floating-el {
+          position: absolute;
+          z-index: 25;
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 16px;
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+          padding: 12px 16px;
+        }
+
+        .float-el-1 {
+          top: -30px;
+          left: -40px;
+          background: rgba(15, 15, 20, 0.7);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          animation: hero-drift-1 6s infinite alternate ease-in-out;
+        }
+
+        .floating-el-header {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          font-weight: 750;
+          color: rgba(255, 255, 255, 0.4);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 2px;
+        }
+
+        .float-el-2 {
+          bottom: -20px;
+          right: -25px;
+          background: rgba(255, 255, 255, 0.95);
+          color: #000000;
+          animation: hero-drift-2 7s infinite alternate ease-in-out;
+        }
+        
+        /* Force correct white bg styling for animated stack inside floating white pill */
+        .float-el-2 .profile-stack-pill {
+          background: rgba(0, 0, 0, 0.04) !important;
+          border: 1px solid rgba(0, 0, 0, 0.08) !important;
+          box-shadow: none !important;
+        }
+        .float-el-2 .stack-avatar {
+          border-color: #f4f4f5 !important;
+        }
+        .float-el-2 .audio-pulse-circle {
+          background: rgba(0, 0, 0, 0.05) !important;
+          border: 1px solid rgba(0, 0, 0, 0.08) !important;
+          color: #000 !important;
+        }
+
+        @keyframes hero-drift-1 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          100% { transform: translateY(-14px) rotate(1.5deg); }
+        }
+
+        @keyframes hero-drift-2 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          100% { transform: translateY(12px) rotate(-1.5deg); }
+        }
+
+        /* Mockup Editor styling */
+        .code-mockup-card {
+          background: rgba(12, 12, 16, 0.55);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 24px;
           overflow: hidden;
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          box-shadow: 
+            0 30px 70px rgba(0, 0, 0, 0.55), 
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 0 40px rgba(124, 58, 237, 0.04);
           width: 100%;
         }
 
         .code-mockup-header {
-          height: 36px;
+          height: 40px;
           background: rgba(255, 255, 255, 0.02);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.04);
           display: flex;
           align-items: center;
-          gap: 6px;
-          padding: 0 16px;
+          gap: 7px;
+          padding: 0 20px;
           position: relative;
         }
 
         .code-mockup-header .dot {
-          width: 8px;
-          height: 8px;
+          width: 9px;
+          height: 9px;
           border-radius: 50%;
         }
 
-        .code-mockup-header .dot.red { background: #ff5f56; }
-        .code-mockup-header .dot.yellow { background: #ffbd2e; }
-        .code-mockup-header .dot.green { background: #27c93f; }
+        .code-mockup-header .dot.red { background: #ef4444; }
+        .code-mockup-header .dot.yellow { background: #f59e0b; }
+        .code-mockup-header .dot.green { background: #10b981; }
 
         .window-tab {
-          font-size: 11px;
-          color: #8e8e93;
-          font-weight: 500;
-          margin-left: 12px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.45);
+          font-weight: 600;
+          margin-left: 14px;
           font-family: inherit;
         }
 
         .code-mockup-body {
-          padding: 24px;
+          padding: 28px;
           text-align: left;
-          background: #050505;
+          background: rgba(5, 5, 5, 0.4);
         }
 
         .code-mockup-pre {
           margin: 0;
-          font-family: 'DM Mono', monospace;
-          font-size: 13px;
-          line-height: 1.5;
+          font-family: 'DM Mono', 'Fira Code', monospace;
+          font-size: 13.5px;
+          line-height: 1.6;
         }
 
-        .code-keyword { color: #f43f5e; }
+        .code-keyword { color: #f43f5e; font-weight: 600; }
         .code-variable { color: #e4e4e7; }
         .code-string { color: #10b981; }
         .code-function { color: #60a5fa; }
-        .code-tag { color: #a855f7; }
+        .code-tag { color: #c084fc; }
         .code-attr { color: #fb923c; }
-        .code-value { color: #f43f5e; }
+        .code-number { color: #3b82f6; }
       `}</style>
     </section>
   );
