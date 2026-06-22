@@ -41,7 +41,7 @@ animated, responsive, and ready to drop into any project.
 
 ## 🔗 Live Demo
 
-👉 [react-aja.vercel.app](https://react-aja.vercel.app)
+👉 [reactaja-ui.vercel.app](https://reactaja-ui.vercel.app/)
 
 ---
 
