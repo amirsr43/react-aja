@@ -191,7 +191,7 @@ const Navbar = () => {
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {!isMobile && (
             <a
-              href="https://github.com/amirsr43"
+              href="https://github.com/amirsr43/react-aja.git"
               target="_blank"
               rel="noopener noreferrer"
               style={{
