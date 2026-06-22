@@ -1,4 +1,4 @@
-![ReactAja Logo](./logo1.png)
+![ReactAja Logo](./src/assets/logo1.png)
 
 **Premium React UI components. Copy. Paste. Ship.**
 
