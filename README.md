@@ -1,14 +1,11 @@
 <div align="center">
   <img src="./src/assets/logo.png" alt="ReactAja Logo" width="500" />
 </div>
-
 <div align="center">
-
 **Premium React UI components. Copy. Paste. Ship.**
 
 A curated collection of beautifully crafted, production-ready React components —
 animated, responsive, and ready to drop into any project.
-
 </div>
 
 ---
