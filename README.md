@@ -1,17 +1,60 @@
-# React + Vite
+<p align="center">
+  <img src="./logo1.png" alt="ReactAja Logo" width="400" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <strong>Premium React UI components. Copy. Paste. Ship.</strong>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  A curated collection of beautifully crafted, production-ready React components —<br/>
+  animated, responsive, and ready to drop into any project.
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ What's Inside
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🎨 **19+ Premium Components** — Buttons, cards, modals, sliders, forms, search bars, loaders, and more.
 
-## Expanding the ESLint configuration
+🌀 **Smooth Animations** — Powered by **Framer Motion** & **GSAP** for fluid, polished interactions.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-"# web-react-template" 
+🎯 **Copy-Ready Code** — Every component comes with clean, customizable source code.
+
+🌗 **Dark & Modern** — Designed with a sleek dark aesthetic, glassmorphism, and glowing effects.
+
+📱 **Fully Responsive** — Looks great on any screen size, out of the box.
+
+---
+
+## 🧩 Component Highlights
+
+`GlowingButton` · `FluidSwitch` · `MagneticSlider` · `AnimatedModal` · `ProductCard` · `ProfileCard` · `ToastNotification` · `ExpandingSearch` · `InteractiveTimeline` · `ModernForm` · `CyberDecoderText` · `AnimatedProfileStack` · and more...
+
+---
+
+## 🛠 Built With
+
+**React 19** · **Vite** · **Framer Motion** · **GSAP** · **Tailwind CSS** · **Three.js** · **React Router v7**
+
+---
+
+## 🔗 Live Demo
+
+👉 [react-aja.vercel.app](https://react-aja.vercel.app)
+
+---
+
+## 👨‍💻 Developer
+
+<p align="center">
+  <a href="https://github.com/amirsr43">
+    <img src="https://github.com/amirsr43.png" width="80" style="border-radius: 50%;" alt="amirsr43"/>
+    <br/>
+    <strong>@amirsr43</strong>
+  </a>
+</p>
+
+<p align="center">
+  Open source. Free to use. Built for developers who care about design.
+</p>
