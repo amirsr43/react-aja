@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./src/assets/logo2.png" alt="ReactAja Logo" width="300" />
+  <img src="./src/assets/logo1.png" alt="ReactAja Logo" width="300" />
 </div>
 
 **Premium React UI components. Copy. Paste. Ship.**
