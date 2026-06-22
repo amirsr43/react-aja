@@ -2,10 +2,14 @@
   <img src="./src/assets/logo1.png" alt="ReactAja Logo" width="300" />
 </div>
 
+<div align="center">
+
 **Premium React UI components. Copy. Paste. Ship.**
 
 A curated collection of beautifully crafted, production-ready React components —
 animated, responsive, and ready to drop into any project.
+
+</div>
 
 ---
 
@@ -37,7 +41,7 @@ animated, responsive, and ready to drop into any project.
 
 ## 🔗 Live Demo
 
-👉 [react-aja.vercel.app](https://react-aja.vercel.app)
+👉 [reactaja-ui.vercel.app](https://reactaja-ui.vercel.app/)
 
 ---
 
