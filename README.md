@@ -1,4 +1,4 @@
-![ReactAja Logo](/src/assets/logo1.png)
+<img src="./src/assets/logo1.png" alt="ReactAja Logo" width="300" />
 
 **Premium React UI components. Copy. Paste. Ship.**
 
