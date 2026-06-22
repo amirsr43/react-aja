@@ -1,15 +1,9 @@
-<p align="center">
-  <img src="./logo1.png" alt="ReactAja Logo" width="400" />
-</p>
+![ReactAja Logo](./logo1.png)
 
-<p align="center">
-  <strong>Premium React UI components. Copy. Paste. Ship.</strong>
-</p>
+**Premium React UI components. Copy. Paste. Ship.**
 
-<p align="center">
-  A curated collection of beautifully crafted, production-ready React components —<br/>
-  animated, responsive, and ready to drop into any project.
-</p>
+A curated collection of beautifully crafted, production-ready React components —
+animated, responsive, and ready to drop into any project.
 
 ---
 
@@ -47,14 +41,6 @@
 
 ## 👨‍💻 Developer
 
-<p align="center">
-  <a href="https://github.com/amirsr43">
-    <img src="https://github.com/amirsr43.png" width="80" style="border-radius: 50%;" alt="amirsr43"/>
-    <br/>
-    <strong>@amirsr43</strong>
-  </a>
-</p>
+Made by [@amirsr43](https://github.com/amirsr43)
 
-<p align="center">
-  Open source. Free to use. Built for developers who care about design.
-</p>
+> Open source. Free to use. Built for developers who care about design.
