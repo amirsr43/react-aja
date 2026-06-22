@@ -344,7 +344,7 @@ const Navbar = () => {
             <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", margin: "6px 0" }} />
 
             <a
-              href="https://github.com/amirsr43"
+              href="https://github.com/amirsr43/react-aja.git"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
