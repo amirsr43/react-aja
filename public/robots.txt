@@ -1,0 +1,12 @@
+# robots.txt untuk reactaja.my.id
+User-agent: *
+Allow: /
+
+# Mencegah bot merayapi file config internal atau build artifacts jika ada
+Disallow: /dist/
+Disallow: /build/
+Disallow: /node_modules/
+Disallow: /private/
+
+# Menyertakan sitemap utama untuk mempermudah penemuan halaman baru
+Sitemap: https://www.reactaja.my.id/sitemap.xml

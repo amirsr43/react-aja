@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/logo.png" />
-    <link rel="canonical" href="https://reactaja.my.id/" />
+    <link rel="canonical" href="https://www.reactaja.my.id/" />
     
     <!-- Preconnect for faster Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,6 +32,43 @@
     <meta property="twitter:title" content="ReactAja - Premium React UI Components & Animations Library" />
     <meta property="twitter:description" content="Curated collection of free, premium React UI components and animations. Copy the source code and paste directly into your project." />
     <meta property="twitter:image" content="/logo.png" />
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://www.reactaja.my.id/#software",
+          "name": "Reactaja",
+          "url": "https://www.reactaja.my.id/",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "downloadUrl": "https://www.reactaja.my.id/",
+          "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD"
+          },
+          "description": "A collection of free, open-source, and modern React UI components and animations built with Tailwind CSS and Framer Motion.",
+          "publisher": {
+            "@id": "https://www.reactaja.my.id/#organization"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://www.reactaja.my.id/#organization",
+          "name": "Reactaja",
+          "url": "https://www.reactaja.my.id/",
+          "logo": "https://www.reactaja.my.id/logo.png",
+          "sameAs": [
+            "https://github.com/amirsr43/web-react-template"
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
