@@ -89,7 +89,7 @@ const Footer = () => {
           <span className="footer-credit">
             Created with <span className="heart-icon">🤍</span> by{" "}
             <a 
-              href="https://portfolio-amirramadhan.vercel.app/" 
+              href="https://amir.reactaja.my.id/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="creator-link"
