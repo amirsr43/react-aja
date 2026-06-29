@@ -625,6 +625,7 @@ const Docs = () => {
         .docs-title {
           font-size: clamp(28px, 4vw, 38px);
           font-weight: 800;
+          font-family: 'Space Grotesk', 'Outfit', sans-serif;
           letter-spacing: -0.03em;
           margin: 0;
           background: linear-gradient(135deg, #ffffff 40%, #a1a1aa 100%);
@@ -775,8 +776,8 @@ const Docs = () => {
           font-size: 12.5px;
           line-height: 1.6;
           color: #e4e4e7;
-          white-space: pre-wrap;
-          word-break: break-all;
+          white-space: pre;
+          overflow-x: auto;
         }
 
 
@@ -861,10 +862,9 @@ const Docs = () => {
           font-size: 15px;
           font-weight: 750;
           color: #ffffff;
-          letter-spacing: -0.015em;
           margin: 0 0 16px 0;
           text-transform: uppercase;
-          font-family: 'Outfit', 'Inter', sans-serif;
+          font-family: 'Space Grotesk', 'Outfit', sans-serif;
           letter-spacing: 0.05em;
         }
 
@@ -1051,10 +1051,12 @@ const Docs = () => {
           }
 
           .props-table td {
-            padding: 5px 0 !important;
+            padding: 8px 0 !important;
             border: none !important;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
           }
 
           .prop-name-cell {
@@ -1069,26 +1071,33 @@ const Docs = () => {
             font-weight: 700;
             color: #8e8e93;
             display: inline-block;
-            width: 90px;
-            font-size: 10.5px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            flex-shrink: 0;
           }
 
           .prop-name-cell::before {
             content: "Prop";
             display: inline-block;
-            width: 90px;
             font-weight: 700;
             color: #8e8e93;
-            font-size: 10.5px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
           }
           
           .prop-desc-cell {
             align-items: flex-start;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .docs-tabs-header {
+            flex-wrap: wrap;
+            gap: 12px;
+          }
+          .docs-tabs-triggers {
+            flex-wrap: wrap;
           }
         }
       `}</style>

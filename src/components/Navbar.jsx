@@ -23,7 +23,7 @@ const Navbar = () => {
   const [logoHover, setLogoHover] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
+    typeof window !== "undefined" ? window.innerWidth < 1024 : false
   );
 
   // Is the user on the Docs page?
@@ -32,13 +32,14 @@ const Navbar = () => {
   // Resize listener
   useEffect(() => {
     const onResize = () => {
-      const mobile = window.innerWidth < 768;
+      const mobile = window.innerWidth < 1024;
       setIsMobile(mobile);
       if (!mobile) setMenuOpen(false);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
 
   // Scroll listener
   useEffect(() => {
@@ -107,19 +108,23 @@ const Navbar = () => {
         className="navbar-root"
         style={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
+          top: isMobile ? "16px" : (scrolled ? "16px" : "0px"),
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: isMobile ? "calc(100% - 32px)" : (scrolled ? "calc(100% - 40px)" : "100%"),
+          maxWidth: isMobile ? "100%" : (scrolled ? "1200px" : "100%"),
           zIndex: 100,
-          padding: "13px 20px",
+          padding: isMobile ? "10px 18px" : (scrolled ? "10px 24px" : "13px 20px"),
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
-          background: scrolled ? "var(--nav-bg)" : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
-          transition: "all 0.3s ease",
+          border: isMobile || scrolled ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid transparent",
+          borderRadius: isMobile ? "16px" : (scrolled ? "20px" : "0px"),
+          background: isMobile || scrolled ? "rgba(8, 8, 10, 0.75)" : "transparent",
+          backdropFilter: isMobile || scrolled ? "blur(16px)" : "none",
+          WebkitBackdropFilter: isMobile || scrolled ? "blur(16px)" : "none",
+          boxShadow: isMobile || scrolled ? "0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)" : "none",
+          transition: isMobile ? "none" : "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
         {/* ── Left: Logo + Desktop Links ── */}
@@ -143,8 +148,10 @@ const Navbar = () => {
             </div>
             <span
               style={{
-                fontWeight: "bold",
-                fontSize: "16px",
+                fontWeight: "800",
+                fontSize: "17px",
+                fontFamily: "'Space Grotesk', 'Outfit', sans-serif",
+                letterSpacing: "-0.03em",
                 color: "var(--text)",
                 opacity: logoHover ? 0.75 : 1,
                 transition: "opacity 0.2s",
@@ -293,8 +300,8 @@ const Navbar = () => {
             transition={{ duration: 0.18, ease: "easeOut" }}
             style={{
               position: "fixed",
-              top: "64px",
-              right: "16px",
+              top: isMobile ? "72px" : (scrolled ? "72px" : "64px"),
+              right: isMobile ? "20px" : (scrolled ? "20px" : "16px"),
               zIndex: 99,
               background: "rgba(8, 8, 10, 0.95)",
               backdropFilter: "blur(24px)",
@@ -304,6 +311,7 @@ const Navbar = () => {
               padding: "8px",
               minWidth: "190px",
               boxShadow: "0 24px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+              transition: isMobile ? "none" : "top 0.4s cubic-bezier(0.16, 1, 0.3, 1), right 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
             {navLinks.map(({ label, id, href }) => {

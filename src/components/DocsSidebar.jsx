@@ -1,6 +1,8 @@
 // src/components/DocsSidebar.jsx
 import { Link, useLocation } from "react-router-dom";
 import { docsCategories } from "../data/docsData";
+import { Home } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 const DocsSidebar = ({ onClose }) => {
   const location = useLocation();
@@ -9,6 +11,38 @@ const DocsSidebar = ({ onClose }) => {
   return (
     <aside className="docs-sidebar-container">
       <div className="docs-sidebar-inner">
+        {/* Mobile Main Navigation */}
+        <div className="sidebar-group mobile-main-nav">
+          
+          <ul className="sidebar-links-list">
+            <li>
+              <Link
+                to="/"
+                onClick={onClose}
+                className="sidebar-link"
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                <Home size={14} />
+                <span>Home</span>
+              </Link>
+            </li>
+            <li>
+              <a
+                href="https://github.com/amirsr43/react-aja.git"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                className="sidebar-link"
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                <FaGithub size={14} />
+                <span>GitHub</span>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
         {docsCategories.map((category, catIdx) => (
           <div key={catIdx} className="sidebar-group">
             <h4 className="sidebar-group-title">{category.title}</h4>
@@ -68,6 +102,18 @@ const DocsSidebar = ({ onClose }) => {
           display: flex;
           flex-direction: column;
           gap: 4px;
+        }
+
+        .mobile-main-nav {
+          display: block;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          padding-bottom: 16px;
+        }
+
+        @media (min-width: 1024px) {
+          .mobile-main-nav {
+            display: none;
+          }
         }
 
         .sidebar-link {

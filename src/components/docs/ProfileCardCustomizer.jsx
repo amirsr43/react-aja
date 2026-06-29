@@ -474,7 +474,7 @@ export default function ProfileCardCustomizer() {
           background: rgba(255,255,255,0.01);
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
           .customizer-layout {
             grid-template-columns: 320px 1fr;
           }
@@ -514,11 +514,12 @@ export default function ProfileCardCustomizer() {
           gap: 12px;
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 640px) {
           .customizer-input-grid {
             grid-template-columns: 1fr 1fr;
           }
         }
+
 
         .customizer-field {
           display: flex;

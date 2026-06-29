@@ -346,7 +346,7 @@ const Hero = () => {
           color: #ffffff;
           line-height: 1.12;
           letter-spacing: -0.035em;
-          font-family: 'Outfit', sans-serif;
+          font-family: 'Space Grotesk', 'Outfit', sans-serif;
         }
 
         .heading-accent-wrapper {
