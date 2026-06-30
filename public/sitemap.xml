@@ -2,42 +2,148 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
+
     <loc>https://www.reactaja.my.id/</loc>
     <lastmod>2026-06-30</lastmod>
+
+    <loc>https://reactaja.my.id/</loc>
+    <lastmod>2026-06-28</lastmod>
+
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Getting Started Guides -->
   <url>
+
     <loc>https://www.reactaja.my.id/docs/introduction</loc>
     <lastmod>2026-06-30</lastmod>
+
+    <loc>https://reactaja.my.id/docs/introduction</loc>
+    <lastmod>2026-06-28</lastmod>
+
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+
     <loc>https://www.reactaja.my.id/docs/installation</loc>
     <lastmod>2026-06-30</lastmod>
+
+    <loc>https://reactaja.my.id/docs/installation</loc>
+    <lastmod>2026-06-28</lastmod>
+
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Main Category Directories -->
   <url>
+
     <loc>https://www.reactaja.my.id/docs/ui-components</loc>
     <lastmod>2026-06-30</lastmod>
+
+    <loc>https://reactaja.my.id/docs/button</loc>
+    <lastmod>2026-06-28</lastmod>
+
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+
     <loc>https://www.reactaja.my.id/docs/ui-animations</loc>
     <lastmod>2026-06-30</lastmod>
+
+    <loc>https://reactaja.my.id/docs/profile-card</loc>
+    <lastmod>2026-06-28</lastmod>
+
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+
     <loc>https://www.reactaja.my.id/docs/developer-tools</loc>
     <lastmod>2026-06-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+
+    <loc>https://reactaja.my.id/docs/loading</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/form</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/product-card</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/toast-notification</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/search-bar</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- UI Animations -->
+  <url>
+    <loc>https://reactaja.my.id/docs/magnetic-slider</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/profile-stack</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/interactive-timeline</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/glowing-button</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/fluid-switch</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/text-animation</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/focus-blur-text</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://reactaja.my.id/docs/expanding-search</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+
   </url>
 </urlset>
