@@ -17,9 +17,11 @@ import ToastNotificationShowcase from "../../components/ui/components/ToastNotif
 import { toastNotificationCode } from "../codes/toastNotification";
 import SearchBarShowcase from "../../components/ui/components/SearchBar";
 import { searchBarCode } from "../codes/searchBar";
+import PortfolioNavbar from "../../components/ui/components/PortfolioNavbar";
+import { portfolioNavbarCode } from "../codes/portfolioNavbar";
 
 import { Link } from "react-router-dom";
-import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight } from "lucide-react";
+import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight, Menu } from "lucide-react";
 
 export const componentsDocs = {
   "ui-components": {
@@ -63,6 +65,7 @@ export const componentsDocs = {
             { id: "product-card", name: "Product Card", desc: "Sleek product display card with parallax zoom and color selectors.", icon: <ShoppingBag size={20} /> },
             { id: "toast-notification", name: "Toast Notifications", desc: "Triggerable notification queue manager with progress countdowns.", icon: <Bell size={20} /> },
             { id: "search-bar", name: "Interactive SearchBar", desc: "Focus-expanding search input with history cache and trend tags.", icon: <Search size={20} /> },
+            { id: "portfolio-navbar", name: "Portfolio Navbar", desc: "Frosted-glass floating pill navbar with active-pill transitions and mobile overlay.", icon: <Menu size={20} /> },
           ].map((item) => (
             <Link to={`/docs/${item.id}`} key={item.id} className="category-card">
               <div className="category-card-icon" style={{
@@ -281,5 +284,29 @@ export const componentsDocs = {
       { name: "onSearch", type: "function", default: "undefined", description: "Triggers on pressing Enter or clicking tags." }
     ],
     dependencies: ["framer-motion", "lucide-react"]
+  },
+  "portfolio-navbar": {
+    id: "portfolio-navbar",
+    title: "Portfolio Navbar",
+    description: "A premium, floating glassmorphic navbar designed specifically for personal portfolios and modern agency landing pages. Features smooth, layout-interpolated active item indicators, dynamic background opacity blending on scroll, and a polished mobile menu dropdown.",
+    category: "UI Components",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "80px 20px 20px 20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", background: "#050505", minHeight: "150px", position: "relative", overflow: "hidden", borderRadius: "16px" }}>
+        <PortfolioNavbar fixed={false} />
+        <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "12px", marginTop: "20px" }}>Scroll the page or hover items to test the interactive state</div>
+      </div>
+    ),
+    code: portfolioNavbarCode.code,
+    css: portfolioNavbarCode.css,
+    prompt: "Create a floating glassmorphic navbar in React using Framer Motion. It should have a pill shape, dynamic background blending on scroll, a slide-up layoutId pill tracking the active item, a custom gradient CTA button, and a fully animated mobile overlay menu.",
+    props: [
+      { name: "logo", type: "string", default: '"amir."', description: "The logo text shown on the left." },
+      { name: "links", type: "array", default: "/* Home, About, Work, Contact */", description: "Array of nav link objects ({ label, href })." },
+      { name: "ctaLabel", type: "string", default: '"Hire Me"', description: "The label text on the gradient CTA button." },
+      { name: "onCtaClick", type: "function", default: "() => {}", description: "Event handler fired when the CTA button is clicked." },
+      { name: "onLinkClick", type: "function", default: "() => {}", description: "Event handler fired when a nav link is clicked." }
+    ],
+    dependencies: ["framer-motion"]
   }
 };
