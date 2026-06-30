@@ -5,12 +5,12 @@ import { ArrowRight, Sparkles, Navigation, ToggleRight, Calendar, Eye, Type, Use
 import { motion } from "framer-motion";
 
 // Import interactive components
-import ExpandingSearch from "./ui/ExpandingSearch";
-import { CosmicThemeSwitch, FLUID_SWITCH_STYLES } from "./ui/FluidSwitch";
-import InteractiveTimeline from "./ui/InteractiveTimeline";
-import FocusBlurText from "./ui/FocusBlurText";
-import { CyberDecoderText, TEXT_ANIM_STYLES } from "./ui/TextAnimation";
-import AnimatedProfileStack from "./ui/AnimatedProfileStack";
+import ExpandingSearch from "./ui/animations/ExpandingSearch";
+import { CosmicThemeSwitch, FLUID_SWITCH_STYLES } from "./ui/animations/FluidSwitch";
+import InteractiveTimeline from "./ui/animations/InteractiveTimeline";
+import FocusBlurText from "./ui/animations/FocusBlurText";
+import { CyberDecoderText, TEXT_ANIM_STYLES } from "./ui/animations/TextAnimation";
+import AnimatedProfileStack from "./ui/animations/AnimatedProfileStack";
 
 const SHOWCASE_STYLES = `
 /* ── SHOWCASE GRID PREMIUM SYSTEM ── */

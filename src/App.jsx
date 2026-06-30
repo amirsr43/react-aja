@@ -4,7 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import Docs from "./pages/Docs";
-import LoadingScreen from "./components/ui/LoadingScreen";
+import LoadingScreen from "./components/ui/animations/LoadingScreen";
 
 function AppContent() {
   const location = useLocation();

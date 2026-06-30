@@ -30,13 +30,15 @@ export function SkeletonLoader() {
   );
 }
 
-// 2. Cosmic Aura Spinner
+// 2. Concentric Gyroscope Spinner
 export function AuraSpinner() {
   return (
-    <div className="spinner-container">
-      <div className="spinner-ambient-glow" />
-      <div className="spinner-track" />
-      <span className="spinner-label">Loading Dashboard...</span>
+    <div className="gyro-container">
+      <div className="gyro-loader">
+        <div className="gyro-ring ring-1" />
+        <div className="gyro-ring ring-2" />
+        <div className="gyro-core" />
+      </div>
     </div>
   );
 }`,
@@ -77,29 +79,32 @@ export function SkeletonLoader() {
   );
 }
 
-// 2. Cosmic Aura Spinner
+// 2. Concentric Gyroscope Spinner
 export function AuraSpinner() {
   return (
-    <div className="flex flex-col items-center justify-center relative">
+    <div className="flex flex-col items-center justify-center relative p-5">
       <style>{\`
-        @keyframes spin {
+        @keyframes spin-clockwise {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
-        @keyframes pulse-glow {
-          0%, 100% { transform: scale(1); opacity: 0.7; }
-          50% { transform: scale(1.15); opacity: 1; }
+        @keyframes spin-counter {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
         }
-        .spin-anim {
-          animation: spin 1s infinite linear;
+        @keyframes core-pulse {
+          0%, 100% { transform: scale(0.9); opacity: 0.8; }
+          50% { transform: scale(1.1); opacity: 1; }
         }
-        .pulse-anim {
-          animation: pulse-glow 2s infinite ease-in-out;
-        }
+        .spin-cw { animation: spin-clockwise 1.6s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8); }
+        .spin-ccw { animation: spin-counter 1.2s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8); }
+        .pulse-core { animation: core-pulse 1.5s infinite ease-in-out; }
       \`}</style>
-      <div className="absolute w-20 h-20 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-transparent blur-md -z-10 pulse-anim" />
-      <div className="w-20 h-20 rounded-full border-4 border-white/5 border-t-blue-500 border-r-purple-500 spin-anim shadow-[0_0_15px_rgba(59,130,246,0.2)]" />
-      <span className="mt-4 text-xs font-semibold text-white/70 tracking-widest uppercase">Loading Dashboard...</span>
+      <div className="relative w-[80px] h-[80px] flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-violet-400 border-b-violet-400/15 spin-cw" />
+        <div className="absolute w-[50px] h-[50px] rounded-full border-2 border-transparent border-l-violet-400/50 border-r-violet-400/10 spin-ccw" />
+        <div className="absolute w-3.5 h-3.5 rounded-full bg-violet-400 shadow-[0_0_20px_rgba(167,139,250,0.6)] pulse-core" />
+      </div>
     </div>
   );
 }`
@@ -132,13 +137,15 @@ export function SkeletonLoader(): React.JSX.Element {
   );
 }
 
-// 2. Cosmic Aura Spinner
+// 2. Concentric Gyroscope Spinner
 export function AuraSpinner(): React.JSX.Element {
   return (
-    <div className="spinner-container">
-      <div className="spinner-ambient-glow" />
-      <div className="spinner-track" />
-      <span className="spinner-label">Loading Dashboard...</span>
+    <div className="gyro-container">
+      <div className="gyro-loader">
+        <div className="gyro-ring ring-1" />
+        <div className="gyro-ring ring-2" />
+        <div className="gyro-core" />
+      </div>
     </div>
   );
 }`,
@@ -179,29 +186,32 @@ export function SkeletonLoader(): React.JSX.Element {
   );
 }
 
-// 2. Cosmic Aura Spinner
+// 2. Concentric Gyroscope Spinner
 export function AuraSpinner(): React.JSX.Element {
   return (
-    <div className="flex flex-col items-center justify-center relative">
+    <div className="flex flex-col items-center justify-center relative p-5">
       <style>{\`
-        @keyframes spin {
+        @keyframes spin-clockwise {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
-        @keyframes pulse-glow {
-          0%, 100% { transform: scale(1); opacity: 0.7; }
-          50% { transform: scale(1.15); opacity: 1; }
+        @keyframes spin-counter {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
         }
-        .spin-anim {
-          animation: spin 1s infinite linear;
+        @keyframes core-pulse {
+          0%, 100% { transform: scale(0.9); opacity: 0.8; }
+          50% { transform: scale(1.1); opacity: 1; }
         }
-        .pulse-anim {
-          animation: pulse-glow 2s infinite ease-in-out;
-        }
+        .spin-cw { animation: spin-clockwise 1.6s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8); }
+        .spin-ccw { animation: spin-counter 1.2s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8); }
+        .pulse-core { animation: core-pulse 1.5s infinite ease-in-out; }
       \`}</style>
-      <div className="absolute w-20 h-20 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-transparent blur-md -z-10 pulse-anim" />
-      <div className="w-20 h-20 rounded-full border-4 border-white/5 border-t-blue-500 border-r-purple-500 spin-anim shadow-[0_0_15px_rgba(59,130,246,0.2)]" />
-      <span className="mt-4 text-xs font-semibold text-white/70 tracking-widest uppercase">Loading Dashboard...</span>
+      <div className="relative w-[80px] h-[80px] flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-violet-400 border-b-violet-400/15 spin-cw" />
+        <div className="absolute w-[50px] h-[50px] rounded-full border-2 border-transparent border-l-violet-400/50 border-r-violet-400/10 spin-ccw" />
+        <div className="absolute w-3.5 h-3.5 rounded-full bg-violet-400 shadow-[0_0_20px_rgba(167,139,250,0.6)] pulse-core" />
+      </div>
     </div>
   );
 }`
@@ -271,52 +281,75 @@ export function AuraSpinner(): React.JSX.Element {
   border-radius: 8px;
 }
 
-/* Spinner Custom Track Styles */
-.spinner-container {
+/* Concentric Gyroscope Spinner (Minimalist Violet Theme) */
+.gyro-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 20px;
   position: relative;
 }
 
-.spinner-track {
+.gyro-loader {
+  position: relative;
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.03);
-  border-top-color: #3b82f6;
-  border-right-color: #8b5cf6;
-  animation: spin 1s infinite linear;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes spin {
+.gyro-core {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+  animation: core-pulse 1.5s infinite ease-in-out;
+  position: absolute;
+}
+
+@keyframes core-pulse {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.gyro-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.gyro-ring.ring-1 {
+  width: 70px;
+  height: 70px;
+  border-top-color: #a78bfa;
+  border-bottom-color: rgba(167, 139, 250, 0.15);
+  animation: spin-clockwise 1.6s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8);
+}
+
+.gyro-ring.ring-2 {
+  width: 50px;
+  height: 50px;
+  border-left-color: rgba(167, 139, 250, 0.5);
+  border-right-color: rgba(167, 139, 250, 0.1);
+  animation: spin-counter 1.2s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8);
+}
+
+@keyframes spin-clockwise {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-.spinner-ambient-glow {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 70%);
-  filter: blur(8px);
-  z-index: -1;
-  animation: pulse-glow 2s infinite ease-in-out;
-}
-
-@keyframes pulse-glow {
-  0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
-
-.spinner-label {
-  margin-top: 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+@keyframes spin-counter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
 }`
 };

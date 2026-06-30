@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Copy, Check, Trash2 } from "lucide-react";
-import ProfileCard from "../ui/ProfileCard";
+import ProfileCard from "../ui/components/ProfileCard";
 import { docsData } from "../../data/docsData";
 
 const THEME_PRESETS = [

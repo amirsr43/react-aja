@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Zap, ArrowRight, Code, Sparkles } from "lucide-react";
 
 // Import some light floating preview components
-import { CosmicThemeSwitch } from "./ui/FluidSwitch";
-import AnimatedProfileStack from "./ui/AnimatedProfileStack";
+import { CosmicThemeSwitch } from "./ui/animations/FluidSwitch";
+import AnimatedProfileStack from "./ui/animations/AnimatedProfileStack";
 
 const words = ["UI Components", "Animations", "Tailwind CSS", "Vanilla CSS"];
 

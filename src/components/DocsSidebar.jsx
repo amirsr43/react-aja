@@ -45,7 +45,19 @@ const DocsSidebar = ({ onClose }) => {
 
         {docsCategories.map((category, catIdx) => (
           <div key={catIdx} className="sidebar-group">
-            <h4 className="sidebar-group-title">{category.title}</h4>
+            <h4 className="sidebar-group-title">
+              {category.id ? (
+                <Link
+                  to={`/docs/${category.id}`}
+                  onClick={onClose}
+                  className={`sidebar-category-link ${currentId === category.id ? "active" : ""}`}
+                >
+                  {category.title}
+                </Link>
+              ) : (
+                category.title
+              )}
+            </h4>
             <ul className="sidebar-links-list">
               {category.items.map((item) => {
                 const isActive = currentId === item.id;
@@ -138,6 +150,24 @@ const DocsSidebar = ({ onClose }) => {
           font-weight: 650;
           background: rgba(255, 255, 255, 0.03);
           border-left-color: #ffffff;
+        }
+
+        .sidebar-category-link {
+          color: #ffffff;
+          text-decoration: none;
+          opacity: 0.95;
+          transition: all 0.2s ease;
+          display: inline-block;
+          width: 100%;
+        }
+
+        .sidebar-category-link:hover {
+          color: #a78bfa;
+        }
+
+        .sidebar-category-link.active {
+          color: #a78bfa;
+          font-weight: 750;
         }
       `}</style>
     </aside>

@@ -48,6 +48,15 @@ const Docs = () => {
 
   const currentDoc = docsData[activeId];
 
+  // Resolve active language (fallback to js if ts code is not provided)
+  const activeLang = (currentDoc && currentDoc.code && typeof currentDoc.code === "object" && currentDoc.code[langType]) 
+    ? langType 
+    : "js";
+    
+  const activeCodeGroup = (currentDoc && typeof currentDoc.code === "object")
+    ? (currentDoc.code[activeLang] || {})
+    : {};
+
   // Dynamic SEO Title and Description
   useEffect(() => {
     if (currentDoc) {
@@ -226,27 +235,30 @@ const Docs = () => {
                         cloneElement(currentDoc.preview, {}, 
                           cloneElement(currentDoc.preview.props.children, {
                             onSearch: (label) => {
-                              const mapping = {
-                                "Introduction": "introduction",
-                                "Installation": "installation",
-                                "Button": "button",
-                                "Profile Card": "profile-card",
-                                "Loading Indicators": "loading",
-                                "Modern Form": "form",
-                                "Product Card": "product-card",
-                                "Toast Notifications": "toast-notification",
-                                "Interactive SearchBar": "search-bar",
-                                "Magnetic Slider": "magnetic-slider",
-                                "Animated Profile Stack": "profile-stack",
-                                "Interactive Timeline": "interactive-timeline",
-                                "Glowing Outline Button": "glowing-button",
-                                "Interactive Fluid Switch": "fluid-switch",
-                                "Text Animation": "text-animation",
-                                "Spotlight Focus Blur": "focus-blur-text",
-                                "Expanding Search Bar": "expanding-search"
-                              };
-                              const id = mapping[label] || label.toLowerCase().replace(/\s+/g, "-");
-                              navigate(`/docs/${id}`);
+                                const mapping = {
+                                  "Introduction": "introduction",
+                                  "Installation": "installation",
+                                  "Button": "button",
+                                  "Profile Card": "profile-card",
+                                  "Loading Indicators": "loading",
+                                  "Modern Form": "form",
+                                  "Product Card": "product-card",
+                                  "Toast Notifications": "toast-notification",
+                                  "Interactive SearchBar": "search-bar",
+                                  "Magnetic Slider": "magnetic-slider",
+                                  "Animated Profile Stack": "profile-stack",
+                                  "Interactive Timeline": "interactive-timeline",
+                                  "Glowing Outline Button": "glowing-button",
+                                  "Interactive Fluid Switch": "fluid-switch",
+                                  "Text Animation": "text-animation",
+                                  "Spotlight Focus Blur": "focus-blur-text",
+                                  "Expanding Search Bar": "expanding-search",
+                                  "SVG to JSX": "svg-to-jsx",
+                                  "Theme Generator": "theme-generator",
+                                  "Px to Rem Spacing": "px-to-rem"
+                                };
+                                const id = mapping[label] || label.toLowerCase().replace(/\s+/g, "-");
+                                navigate(`/docs/${id}`);
                             }
                           })
                         )
@@ -263,16 +275,18 @@ const Docs = () => {
                               <div className="selector-buttons">
                                 <button
                                   onClick={() => setLangType("js")}
-                                  className={`selector-btn ${langType === "js" ? "active" : ""}`}
+                                  className={`selector-btn ${activeLang === "js" ? "active" : ""}`}
                                 >
                                   JS
                                 </button>
-                                <button
-                                  onClick={() => setLangType("ts")}
-                                  className={`selector-btn ${langType === "ts" ? "active" : ""}`}
-                                >
-                                  TS
-                                </button>
+                                {currentDoc.code && currentDoc.code.ts && (
+                                  <button
+                                    onClick={() => setLangType("ts")}
+                                    className={`selector-btn ${activeLang === "ts" ? "active" : ""}`}
+                                  >
+                                    TS
+                                  </button>
+                                )}
                               </div>
                             </div>
 
@@ -297,9 +311,9 @@ const Docs = () => {
 
                           {/* Component Code Section */}
                           <div className="code-section-header">
-                            <span className="section-title">Component Code ({langType.toUpperCase()})</span>
+                            <span className="section-title">Component Code ({activeLang.toUpperCase()})</span>
                             <button
-                              onClick={() => handleCopyCode(currentDoc.code[langType][styleType])}
+                              onClick={() => handleCopyCode(activeCodeGroup[styleType] || "")}
                               className="docs-copy-source-btn"
                             >
                               {copiedCode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
@@ -307,7 +321,7 @@ const Docs = () => {
                             </button>
                           </div>
                           <pre className="code-pre-element">
-                            <code>{currentDoc.code[langType][styleType]}</code>
+                            <code>{activeCodeGroup[styleType] || ""}</code>
                           </pre>
 
                           {/* CSS Section (Only show if styleType === 'css') */}
@@ -1116,6 +1130,14 @@ const DocVariantBlock = ({
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedCSS, setCopiedCSS] = useState(false);
 
+  const activeLang = (variant && variant.code && typeof variant.code === "object" && variant.code[langType]) 
+    ? langType 
+    : "js";
+
+  const activeCodeGroup = (variant && typeof variant.code === "object")
+    ? (variant.code[activeLang] || {})
+    : {};
+
   const onCopyCode = (codeText) => {
     if (!codeText) return;
     navigator.clipboard.writeText(codeText);
@@ -1212,16 +1234,18 @@ const DocVariantBlock = ({
                     <div className="selector-buttons">
                       <button
                         onClick={() => setLangType("js")}
-                        className={`selector-btn ${langType === "js" ? "active" : ""}`}
+                        className={`selector-btn ${activeLang === "js" ? "active" : ""}`}
                       >
                         JS
                       </button>
-                      <button
-                        onClick={() => setLangType("ts")}
-                        className={`selector-btn ${langType === "ts" ? "active" : ""}`}
-                      >
-                        TS
-                      </button>
+                      {variant.code && variant.code.ts && (
+                        <button
+                          onClick={() => setLangType("ts")}
+                          className={`selector-btn ${activeLang === "ts" ? "active" : ""}`}
+                        >
+                          TS
+                        </button>
+                      )}
                     </div>
                   </div>
 
@@ -1245,9 +1269,9 @@ const DocVariantBlock = ({
                 </div>
 
                 <div className="code-section-header">
-                  <span className="section-title">Component Code ({langType.toUpperCase()})</span>
+                  <span className="section-title">Component Code ({activeLang.toUpperCase()})</span>
                   <button
-                    onClick={() => onCopyCode(variant.code[langType][styleType])}
+                    onClick={() => onCopyCode(activeCodeGroup[styleType] || "")}
                     className="docs-copy-source-btn"
                   >
                     {copiedCode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
@@ -1255,7 +1279,7 @@ const DocVariantBlock = ({
                   </button>
                 </div>
                 <pre className="code-pre-element">
-                  <code>{variant.code[langType][styleType]}</code>
+                  <code>{activeCodeGroup[styleType] || ""}</code>
                 </pre>
 
                 {styleType === "css" && variant.css && (

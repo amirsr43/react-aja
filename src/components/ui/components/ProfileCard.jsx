@@ -1,7 +1,7 @@
 // src/components/ui/ProfileCard.jsx
 import React, { useState } from "react";
 
-const defaultProfileImg = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80";
+const defaultProfileImg = "https://i.pinimg.com/736x/26/b2/08/26b20833119002e53675a9a7d545c60d.jpg";
 
 export default function ProfileCard({
   image = defaultProfileImg,

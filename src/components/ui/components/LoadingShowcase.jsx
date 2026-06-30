@@ -101,8 +101,9 @@ const LOADING_STYLES = `
   border-radius: 8px;
 }
 
-/* Spinner Custom Track */
-.spinner-container {
+/* Concentric Gyroscope Spinner */
+/* Concentric Gyroscope Spinner (Minimalist Violet Theme) */
+.gyro-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,55 +112,66 @@ const LOADING_STYLES = `
   position: relative;
 }
 
-.spinner-track {
+.gyro-loader {
+  position: relative;
   width: 80px;
   height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gyro-core {
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.03);
-  border-top-color: #3b82f6;
-  border-right-color: #8b5cf6;
-  animation: spin 1s infinite linear;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.spinner-ambient-glow {
+  background: #a78bfa;
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+  animation: core-pulse 1.5s infinite ease-in-out;
   position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 70%);
-  filter: blur(8px);
-  z-index: -1;
-  animation: pulse-glow 2s infinite ease-in-out;
 }
 
-@keyframes pulse-glow {
+@keyframes core-pulse {
   0%, 100% {
-    transform: scale(1);
-    opacity: 0.7;
+    transform: scale(0.9);
+    opacity: 0.8;
   }
   50% {
-    transform: scale(1.15);
+    transform: scale(1.1);
     opacity: 1;
   }
 }
 
-.spinner-label {
-  margin-top: 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.gyro-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.gyro-ring.ring-1 {
+  width: 70px;
+  height: 70px;
+  border-top-color: #a78bfa;
+  border-bottom-color: rgba(167, 139, 250, 0.15);
+  animation: spin-clockwise 1.6s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8);
+}
+
+.gyro-ring.ring-2 {
+  width: 50px;
+  height: 50px;
+  border-left-color: rgba(167, 139, 250, 0.5);
+  border-right-color: rgba(167, 139, 250, 0.1);
+  animation: spin-counter 1.2s infinite cubic-bezier(0.5, 0.2, 0.3, 0.8);
+}
+
+@keyframes spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-counter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
 }
 `;
 
@@ -187,10 +199,12 @@ export function SkeletonLoader() {
 
 export function AuraSpinner() {
   return (
-    <div className="spinner-container">
-      <div className="spinner-ambient-glow" />
-      <div className="spinner-track" />
-      <span className="spinner-label">Loading Dashboard...</span>
+    <div className="gyro-container">
+      <div className="gyro-loader">
+        <div className="gyro-ring ring-1" />
+        <div className="gyro-ring ring-2" />
+        <div className="gyro-core" />
+      </div>
     </div>
   );
 }
