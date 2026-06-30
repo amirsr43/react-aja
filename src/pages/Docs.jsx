@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GlobalStyles from "../styles/GlobalStyles";
 import ProfileCardCustomizer from "../components/docs/ProfileCardCustomizer";
+import GradientSweepCustomizer from "../components/docs/GradientSweepCustomizer";
 
 const Docs = () => {
   const { docId } = useParams();
@@ -163,6 +164,8 @@ const Docs = () => {
               </div>
             ) : activeId === "profile-card" ? (
               <ProfileCardCustomizer />
+            ) : activeId === "gradient-sweep-text" ? (
+              <GradientSweepCustomizer />
             ) : currentDoc.variants ? (
               // Renders a list of component variants vertically down the page
               <div className="docs-variants-list" style={{ display: "flex", flexDirection: "column", gap: "40px" }}>

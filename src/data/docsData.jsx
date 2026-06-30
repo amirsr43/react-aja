@@ -46,7 +46,13 @@ export const docsCategories = [
       { id: "fluid-switch", name: "Interactive Fluid Switch" },
       { id: "text-animation", name: "Text Animation" },
       { id: "focus-blur-text", name: "Spotlight Focus Blur" },
-      { id: "expanding-search", name: "Expanding Search Bar" }
+      { id: "expanding-search", name: "Expanding Search Bar" },
+      { id: "masked-slide-text", name: "Masked Slide-Up Text" },
+      { id: "cinematic-blur-text", name: "Cinematic Blur Reveal" },
+      { id: "hero-word-swapper", name: "Hero Word Swapper" },
+      { id: "double-hover-text", name: "Double-Layer Hover" },
+      { id: "gradient-sweep-text", name: "Gradient Sweep Reveal" },
+      { id: "interactive-3d-text", name: "Interactive 3D Letters" }
     ]
   },
   {

@@ -23,6 +23,18 @@ import FocusBlurText from "../../components/ui/animations/FocusBlurText";
 import { focusBlurTextCode } from "../codes/focusBlurText";
 import ExpandingSearch from "../../components/ui/animations/ExpandingSearch";
 import { expandingSearchCode } from "../codes/expandingSearch";
+import MaskedSlideText from "../../components/ui/animations/MaskedSlideText";
+import { maskedSlideTextCode } from "../codes/maskedSlideText";
+import CinematicBlurText from "../../components/ui/animations/CinematicBlurText";
+import { cinematicBlurTextCode } from "../codes/cinematicBlurText";
+import HeroWordSwapper from "../../components/ui/animations/HeroWordSwapper";
+import { heroWordSwapperCode } from "../codes/heroWordSwapper";
+import DoubleHoverText from "../../components/ui/animations/DoubleHoverText";
+import { doubleHoverTextCode } from "../codes/doubleHoverText";
+import GradientSweepText from "../../components/ui/animations/GradientSweepText";
+import { gradientSweepTextCode } from "../codes/gradientSweepText";
+import Interactive3DText from "../../components/ui/animations/Interactive3DText";
+import { interactive3DTextCode } from "../codes/interactive3DText";
 
 import { Link } from "react-router-dom";
 import { ToggleLeft, Users, Calendar, Sparkles, Sliders, Type, Binary, MessageSquare, Eye, Search, ArrowRight, Layers } from "lucide-react";
@@ -74,6 +86,12 @@ export const animationsDocs = {
             { id: "floating-spring", name: "Floating Spring Text", desc: "Staggered interactive floating letters with spring neon transitions.", icon: <MessageSquare size={20} /> },
             { id: "focus-blur-text", name: "Spotlight Focus Blur", desc: "Magnifying lens effect sharpening blurred backdrop text under cursor.", icon: <Eye size={20} /> },
             { id: "expanding-search", name: "Expanding Search Bar", desc: "Spring-loaded search pill expanding from a search icon on hover/click.", icon: <Search size={20} /> },
+            { id: "masked-slide-text", name: "Masked Slide-Up Text", desc: "Elegant word slide-up reveal from an overflow mask, perfect for clean portfolio titles.", icon: <Type size={20} /> },
+            { id: "cinematic-blur-text", name: "Cinematic Blur Reveal", desc: "Atmospheric letter fade-in with a transitioning blur-to-sharp effect for headers.", icon: <Eye size={20} /> },
+            { id: "hero-word-swapper", name: "Hero Word Swapper", desc: "Sleek vertical word swapper for dynamic tagline rotation in hero sections.", icon: <Sliders size={20} /> },
+            { id: "double-hover-text", name: "Double-Layer Hover Slide", desc: "Satisfying hover slide duplicate copy text shift for premium navigation items.", icon: <ArrowRight size={20} /> },
+            { id: "gradient-sweep-text", name: "Gradient Sweep Reveal", desc: "A colorful gradient sweeps over the text to fill it from left to right on load.", icon: <Sparkles size={20} /> },
+            { id: "interactive-3d-text", name: "Interactive 3D Letters", desc: "Tactile, glossy 3D letters with spring tilts and custom coloring on hover.", icon: <Sparkles size={20} /> },
           ].map((item) => (
             <Link to={`/docs/${item.id}`} key={item.id} className="category-card">
               <div className="category-card-icon" style={{
@@ -387,5 +405,133 @@ export const animationsDocs = {
       { name: "className", type: "string", default: '""', description: "Additional CSS class for the root wrapper element." }
     ],
     dependencies: ["framer-motion", "lucide-react"]
+  },
+  "masked-slide-text": {
+    id: "masked-slide-text",
+    title: "Masked Slide-Up Text",
+    description: "An elegant editorial-style reveal animation that slides words up from an overflow-hidden mask. Extremely popular in agency portfolios and modern brand websites.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "40px 20px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", fontSize: "36px", fontWeight: "700", letterSpacing: "-0.02em" }}>
+        <MaskedSlideText text="We design digital experiences that scale." />
+      </div>
+    ),
+    code: maskedSlideTextCode.code,
+    css: maskedSlideTextCode.css,
+    prompt: "Create a masked text reveal animation in React using Framer Motion. Split the text into words and animate them translating vertically from 100% to 0% with custom cubic-bezier transitions when they enter the viewport.",
+    props: [
+      { name: "text", type: "string", default: '"Sleek Editorial Text Animation"', description: "The text string to animate." },
+      { name: "once", type: "boolean", default: "true", description: "Whether to trigger the animation only once when scrolling into view." },
+      { name: "showReplay", type: "boolean", default: "true", description: "Whether to render a button to replay the animation." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+  "cinematic-blur-text": {
+    id: "cinematic-blur-text",
+    title: "Cinematic Blur Reveal",
+    description: "A soft, atmospheric text reveal that staggers individual letters, fading and de-blurring them sequentially. Ideal for hero headings in minimalist portfolios.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "40px 20px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", fontSize: "32px", fontWeight: "600", letterSpacing: "-0.01em", color: "#e2e8f0" }}>
+        <CinematicBlurText text="A quiet revolution in digital craft." />
+      </div>
+    ),
+    code: cinematicBlurTextCode.code,
+    css: cinematicBlurTextCode.css,
+    prompt: "Create a cinematic staggered text reveal in React using Framer Motion. Text characters fade in and de-blur sequentially using opacity, blur filter, and y-translation animation on scroll/load.",
+    props: [
+      { name: "text", type: "string", default: '"Atmospheric Cinematic Blur"', description: "The text string to animate." },
+      { name: "once", type: "boolean", default: "true", description: "Whether to trigger the animation only once when scrolling into view." },
+      { name: "showReplay", type: "boolean", default: "true", description: "Whether to render a button to replay the animation." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+  "hero-word-swapper": {
+    id: "hero-word-swapper",
+    title: "Hero Word Swapper",
+    description: "A smooth, professional vertical keyword cycler designed for hero taglines and intro sentences on company profile landing pages.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "40px 20px", display: "flex", justifyContent: "center", alignItems: "center", width: "100%", background: "#050505", fontSize: "28px", fontWeight: "600", gap: "8px" }}>
+        <span style={{ color: "rgba(255,255,255,0.6)" }}>We deliver</span>
+        <HeroWordSwapper words={["Performance", "Aesthetics", "Scalability", "Reliability"]} interval={2500} className="text-purple-400 font-bold" />
+      </div>
+    ),
+    code: heroWordSwapperCode.code,
+    css: heroWordSwapperCode.css,
+    prompt: "Create an auto-playing vertical word swapper inside a sentence in React. Use Framer Motion's AnimatePresence mode='wait' to cycle words with smooth vertical sliding and fade transitions.",
+    props: [
+      { name: "words", type: "array", default: '["Experiences", "Interfaces", "Platforms", "Solutions"]', description: "List of string words to cycle through." },
+      { name: "interval", type: "number", default: "3000", description: "Duration in milliseconds for showing each word." },
+      { name: "className", type: "string", default: '""', description: "Additional CSS class names for styling the swapper element." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+  "double-hover-text": {
+    id: "double-hover-text",
+    title: "Double-Layer Hover Slide",
+    description: "A premium hover interaction for navigation menus, buttons, and footers. The text slides up and out of view while a duplicated version slides up into view in an accent color.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "40px 20px", display: "flex", justifyContent: "center", alignItems: "center", width: "100%", background: "#050505", fontSize: "22px", fontWeight: "600" }}>
+        <DoubleHoverText text="EXPLORE PORTFOLIO" />
+      </div>
+    ),
+    code: doubleHoverTextCode.code,
+    css: doubleHoverTextCode.css,
+    prompt: "Create a dual-layer hover slide-up navigation link in React using Framer Motion. On hover, the primary text slides up and out of view, and a cloned styled copy slides up into view from the bottom.",
+    props: [
+      { name: "text", type: "string", default: '"Hover Me"', description: "The link or button text label." },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+  "gradient-sweep-text": {
+    id: "gradient-sweep-text",
+    title: "Gradient Sweep Reveal",
+    description: "A premium typographic entrance animation where a colorful gradient sweeps across the text to reveal and fill it from left to right, creating a sleek, premium brand look.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "40px 20px", display: "flex", justifyContent: "center", alignItems: "center", width: "100%", background: "#050505", fontSize: "36px", fontWeight: "800", letterSpacing: "-0.02em" }}>
+        <GradientSweepText text="Crafting Digital Aesthetics" />
+      </div>
+    ),
+    code: gradientSweepTextCode.code,
+    css: gradientSweepTextCode.css,
+    prompt: "Create a gradient sweep text reveal in React using Framer Motion. Text should start with a transparent fill showing a muted color/border background, then slide in background-position to fill with a vibrant gradient from left to right.",
+    props: [
+      { name: "text", type: "string", default: '"Premium Gradient Sweep Reveal"', description: "The text content to render and animate." },
+      { name: "once", type: "boolean", default: "true", description: "Whether to animate only once when entering viewport." },
+      { name: "showReplay", type: "boolean", default: "true", description: "Whether to render a button to replay the animation." },
+      { name: "colors", type: "array", default: '["#a78bfa", "#ec4899"]', description: "Array of color strings to use for the sweep gradient." },
+      { name: "baseColor", type: "string", default: '"rgba(255, 255, 255, 0.15)"', description: "CSS color for the un-highlighted text state." },
+      { name: "duration", type: "number", default: "1.2", description: "Animation duration in seconds (larger is slower)." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+  "interactive-3d-text": {
+    id: "interactive-3d-text",
+    title: "Interactive 3D Letters",
+    description: "Glossy, jelly-like 3D display text where individual letters bounce and tilt in 3D perspective using physics-based springs and mouse position tracking.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ width: "100%" }}>
+        <Interactive3DText text="LOOP" />
+      </div>
+    ),
+    code: interactive3DTextCode.code,
+    css: interactive3DTextCode.css,
+    prompt: "Create a glossy 3D typographic hover block in React using Framer Motion. Separate the word into letters and track the cursor position on each to dynamically map rotateX, rotateY, and translateZ values on spring physics.",
+    props: [
+      { name: "text", type: "string", default: '"LOOP"', description: "The word to display and animate." },
+      { name: "colors", type: "array", default: "/* Alternating purple/pink themes */", description: "Array of color definition objects ({ gradient, depthGradient, depth, glow }) for each letter." }
+    ],
+    dependencies: ["framer-motion"]
   }
 };
