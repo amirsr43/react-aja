@@ -185,8 +185,10 @@ export function ExpandingSearch({
           className="exp-search-icon-btn"
           tabIndex={-1}
           onClick={isExpanded ? undefined : handleExpand}
+          aria-label="Search"
+          type="button"
         >
-          <Search size={18} strokeWidth={2.2} />
+          <Search size={18} strokeWidth={2.2} aria-hidden="true" />
         </button>
 
         {/* Input field */}

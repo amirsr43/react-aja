@@ -227,7 +227,7 @@ const Navbar = () => {
                 e.currentTarget.style.borderColor = "var(--border)";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
-               aria-hidden="true"
+              aria-label="GitHub Repository"
             >
               <FaGithub size={14} aria-hidden="true" />
               <span>GitHub</span>

@@ -26,6 +26,8 @@ const ScrollToTop = () => {
           whileTap={{ scale: 0.92 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           title="Scroll to top"
+          aria-label="Scroll to top"
+          type="button"
           style={{
             position: "fixed",
             bottom: "28px",
