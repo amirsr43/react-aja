@@ -28,12 +28,24 @@ const GlobalStyles = () => (
 
     body {
       margin: 0;
-      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       transition: background 0.3s ease, color 0.3s ease;
       position: relative;
       overflow-x: hidden;
+    }
+
+    /* Accessible keyboard focus ring — visible only when using keyboard */
+    :focus-visible {
+      outline: 2px solid rgba(167, 139, 250, 0.8);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Remove focus ring for mouse users */
+    :focus:not(:focus-visible) {
+      outline: none;
     }
 
     /* Radial glow background */

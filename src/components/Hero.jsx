@@ -27,14 +27,14 @@ const Hero = () => {
   };
 
   return (
-    <section className="hero-section">
-      {/* Abstract Dotted Grid Background */}
-      <div className="hero-dot-grid" />
+    <section className="hero-section" aria-label="Hero section">
+      {/* Abstract Dotted Grid Background — decorative, hidden from screen readers */}
+      <div className="hero-dot-grid" aria-hidden="true" />
       
-      {/* Background Soft Glow Blobs */}
-      <div className="hero-glow-blob-1" />
-      <div className="hero-glow-blob-2" />
-      <div className="hero-glow-blob-3" />
+      {/* Background Soft Glow Blobs — decorative */}
+      <div className="hero-glow-blob-1" aria-hidden="true" />
+      <div className="hero-glow-blob-2" aria-hidden="true" />
+      <div className="hero-glow-blob-3" aria-hidden="true" />
 
       <div className="hero-container">
         {/* Left Column: Text & CTA */}
@@ -97,16 +97,18 @@ const Hero = () => {
             <button 
               onClick={handleStart}
               className="cta-button primary"
+              aria-label="Explore React components library"
             >
               Explore Components
-              <ArrowRight size={16} />
+              <ArrowRight size={16} aria-hidden="true" />
             </button>
             
             <button 
               onClick={() => navigate("/docs/installation")}
               className="cta-button secondary"
+              aria-label="View installation and setup guide"
             >
-              <Code size={16} />
+              <Code size={16} aria-hidden="true" />
               Setup Guide
             </button>
           </motion.div>
@@ -233,7 +235,7 @@ const Hero = () => {
           z-index: 1;
         }
 
-        /* Floating Aurora Gradient Blobs */
+        /* Floating Aurora Gradient Blobs — GPU-composited via will-change */
         .hero-glow-blob-1 {
           position: absolute;
           top: -10%;
@@ -244,6 +246,8 @@ const Hero = () => {
           filter: blur(80px);
           pointer-events: none;
           z-index: 0;
+          will-change: transform;
+          contain: layout style paint;
           animation: hero-blob-anim-1 16s infinite alternate ease-in-out;
         }
 
@@ -257,6 +261,8 @@ const Hero = () => {
           filter: blur(80px);
           pointer-events: none;
           z-index: 0;
+          will-change: transform;
+          contain: layout style paint;
           animation: hero-blob-anim-2 20s infinite alternate ease-in-out;
         }
 
@@ -270,6 +276,8 @@ const Hero = () => {
           filter: blur(60px);
           pointer-events: none;
           z-index: 0;
+          will-change: transform;
+          contain: layout style paint;
           animation: hero-blob-anim-1 12s infinite alternate-reverse ease-in-out;
         }
 

@@ -134,6 +134,7 @@ const Docs = () => {
                     <button 
                       onClick={() => setMobileMenuOpen(false)}
                       className="drawer-close-btn"
+                      aria-label="Close navigation menu"
                     >
                       <X size={18} />
                     </button>
@@ -154,7 +155,7 @@ const Docs = () => {
               <p className="docs-description">{currentDoc.description}</p>
             </header>
 
-            <div className="docs-content-divider" />
+            <div className="docs-content-divider" aria-hidden="true" />
 
             {/* Render details */}
             {currentDoc.isGuide ? (
@@ -186,16 +187,24 @@ const Docs = () => {
                 
                 {/* Tab Controls */}
                 <div className="docs-tabs-header">
-                  <div className="docs-tabs-triggers">
+                  <div className="docs-tabs-triggers" role="tablist" aria-label="Component view options">
                     <button 
                       onClick={() => setActiveTab("preview")}
                       className={`docs-tab-trigger ${activeTab === "preview" ? "active" : ""}`}
+                      role="tab"
+                      aria-selected={activeTab === "preview"}
+                      aria-controls="tab-panel-preview"
+                      id="tab-preview"
                     >
                       Preview
                     </button>
                     <button 
                       onClick={() => setActiveTab("code")}
                       className={`docs-tab-trigger ${activeTab === "code" ? "active" : ""}`}
+                      role="tab"
+                      aria-selected={activeTab === "code"}
+                      aria-controls="tab-panel-code"
+                      id="tab-code"
                     >
                       Source Code
                     </button>
@@ -203,6 +212,10 @@ const Docs = () => {
                       <button 
                         onClick={() => setActiveTab("prompt")}
                         className={`docs-tab-trigger ${activeTab === "prompt" ? "active" : ""}`}
+                        role="tab"
+                        aria-selected={activeTab === "prompt"}
+                        aria-controls="tab-panel-prompt"
+                        id="tab-prompt"
                       >
                         AI Prompt
                       </button>
@@ -213,6 +226,7 @@ const Docs = () => {
                     <button 
                       onClick={() => handleCopyCode(currentDoc.code)}
                       className="docs-copy-source-btn"
+                      aria-label={copiedCode ? "Code copied to clipboard" : "Copy source code"}
                     >
                       {copiedCode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
                       <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
@@ -223,6 +237,7 @@ const Docs = () => {
                     <button 
                       onClick={() => handleCopyCode(currentDoc.prompt)}
                       className="docs-copy-source-btn"
+                      aria-label={copiedCode ? "Prompt copied to clipboard" : "Copy AI prompt"}
                     >
                       {copiedCode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
                       <span>{copiedCode ? "Copied!" : "Copy Prompt"}</span>
@@ -231,7 +246,12 @@ const Docs = () => {
                 </div>
 
                 {/* Tab Content Display */}
-                <div className="docs-tabs-content">
+                <div
+                  className="docs-tabs-content"
+                  role="tabpanel"
+                  id={`tab-panel-${activeTab}`}
+                  aria-labelledby={`tab-${activeTab}`}
+                >
                   {activeTab === "preview" ? (
                     <div className="tab-preview-pane">
                       {activeId === "expanding-search" ? (

@@ -106,6 +106,8 @@ const Navbar = () => {
     <>
       <nav
         className="navbar-root"
+        role="navigation"
+        aria-label="Main navigation"
         style={{
           position: "fixed",
           top: isMobile ? "16px" : (scrolled ? "16px" : "0px"),
@@ -225,8 +227,9 @@ const Navbar = () => {
                 e.currentTarget.style.borderColor = "var(--border)";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
+               aria-hidden="true"
             >
-              <FaGithub size={14} />
+              <FaGithub size={14} aria-hidden="true" />
               <span>GitHub</span>
             </a>
           )}
@@ -257,7 +260,8 @@ const Navbar = () => {
                 transition: "all 0.2s ease",
                 flexShrink: 0,
               }}
-              aria-label="Toggle menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {menuOpen && !isDocsPage ? (
@@ -269,7 +273,7 @@ const Navbar = () => {
                     transition={{ duration: 0.15 }}
                     style={{ display: "flex" }}
                   >
-                    <X size={18} />
+                    <X size={18} aria-hidden="true" />
                   </motion.span>
                 ) : (
                   <motion.span
@@ -280,7 +284,7 @@ const Navbar = () => {
                     transition={{ duration: 0.15 }}
                     style={{ display: "flex" }}
                   >
-                    <Menu size={18} />
+                    <Menu size={18} aria-hidden="true" />
                   </motion.span>
                 )}
               </AnimatePresence>
