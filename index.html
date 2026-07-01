@@ -11,17 +11,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- =====================================================
-         FONT LOADING
-         Hanya 2 font yang digunakan: Space Grotesk + Inter.
-         Weight dikurangi seminimal mungkin.
-         display=swap mencegah FOIT (flash of invisible text).
+         FONT LOADING — OPTIMIZED
+         Only load Space Grotesk + Inter.
+         Use &display=swap to avoid FOIT.
+         media="print" onload="this.media='all'" makes loading non-render-blocking.
     ====================================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" />
+    </noscript>
 
     <!-- =====================================================
          PRIMARY SEO META TAGS
