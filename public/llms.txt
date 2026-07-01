@@ -1,0 +1,33 @@
+# ReactAja
+
+> Premium, copy-paste React UI components & Framer Motion animations library built with Tailwind CSS and Vanilla CSS.
+
+ReactAja provides a curated collection of beautiful, highly-polished, responsive React components designed to accelerate web design workflows. Developers can view previews, read setup instructions, copy source code, and use AI prompts to customize these components.
+
+## Core Navigation
+
+- [Introduction](https://reactaja.my.id/docs/introduction): Welcome page, library overview, and core philosophy.
+- [Installation Guide](https://reactaja.my.id/docs/installation): Step-by-step setup guide for Tailwind CSS, Framer Motion, and global styles.
+
+## UI Components
+
+- [Button](https://reactaja.my.id/docs/button): Interactive buttons including magnetic, sliding, and hover effects.
+- [Profile Card](https://reactaja.my.id/docs/profile-card): Customizable user profiles with neon borders and interactive switches.
+- [Loading Indicators](https://reactaja.my.id/docs/loading): Modern loaders, infinite bars, and orbital loading screens.
+- [Modern Form](https://reactaja.my.id/docs/form): Input fields with floating labels, dynamic focus rings, and validation states.
+- [Product Card](https://reactaja.my.id/docs/product-card): Premium e-commerce cards with image zoom, scale animations, and buy buttons.
+- [Toast Notifications](https://reactaja.my.id/docs/toast-notification): Rich push notification toasts with auto-dismiss timers and action buttons.
+- [Interactive Search Bar](https://reactaja.my.id/docs/search-bar): Search inputs with active suggestions, dynamic expansion, and keyboard shortcuts.
+- [Portfolio Navbar](https://reactaja.my.id/docs/portfolio-navbar): Sticky and responsive navigation headers with hover indicators.
+
+## UI Animations
+
+- [3D Card Carousel](https://reactaja.my.id/docs/card-carousel-3d): Interactive three-dimensional rotating card deck.
+- [Magnetic Slider](https://reactaja.my.id/docs/magnetic-slider): Dynamic sliders with organic inertia, pointer tracking, and magnetic buttons.
+- [Animated Profile Stack](https://reactaja.my.id/docs/profile-stack): Overlapping user avatars that expand and slide on hover.
+- [Interactive Arc Timeline](https://reactaja.my.id/docs/interactive-timeline): Curved timeline with drag physics and neon active guides.
+- [Glowing Outline Button](https://reactaja.my.id/docs/glowing-button): Card components wrapped with dynamic glowing borders that follow the mouse.
+- [Interactive Fluid Switch](https://reactaja.my.id/docs/fluid-switch): Premium switches that stretch organically when toggled.
+- [Text Animation](https://reactaja.my.id/docs/text-animation): Cyber decoder decrypting effects and custom text transitions.
+- [Spotlight Focus Blur](https://reactaja.my.id/docs/focus-blur-text): Text with heavy blur that sharpens dynamically within a cursor-guided spotlight scope.
+- [Expanding Search Bar](https://reactaja.my.id/docs/expanding-search): Minimal search icon that transitions into a full width input box on click.
