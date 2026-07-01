@@ -6,29 +6,37 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'esnext',
-    minify: 'esbuild',
-    // Drop console.log and debugger statements in production
-    esbuildOptions: {
-      drop: ['console', 'debugger'],
-    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Core React
-          'react-vendor': ['react', 'react-dom'],
-          // Routing
-          'router': ['react-router-dom'],
-          // Animation libraries (heaviest)
-          'framer-motion': ['framer-motion'],
-          'gsap': ['gsap', '@gsap/react'],
-          // 3D library
-          'three': ['three'],
-          // Icon libraries
-          'icons': ['lucide-react', 'react-icons'],
+        // Vite 8 (Rolldown) manualChunks function
+        manualChunks(id) {
+          // Normalize backslashes to forward slashes for Windows compatibility
+          const normalizedId = id.replace(/\\/g, '/');
+          
+          if (normalizedId.includes('node_modules/three')) {
+            return 'three';
+          }
+          if (normalizedId.includes('node_modules/gsap') || normalizedId.includes('node_modules/@gsap')) {
+            return 'gsap';
+          }
+          if (normalizedId.includes('node_modules/framer-motion')) {
+            return 'framer-motion';
+          }
+          if (normalizedId.includes('node_modules/react-router-dom') || normalizedId.includes('node_modules/react-router')) {
+            return 'router';
+          }
+          if (normalizedId.includes('node_modules/lucide-react') || normalizedId.includes('node_modules/react-icons')) {
+            return 'icons';
+          }
+          if (normalizedId.includes('node_modules/react-dom')) {
+            return 'react-dom';
+          }
+          if (normalizedId.includes('node_modules/react/')) {
+            return 'react';
+          }
         },
       },
     },
-    // Increase chunk size warning limit slightly
     chunkSizeWarningLimit: 600,
   },
 })
