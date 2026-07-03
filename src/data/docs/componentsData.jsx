@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProfileCard from "../../components/ui/components/ProfileCard";
 import { profileCardCode } from "../codes/profileCard";
 import ModernButtonShowcase, { ModernButton } from "../../components/ui/components/ModernButton";
@@ -9,6 +9,8 @@ import {
 } from "../codes/modernButton";
 import LoadingShowcase from "../../components/ui/components/LoadingShowcase";
 import { loadingShowcaseCode } from "../codes/loadingShowcase";
+import BatteryLoader, { ClassicBattery, DotBattery, CircularBattery } from "../../components/ui/components/BatteryLoader";
+import { batteryLoaderCode } from "../codes/batteryLoader";
 import ModernForm from "../../components/ui/components/ModernForm";
 import { modernFormCode } from "../codes/modernForm";
 import ProductCardShowcase from "../../components/ui/components/ProductCard";
@@ -21,7 +23,73 @@ import PortfolioNavbar from "../../components/ui/components/PortfolioNavbar";
 import { portfolioNavbarCode } from "../codes/portfolioNavbar";
 
 import { Link } from "react-router-dom";
-import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight, Menu } from "lucide-react";
+import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight, Menu, BatteryCharging } from "lucide-react";
+
+function ClassicBatteryDemo() {
+  const [percent, setPercent] = useState(15);
+  const [charging, setCharging] = useState(true);
+  const dirRef = useRef(1);
+  const animRef = useRef(null);
+  const pctRef = useRef(15);
+
+  useEffect(() => {
+    const tick = () => {
+      pctRef.current += dirRef.current * 0.35;
+      if (pctRef.current >= 100) { pctRef.current = 100; dirRef.current = -1; setCharging(false); }
+      if (pctRef.current <= 5)   { pctRef.current = 5;   dirRef.current = 1;  setCharging(true); }
+      setPercent(pctRef.current);
+      animRef.current = requestAnimationFrame(tick);
+    };
+    animRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animRef.current);
+  }, []);
+
+  return <ClassicBattery percent={percent} charging={charging} />;
+}
+
+function DotBatteryDemo() {
+  const [percent, setPercent] = useState(15);
+  const [charging, setCharging] = useState(true);
+  const dirRef = useRef(1);
+  const animRef = useRef(null);
+  const pctRef = useRef(15);
+
+  useEffect(() => {
+    const tick = () => {
+      pctRef.current += dirRef.current * 0.35;
+      if (pctRef.current >= 100) { pctRef.current = 100; dirRef.current = -1; setCharging(false); }
+      if (pctRef.current <= 5)   { pctRef.current = 5;   dirRef.current = 1;  setCharging(true); }
+      setPercent(pctRef.current);
+      animRef.current = requestAnimationFrame(tick);
+    };
+    animRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animRef.current);
+  }, []);
+
+  return <DotBattery percent={percent} charging={charging} />;
+}
+
+function CircularBatteryDemo() {
+  const [percent, setPercent] = useState(15);
+  const [charging, setCharging] = useState(true);
+  const dirRef = useRef(1);
+  const animRef = useRef(null);
+  const pctRef = useRef(15);
+
+  useEffect(() => {
+    const tick = () => {
+      pctRef.current += dirRef.current * 0.35;
+      if (pctRef.current >= 100) { pctRef.current = 100; dirRef.current = -1; setCharging(false); }
+      if (pctRef.current <= 5)   { pctRef.current = 5;   dirRef.current = 1;  setCharging(true); }
+      setPercent(pctRef.current);
+      animRef.current = requestAnimationFrame(tick);
+    };
+    animRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animRef.current);
+  }, []);
+
+  return <CircularBattery percent={percent} charging={charging} />;
+}
 
 export const componentsDocs = {
   "ui-components": {
@@ -61,6 +129,7 @@ export const componentsDocs = {
             { id: "button", name: "Button", desc: "A set of modern, minimalist button variants including primary gradients and outline shapes.", icon: <Square size={20} /> },
             { id: "profile-card", name: "Profile Card", desc: "A premium interactive profile card with hover cover expansion and verified badge.", icon: <User size={20} /> },
             { id: "loading", name: "Loading Indicators", desc: "Premium skeleton loaders and ambient cosmic spinners.", icon: <Loader size={20} /> },
+            { id: "battery-loader", name: "Battery Loader", desc: "Animated battery charging UI with Classic bar, Dot Grid, and Circular ring variants.", icon: <BatteryCharging size={20} /> },
             { id: "form", name: "Modern Form", desc: "Dark glassmorphic signup/login form with floating labels and error states.", icon: <Clipboard size={20} /> },
             { id: "product-card", name: "Product Card", desc: "Sleek product display card with parallax zoom and color selectors.", icon: <ShoppingBag size={20} /> },
             { id: "toast-notification", name: "Toast Notifications", desc: "Triggerable notification queue manager with progress countdowns.", icon: <Bell size={20} /> },
@@ -306,6 +375,58 @@ export const componentsDocs = {
       { name: "ctaLabel", type: "string", default: '"Hire Me"', description: "The label text on the gradient CTA button." },
       { name: "onCtaClick", type: "function", default: "() => {}", description: "Event handler fired when the CTA button is clicked." },
       { name: "onLinkClick", type: "function", default: "() => {}", description: "Event handler fired when a nav link is clicked." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+
+  "battery-loader": {
+    id: "battery-loader",
+    title: "Battery Loader",
+    description: "An animated battery charging indicator with three distinct variations: Classic bar fill with wave effect and lightning bolt, Dot Grid with glowing cells, and a Circular SVG ring. Color dynamically transitions from red → yellow → blue → green as charge increases.",
+    category: "UI Components",
+    isGuide: false,
+    variants: [
+      {
+        name: "Classic Battery",
+        description: "A physical battery bar loader with an animated wave fill and pulsing charging lightning bolt.",
+        preview: (
+          <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+            <ClassicBatteryDemo />
+          </div>
+        ),
+        code: batteryLoaderCode.classic.code,
+        css: batteryLoaderCode.classic.css,
+        prompt: "Create an animated battery loading indicator in React. Classic variant – a physical battery bar with wave fill animation and a pulsing lightning bolt icon while charging. It shows a large percentage counter and a label. Colors transition dynamically from red (low) to yellow to blue to green (full). Auto-animate charge and discharge loop using requestAnimationFrame."
+      },
+      {
+        name: "Dot Grid Battery",
+        description: "A futuristic rectangular grid of glowing squares that light up sequentially.",
+        preview: (
+          <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+            <DotBatteryDemo />
+          </div>
+        ),
+        code: batteryLoaderCode.dot.code,
+        css: batteryLoaderCode.dot.css,
+        prompt: "Create an animated dot grid battery loading indicator in React. Dot Grid variant – a 5×4 grid of glowing squares that fill up. It shows a large percentage counter and a label. Colors transition dynamically from red (low) to yellow to blue to green (full). Auto-animate charge and discharge loop using requestAnimationFrame."
+      },
+      {
+        name: "Circular Battery",
+        description: "An SVG ring battery loader that fills like a progress circle around status text.",
+        preview: (
+          <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+            <CircularBatteryDemo />
+          </div>
+        ),
+        code: batteryLoaderCode.circular.code,
+        css: batteryLoaderCode.circular.css,
+        prompt: "Create an animated circular battery loading indicator in React. Circular variant – an SVG ring that fills like a progress arc. It shows a large percentage counter and a label. Colors transition dynamically from red (low) to yellow to blue to green (full). Auto-animate charge and discharge loop using requestAnimationFrame."
+      }
+    ],
+    prompt: "Create an animated battery loading indicator in React with three variants: 1) Classic – a physical battery bar with wave fill animation and a pulsing lightning bolt icon while charging, 2) Dot Grid – a 5×4 grid of glowing squares that fill up, 3) Circular – an SVG ring that fills like a progress arc. All variants show a large percentage counter and a label. Colors transition dynamically from red (low) to yellow to blue to green (full). Auto-animate charge and discharge loop using requestAnimationFrame.",
+    props: [
+      { name: "percent", type: "number", default: "15", description: "Battery fill percentage from 0 to 100." },
+      { name: "charging", type: "boolean", default: "true", description: "Whether the battery is charging (shows bolt icon, triggers pulse on leading dot)." }
     ],
     dependencies: ["framer-motion"]
   }

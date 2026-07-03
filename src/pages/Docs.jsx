@@ -19,13 +19,14 @@ const Docs = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("preview"); // "preview" | "code"
   const [copiedCode, setCopiedCode] = useState(false);
-  
+
   // Format selectors
   const [langType, setLangType] = useState("js"); // "js" | "ts"
   const [styleType, setStyleType] = useState("css"); // "css" | "tailwind"
   const [copiedCSS, setCopiedCSS] = useState(false);
 
-
+  // Active variant for BatteryLoader
+  const [selectedBatteryVariant, setSelectedBatteryVariant] = useState("classic");
 
   // Auto scroll to top on doc change, reset tabs
   useEffect(() => {
@@ -33,6 +34,7 @@ const Docs = () => {
     setActiveTab("preview");
     setCopiedCode(false);
     setCopiedCSS(false);
+    setSelectedBatteryVariant("classic");
   }, [activeId]);
 
   // Listen for sidebar toggle event dispatched by Navbar hamburger on docs page
@@ -50,12 +52,20 @@ const Docs = () => {
   const currentDoc = docsData[activeId];
 
   // Resolve active language (fallback to js if ts code is not provided)
-  const activeLang = (currentDoc && currentDoc.code && typeof currentDoc.code === "object" && currentDoc.code[langType]) 
-    ? langType 
+  const batteryDocCode = (activeId === "battery-loader" && currentDoc.code && currentDoc.code[selectedBatteryVariant])
+    ? currentDoc.code[selectedBatteryVariant].code
+    : currentDoc.code;
+
+  const activeCSS = (activeId === "battery-loader" && currentDoc.code && currentDoc.code[selectedBatteryVariant])
+    ? currentDoc.code[selectedBatteryVariant].css
+    : currentDoc.css;
+
+  const activeLang = (currentDoc && batteryDocCode && typeof batteryDocCode === "object" && batteryDocCode[langType])
+    ? langType
     : "js";
-    
-  const activeCodeGroup = (currentDoc && typeof currentDoc.code === "object")
-    ? (currentDoc.code[activeLang] || {})
+
+  const activeCodeGroup = (currentDoc && typeof batteryDocCode === "object")
+    ? (batteryDocCode[activeLang] || {})
     : {};
 
   // Dynamic SEO Title and Description
@@ -86,10 +96,10 @@ const Docs = () => {
     <>
       <GlobalStyles />
       <Navbar />
-      
+
       <div className="docs-page-layout">
         <div className="docs-container">
-          
+
           {/* Desktop Sidebar (Sticky left) */}
           <aside className="docs-sidebar-desktop">
             <DocsSidebar />
@@ -113,16 +123,16 @@ const Docs = () => {
             {mobileMenuOpen && (
               <>
                 {/* Backdrop overlay */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.5 }}
                   exit={{ opacity: 0 }}
                   onClick={() => setMobileMenuOpen(false)}
                   className="docs-mobile-backdrop"
                 />
-                
+
                 {/* Drawer Body */}
-                <motion.div 
+                <motion.div
                   initial={{ x: "-100%" }}
                   animate={{ x: 0 }}
                   exit={{ x: "-100%" }}
@@ -131,7 +141,7 @@ const Docs = () => {
                 >
                   <div className="drawer-header">
                     <span className="drawer-title">Navigation</span>
-                    <button 
+                    <button
                       onClick={() => setMobileMenuOpen(false)}
                       className="drawer-close-btn"
                       aria-label="Close navigation menu"
@@ -171,7 +181,7 @@ const Docs = () => {
               // Renders a list of component variants vertically down the page
               <div className="docs-variants-list" style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
                 {currentDoc.variants.map((variant, index) => (
-                  <DocVariantBlock 
+                  <DocVariantBlock
                     key={index}
                     variant={variant}
                     langType={langType}
@@ -184,11 +194,11 @@ const Docs = () => {
             ) : (
               // Renders interactive components/animations with Preview / Code Tabs
               <div className="docs-component-body">
-                
+
                 {/* Tab Controls */}
                 <div className="docs-tabs-header">
                   <div className="docs-tabs-triggers" role="tablist" aria-label="Component view options">
-                    <button 
+                    <button
                       onClick={() => setActiveTab("preview")}
                       className={`docs-tab-trigger ${activeTab === "preview" ? "active" : ""}`}
                       role="tab"
@@ -198,7 +208,7 @@ const Docs = () => {
                     >
                       Preview
                     </button>
-                    <button 
+                    <button
                       onClick={() => setActiveTab("code")}
                       className={`docs-tab-trigger ${activeTab === "code" ? "active" : ""}`}
                       role="tab"
@@ -209,7 +219,7 @@ const Docs = () => {
                       Source Code
                     </button>
                     {currentDoc.prompt && (
-                      <button 
+                      <button
                         onClick={() => setActiveTab("prompt")}
                         className={`docs-tab-trigger ${activeTab === "prompt" ? "active" : ""}`}
                         role="tab"
@@ -223,7 +233,7 @@ const Docs = () => {
                   </div>
 
                   {activeTab === "code" && typeof currentDoc.code === "string" && (
-                    <button 
+                    <button
                       onClick={() => handleCopyCode(currentDoc.code)}
                       className="docs-copy-source-btn"
                       aria-label={copiedCode ? "Code copied to clipboard" : "Copy source code"}
@@ -234,7 +244,7 @@ const Docs = () => {
                   )}
 
                   {activeTab === "prompt" && currentDoc.prompt && (
-                    <button 
+                    <button
                       onClick={() => handleCopyCode(currentDoc.prompt)}
                       className="docs-copy-source-btn"
                       aria-label={copiedCode ? "Prompt copied to clipboard" : "Copy AI prompt"}
@@ -255,33 +265,41 @@ const Docs = () => {
                   {activeTab === "preview" ? (
                     <div className="tab-preview-pane">
                       {activeId === "expanding-search" ? (
-                        cloneElement(currentDoc.preview, {}, 
+                        cloneElement(currentDoc.preview, {},
                           cloneElement(currentDoc.preview.props.children, {
                             onSearch: (label) => {
-                                const mapping = {
-                                  "Introduction": "introduction",
-                                  "Installation": "installation",
-                                  "Button": "button",
-                                  "Profile Card": "profile-card",
-                                  "Loading Indicators": "loading",
-                                  "Modern Form": "form",
-                                  "Product Card": "product-card",
-                                  "Toast Notifications": "toast-notification",
-                                  "Interactive SearchBar": "search-bar",
-                                  "Magnetic Slider": "magnetic-slider",
-                                  "Animated Profile Stack": "profile-stack",
-                                  "Interactive Timeline": "interactive-timeline",
-                                  "Glowing Outline Button": "glowing-button",
-                                  "Interactive Fluid Switch": "fluid-switch",
-                                  "Text Animation": "text-animation",
-                                  "Spotlight Focus Blur": "focus-blur-text",
-                                  "Expanding Search Bar": "expanding-search",
-                                  "SVG to JSX": "svg-to-jsx",
-                                  "Theme Generator": "theme-generator",
-                                  "Px to Rem Spacing": "px-to-rem"
-                                };
-                                const id = mapping[label] || label.toLowerCase().replace(/\s+/g, "-");
-                                navigate(`/docs/${id}`);
+                              const mapping = {
+                                "Introduction": "introduction",
+                                "Installation": "installation",
+                                "Button": "button",
+                                "Profile Card": "profile-card",
+                                "Loading Indicators": "loading",
+                                "Modern Form": "form",
+                                "Product Card": "product-card",
+                                "Toast Notifications": "toast-notification",
+                                "Interactive SearchBar": "search-bar",
+                                "Magnetic Slider": "magnetic-slider",
+                                "Animated Profile Stack": "profile-stack",
+                                "Interactive Timeline": "interactive-timeline",
+                                "Glowing Outline Button": "glowing-button",
+                                "Interactive Fluid Switch": "fluid-switch",
+                                "Text Animation": "text-animation",
+                                "Spotlight Focus Blur": "focus-blur-text",
+                                "Expanding Search Bar": "expanding-search",
+                                "SVG to JSX": "svg-to-jsx",
+                                "Theme Generator": "theme-generator",
+                                "Px to Rem Spacing": "px-to-rem"
+                              };
+                              const id = mapping[label] || label.toLowerCase().replace(/\s+/g, "-");
+                              navigate(`/docs/${id}`);
+                            }
+                          })
+                        )
+                      ) : activeId === "battery-loader" ? (
+                        cloneElement(currentDoc.preview, {},
+                          cloneElement(currentDoc.preview.props.children, {
+                            onVariantChange: (variantName) => {
+                              setSelectedBatteryVariant(variantName.toLowerCase().replace(" grid", ""));
                             }
                           })
                         )
@@ -302,7 +320,7 @@ const Docs = () => {
                                 >
                                   JS
                                 </button>
-                                {currentDoc.code && currentDoc.code.ts && (
+                                {batteryDocCode && batteryDocCode.ts && (
                                   <button
                                     onClick={() => setLangType("ts")}
                                     className={`selector-btn ${activeLang === "ts" ? "active" : ""}`}
@@ -348,12 +366,12 @@ const Docs = () => {
                           </pre>
 
                           {/* CSS Section (Only show if styleType === 'css') */}
-                          {styleType === "css" && currentDoc.css && (
+                          {styleType === "css" && activeCSS && (
                             <div className="css-code-section" style={{ marginTop: "24px", paddingTop: "24px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                               <div className="code-section-header">
                                 <span className="section-title">CSS Stylesheet</span>
                                 <button
-                                  onClick={() => handleCopyCSS(currentDoc.css)}
+                                  onClick={() => handleCopyCSS(activeCSS)}
                                   className="docs-copy-source-btn"
                                 >
                                   {copiedCSS ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
@@ -361,7 +379,7 @@ const Docs = () => {
                                 </button>
                               </div>
                               <pre className="code-pre-element">
-                                <code>{currentDoc.css}</code>
+                                <code>{activeCSS}</code>
                               </pre>
                             </div>
                           )}
@@ -403,7 +421,7 @@ const Docs = () => {
             {/* API Specification Section (Props & Dependencies) */}
             {!currentDoc.isGuide && (
               <div className="docs-api-specifications">
-                
+
                 {/* Dependencies Segment */}
                 {currentDoc.dependencies && currentDoc.dependencies.length > 0 && (
                   <div className="docs-dependencies-section">
@@ -412,8 +430,8 @@ const Docs = () => {
                     </h3>
                     <div className="dependencies-badges">
                       {currentDoc.dependencies.map((dep) => (
-                        <span 
-                          key={dep} 
+                        <span
+                          key={dep}
                           className="dependency-badge"
                         >
                           <span className="dependency-dot" />
@@ -1153,8 +1171,8 @@ const DocVariantBlock = ({
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedCSS, setCopiedCSS] = useState(false);
 
-  const activeLang = (variant && variant.code && typeof variant.code === "object" && variant.code[langType]) 
-    ? langType 
+  const activeLang = (variant && variant.code && typeof variant.code === "object" && variant.code[langType])
+    ? langType
     : "js";
 
   const activeCodeGroup = (variant && typeof variant.code === "object")
@@ -1200,20 +1218,20 @@ const DocVariantBlock = ({
       {/* Mini tabs */}
       <div className="docs-tabs-header" style={{ marginBottom: 0 }}>
         <div className="docs-tabs-triggers">
-          <button 
+          <button
             onClick={() => setActiveTab("preview")}
             className={`docs-tab-trigger ${activeTab === "preview" ? "active" : ""}`}
           >
             Preview
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab("code")}
             className={`docs-tab-trigger ${activeTab === "code" ? "active" : ""}`}
           >
             Source Code
           </button>
           {variant.prompt && (
-            <button 
+            <button
               onClick={() => setActiveTab("prompt")}
               className={`docs-tab-trigger ${activeTab === "prompt" ? "active" : ""}`}
             >
@@ -1222,7 +1240,7 @@ const DocVariantBlock = ({
           )}
         </div>
         {activeTab === "prompt" && variant.prompt && (
-          <button 
+          <button
             onClick={() => onCopyCode(variant.prompt)}
             className="docs-copy-source-btn"
           >

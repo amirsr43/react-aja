@@ -27,6 +27,7 @@ export const docsCategories = [
       { id: "button", name: "Button" },
       { id: "profile-card", name: "Profile Card" },
       { id: "loading", name: "Loading Indicators" },
+      { id: "battery-loader", name: "Battery Loader" },
       { id: "form", name: "Modern Form" },
       { id: "product-card", name: "Product Card" },
       { id: "toast-notification", name: "Toast Notifications" },
