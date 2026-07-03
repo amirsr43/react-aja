@@ -16,9 +16,6 @@ export default defineConfig({
           if (normalizedId.includes('node_modules/three')) {
             return 'three';
           }
-          if (normalizedId.includes('node_modules/gsap') || normalizedId.includes('node_modules/@gsap')) {
-            return 'gsap';
-          }
           if (normalizedId.includes('node_modules/framer-motion')) {
             return 'framer-motion';
           }

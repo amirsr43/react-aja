@@ -395,7 +395,7 @@ export default function SearchBarShowcase() {
     <div className="search-showcase">
       <SearchBar
         recentQueries={history}
-        suggestedTags={["Tailwind", "GSAP Animations", "Glassmorphic Cards"]}
+        suggestedTags={["Tailwind", "Framer Motion", "Glassmorphic Cards"]}
         onSearch={handleSearchTrigger}
         onDeleteRecent={handleHistoryDelete}
       />

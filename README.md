@@ -17,7 +17,7 @@ animated, responsive, and ready to drop into any project.
 
 🎨 **19+ Premium Components** — Buttons, cards, modals, sliders, forms, search bars, loaders, and more.
 
-🌀 **Smooth Animations** — Powered by **Framer Motion** & **GSAP** for fluid, polished interactions.
+🌀 **Smooth Animations** — Powered by **Framer Motion** and **CSS** for fluid, polished interactions.
 
 🎯 **Copy-Ready Code** — Every component comes with clean, customizable source code.
 
@@ -35,7 +35,7 @@ animated, responsive, and ready to drop into any project.
 
 ## 🛠 Built With
 
-**React 19** · **Vite** · **Framer Motion** · **GSAP** · **Tailwind CSS** · **Three.js** · **React Router v7**
+**React 19** · **Vite** · **Framer Motion** · **Tailwind CSS** · **Three.js** · **React Router v7**
 
 ---
 
