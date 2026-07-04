@@ -32,7 +32,8 @@ export const docsCategories = [
       { id: "product-card", name: "Product Card" },
       { id: "toast-notification", name: "Toast Notifications" },
       { id: "search-bar", name: "Interactive SearchBar" },
-      { id: "portfolio-navbar", name: "Portfolio Navbar" }
+      { id: "portfolio-navbar", name: "Portfolio Navbar" },
+      { id: "tab-bar", name: "Interactive TabBar" }
     ]
   },
   {

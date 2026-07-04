@@ -75,6 +75,23 @@ export const FLUID_SWITCH_STYLES = `
   color: rgba(255, 255, 255, 0.8);
 }
 
+@media (max-width: 480px) {
+  .fluid-segment-btn {
+    padding: 8px 12px;
+    font-size: 12.5px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .fluid-segment-btn {
+    padding: 8px 10px;
+  }
+  .fluid-segment-btn span {
+    display: none;
+  }
+}
+
 .fluid-active-pill {
   position: absolute;
   top: 4px;
@@ -487,8 +504,6 @@ export function Tactile3DToggle({
 
 // ── Interactive Switch Suite Showcase ──
 export default function FluidSwitchShowcase() {
-  const [activeTab, setActiveTab] = useState("playground");
-  
   // States for demo components
   const [segIdx, setSegIdx] = useState(0);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -510,9 +525,6 @@ export default function FluidSwitchShowcase() {
         }
 
         .showcase-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
           padding-bottom: 12px;
         }
@@ -522,37 +534,6 @@ export default function FluidSwitchShowcase() {
           font-weight: 700;
           color: #ffffff;
           font-family: 'Outfit', sans-serif;
-        }
-
-        .showcase-tabs {
-          display: flex;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          padding: 3px;
-          border-radius: 10px;
-          gap: 2px;
-        }
-
-        .showcase-tab-btn {
-          background: transparent;
-          border: none;
-          color: #8e8e93;
-          font-size: 12.5px;
-          font-weight: 600;
-          padding: 6px 14px;
-          border-radius: 7px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .showcase-tab-btn:hover {
-          color: #ffffff;
-        }
-
-        .showcase-tab-btn.active {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.08);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .switch-playground-grid {
@@ -567,200 +548,78 @@ export default function FluidSwitchShowcase() {
           }
         }
 
-        /* ── Spec Sheet Grid ── */
-        .specs-grid-wrapper {
-          overflow-x: auto;
+        .switch-section-card {
           background: rgba(10, 10, 10, 0.4);
           border: 1px solid rgba(255, 255, 255, 0.06);
           border-radius: 20px;
           padding: 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          align-items: center;
+          justify-content: center;
         }
 
-        .specs-table {
-          width: 100%;
-          border-collapse: collapse;
-          min-width: 800px;
-        }
-
-        .specs-table th {
-          text-align: left;
-          padding: 12px 16px;
+        .switch-card-title {
           font-size: 11px;
           font-weight: 700;
           color: #8e8e93;
           text-transform: uppercase;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
           letter-spacing: 0.05em;
-        }
-
-        .specs-table td {
-          padding: 24px 16px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-          vertical-align: middle;
-        }
-
-        .specs-table tr:last-child td {
-          border-bottom: none;
-        }
-
-        .row-title-column {
-          font-size: 14px;
-          font-weight: 600;
-          color: #ffffff;
-        }
-
-        .row-desc-column {
-          font-size: 12px;
-          color: #8e8e93;
-          margin-top: 4px;
-          font-weight: 400;
+          align-self: flex-start;
         }
       `}</style>
 
       {/* Header controls for switching view */}
-      <div className="showcase-header">
-        <span className="showcase-title">Interactive Switch Suite</span>
-        <div className="showcase-tabs">
-          <button
-            onClick={() => setActiveTab("playground")}
-            className={`showcase-tab-btn ${activeTab === "playground" ? "active" : ""}`}
-          >
-            Playground Preview
-          </button>
-          <button
-            onClick={() => setActiveTab("spec-sheet")}
-            className={`showcase-tab-btn ${activeTab === "spec-sheet" ? "active" : ""}`}
-          >
-            States Matrix
-          </button>
+      
+   
+
+      <div className="switch-playground-grid">
+        {/* Card 1: Segment Switcher */}
+        <div className="switch-section-card">
+          <span className="switch-card-title">Fluid Segment Switch</span>
+          <div style={{ height: "80px", display: "flex", alignItems: "center" }}>
+            <FluidSegmentSwitch
+              options={["Dashboard", "Analytics", "Settings"]}
+              icons={[Layout, BarChart2, Settings]}
+              activeIdx={segIdx}
+              onChange={(i) => setSegIdx(i)}
+            />
+          </div>
+          <div style={{ fontSize: "12.5px", color: "#8e8e93", textAlign: "center" }}>
+            Selected: <strong style={{ color: "#ffffff" }}>{["Dashboard", "Analytics", "Settings"][segIdx]}</strong>
+          </div>
+        </div>
+
+        {/* Card 2: Cosmic Theme Switcher */}
+        <div className="switch-section-card">
+          <span className="switch-card-title">Cosmic Theme Switch</span>
+          <div style={{ height: "80px", display: "flex", alignItems: "center" }}>
+            <CosmicThemeSwitch
+              isDark={isDarkTheme}
+              onChange={(val) => setIsDarkTheme(val)}
+            />
+          </div>
+          <div style={{ fontSize: "12.5px", color: "#8e8e93", textAlign: "center" }}>
+            Theme: <strong style={{ color: "#ffffff" }}>{isDarkTheme ? "Dark (Cosmic Night)" : "Light (Drifting Skies)"}</strong>
+          </div>
+        </div>
+
+        {/* Card 3: Tactile 3D Switch */}
+        <div className="switch-section-card">
+          <span className="switch-card-title">Tactile 3D Toggle</span>
+          <div style={{ height: "80px", display: "flex", alignItems: "center" }}>
+            <Tactile3DToggle
+              checked={is3DOn}
+              onChange={(val) => setIs3DOn(val)}
+            />
+          </div>
+          <div style={{ fontSize: "12.5px", color: "#8e8e93", textAlign: "center" }}>
+            System LED: <strong style={{ color: is3DOn ? "#10b981" : "#ef4444" }}>{is3DOn ? "ON (Green)" : "OFF (Red)"}</strong>
+          </div>
         </div>
       </div>
-
-      {activeTab === "playground" ? (
-        <div className="switch-playground-grid">
-          {/* Card 1: Segment Switcher */}
-          <div className="switch-section-card">
-            <span className="switch-card-title">Fluid Segment Switch</span>
-            <div style={{ height: "80px", display: "flex", alignItems: "center" }}>
-              <FluidSegmentSwitch
-                options={["Dashboard", "Analytics", "Settings"]}
-                icons={[Layout, BarChart2, Settings]}
-                activeIdx={segIdx}
-                onChange={(i) => setSegIdx(i)}
-              />
-            </div>
-            <div style={{ fontSize: "12.5px", color: "#8e8e93", textAlign: "center" }}>
-              Selected: <strong style={{ color: "#ffffff" }}>{["Dashboard", "Analytics", "Settings"][segIdx]}</strong>
-            </div>
-          </div>
-
-          {/* Card 2: Cosmic Theme Switcher */}
-          <div className="switch-section-card">
-            <span className="switch-card-title">Cosmic Theme Switch</span>
-            <div style={{ height: "80px", display: "flex", alignItems: "center" }}>
-              <CosmicThemeSwitch
-                isDark={isDarkTheme}
-                onChange={(val) => setIsDarkTheme(val)}
-              />
-            </div>
-            <div style={{ fontSize: "12.5px", color: "#8e8e93", textAlign: "center" }}>
-              Theme: <strong style={{ color: "#ffffff" }}>{isDarkTheme ? "Dark (Cosmic Night)" : "Light (Drifting Skies)"}</strong>
-            </div>
-          </div>
-
-          {/* Card 3: Tactile 3D Switch */}
-          <div className="switch-section-card">
-            <span className="switch-card-title">Tactile 3D Toggle</span>
-            <div style={{ height: "80px", display: "flex", alignItems: "center" }}>
-              <Tactile3DToggle
-                checked={is3DOn}
-                onChange={(val) => setIs3DOn(val)}
-              />
-            </div>
-            <div style={{ fontSize: "12.5px", color: "#8e8e93", textAlign: "center" }}>
-              System LED: <strong style={{ color: is3DOn ? "#10b981" : "#ef4444" }}>{is3DOn ? "ON (Green)" : "OFF (Red)"}</strong>
-            </div>
-          </div>
-        </div>
-      ) : (
-        /* Specs Sheet Grid */
-        <div className="specs-grid-wrapper">
-          <table className="specs-table">
-            <thead>
-              <tr>
-                <th style={{ width: "30%" }}>Switch Variant</th>
-                <th>State A (Default / Off)</th>
-                <th>State B (Active / On)</th>
-                <th>Interactions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Row 1: Segment */}
-              <tr>
-                <td>
-                  <span className="row-title-column">Fluid Segment Switch</span>
-                  <div className="row-desc-column">Sliding backdrop stretches elastically to options</div>
-                </td>
-                <td>
-                  <FluidSegmentSwitch
-                    options={["Layout", "Settings"]}
-                    icons={[Layout, Settings]}
-                    activeIdx={0}
-                    onChange={() => {}}
-                  />
-                </td>
-                <td>
-                  <FluidSegmentSwitch
-                    options={["Layout", "Settings"]}
-                    icons={[Layout, Settings]}
-                    activeIdx={1}
-                    onChange={() => {}}
-                  />
-                </td>
-                <td>
-                  <span style={{ fontSize: "12.5px", color: "#8e8e93" }}>Hover / Click slide spring snaps</span>
-                </td>
-              </tr>
-
-              {/* Row 2: Cosmic */}
-              <tr>
-                <td>
-                  <span className="row-title-column">Cosmic Theme Switch</span>
-                  <div className="row-desc-column">Sun-to-moon rotation morphing and clouds/stars background fade</div>
-                </td>
-                <td>
-                  <CosmicThemeSwitch isDark={false} onChange={() => {}} />
-                </td>
-                <td>
-                  <CosmicThemeSwitch isDark={true} onChange={() => {}} />
-                </td>
-                <td>
-                  <span style={{ fontSize: "12.5px", color: "#8e8e93" }}>Toggle clicks, rotating morph, stars twinkle</span>
-                </td>
-              </tr>
-
-              {/* Row 3: Tactile 3D */}
-              <tr>
-                <td>
-                  <span className="row-title-column">Tactile 3D Switch</span>
-                  <div className="row-desc-column">Tactile depression clicks, LED neon indicators</div>
-                </td>
-                <td>
-                  <Tactile3DToggle checked={false} onChange={() => {}} />
-                </td>
-                <td>
-                  <Tactile3DToggle checked={true} onChange={() => {}} />
-                </td>
-                <td>
-                  <span style={{ fontSize: "12.5px", color: "#8e8e93" }}>Physically depresses, LED turns neon green/red</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
     </div>
   );
 }
-
 

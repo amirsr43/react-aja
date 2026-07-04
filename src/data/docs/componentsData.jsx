@@ -21,6 +21,8 @@ import SearchBarShowcase from "../../components/ui/components/SearchBar";
 import { searchBarCode } from "../codes/searchBar";
 import PortfolioNavbar from "../../components/ui/components/PortfolioNavbar";
 import { portfolioNavbarCode } from "../codes/portfolioNavbar";
+import { TabBarShowcase } from "../../components/ui/components/TabBar";
+import { tabBarCode } from "../codes/tabBar";
 
 import { Link } from "react-router-dom";
 import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight, Menu, BatteryCharging } from "lucide-react";
@@ -89,6 +91,31 @@ function CircularBatteryDemo() {
   }, []);
 
   return <CircularBattery percent={percent} charging={charging} />;
+}
+
+function PortfolioNavbarDemo() {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div style={{
+      padding: "80px 20px 20px 20px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+      background: "#050505",
+      minHeight: isOpen ? "380px" : "150px",
+      position: "relative",
+      overflow: "visible",
+      borderRadius: "16px",
+      transition: "min-height 0.3s cubic-bezier(0.25, 1, 0.5, 1)"
+    }}>
+      <PortfolioNavbar fixed={false} onMenuOpenChange={setIsOpen} />
+      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "12px", marginTop: "20px" }}>
+        Scroll the page or hover items to test the interactive state
+      </div>
+    </div>
+  );
 }
 
 export const componentsDocs = {
@@ -363,12 +390,7 @@ export const componentsDocs = {
     description: "A premium, floating glassmorphic navbar designed specifically for personal portfolios and modern agency landing pages. Features smooth, layout-interpolated active item indicators, dynamic background opacity blending on scroll, and a polished mobile menu dropdown.",
     category: "UI Components",
     isGuide: false,
-    preview: (
-      <div style={{ padding: "80px 20px 20px 20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", background: "#050505", minHeight: "150px", position: "relative", overflow: "hidden", borderRadius: "16px" }}>
-        <PortfolioNavbar fixed={false} />
-        <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "12px", marginTop: "20px" }}>Scroll the page or hover items to test the interactive state</div>
-      </div>
-    ),
+    preview: <PortfolioNavbarDemo />,
     code: portfolioNavbarCode.code,
     css: portfolioNavbarCode.css,
     prompt: "Create a floating glassmorphic navbar in React using Framer Motion. It should have a pill shape, dynamic background blending on scroll, a slide-up layoutId pill tracking the active item, a custom gradient CTA button, and a fully animated mobile overlay menu.",
@@ -432,5 +454,26 @@ export const componentsDocs = {
       { name: "charging", type: "boolean", default: "true", description: "Whether the battery is charging (shows bolt icon, triggers pulse on leading dot)." }
     ],
     dependencies: ["framer-motion"]
+  },
+  "tab-bar": {
+    id: "tab-bar",
+    title: "Interactive Tab Bar",
+    description: "A premium floating dark-themed tab bar. Features layoutId active item capsule animations, dynamic neon active highlights, and custom toggleable icon-only/text-label modes.",
+    category: "UI Components",
+    isGuide: false,
+    preview: (
+      <TabBarShowcase />
+    ),
+    code: tabBarCode.code,
+    css: tabBarCode.css,
+    prompt: "Create an interactive dark-themed floating tab bar in React using Framer Motion. Active items transition with a layoutId indicator background. Supports customizable active highlight colors, pill/square shape borders, and custom toggleable text labels on the active tab.",
+    props: [
+      { name: "tabs", type: "array", default: "/* default tabs */", description: "Array of tab configurations containing id, label, and lucide icon." },
+      { name: "initialActive", type: "string", default: '"profile"', description: "Initial active tab ID." },
+      { name: "activeColor", type: "string", default: '"#ec4899"', description: "Hex value color for active neon highlighting." },
+      { name: "pillShape", type: "string", default: '"rounded"', description: "Shape variant: 'rounded' (capsule) | 'square' (rounded-lg)." },
+      { name: "showLabels", type: "boolean", default: "true", description: "Whether to reveal text labels for active tab elements." }
+    ],
+    dependencies: ["framer-motion", "lucide-react"]
   }
 };

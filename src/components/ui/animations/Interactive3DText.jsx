@@ -1,12 +1,12 @@
 // src/components/ui/animations/Interactive3DText.jsx
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useSpring } from "framer-motion";
 
-// ─── Build side-face extrusion: all steps offset in same direction ───
+// Build side-face extrusion using relative 'em' units so it scales with font size
 function buildExtrusion(depthColor, layers = 18) {
   const shadows = [];
   for (let i = 1; i <= layers; i++) {
-    shadows.push(`${i * 1.1}px ${i * 1.1}px 0px ${depthColor}`);
+    shadows.push(`${i * 0.008}em ${i * 0.008}em 0px ${depthColor}`);
   }
   return shadows.join(", ");
 }
@@ -34,12 +34,13 @@ const STYLES = `
     align-items: center;
     perspective: 900px;
     gap: 0px;
+    font-size: clamp(48px, 13vw, 128px);
   }
 
   .t3d-letter-root {
     position: relative;
     display: inline-block;
-    margin: 0 -5px;
+    margin: 0 -0.04em;
     cursor: pointer;
     user-select: none;
     transform-style: preserve-3d;
@@ -48,7 +49,7 @@ const STYLES = `
   .t3d-depth {
     font-family: ${LETTER_FONT};
     font-weight: 900;
-    font-size: 128px;
+    font-size: inherit;
     line-height: 1;
     display: block;
     position: relative;
@@ -60,7 +61,7 @@ const STYLES = `
     inset: 0;
     font-family: ${LETTER_FONT};
     font-weight: 900;
-    font-size: 128px;
+    font-size: inherit;
     line-height: 1;
     display: block;
     background-clip: text;
@@ -74,7 +75,7 @@ const STYLES = `
     inset: 0;
     font-family: ${LETTER_FONT};
     font-weight: 900;
-    font-size: 128px;
+    font-size: inherit;
     line-height: 1;
     display: block;
     background: linear-gradient(
@@ -93,13 +94,13 @@ const STYLES = `
 
   .t3d-ground-shadow {
     position: absolute;
-    bottom: -18px;
+    bottom: -0.15em;
     left: 50%;
     transform: translateX(-50%) scaleY(0.35);
     width: 85%;
-    height: 40px;
+    height: 0.3em;
     border-radius: 50%;
-    filter: blur(18px);
+    filter: blur(0.14em);
     opacity: 0.65;
     pointer-events: none;
   }
@@ -153,7 +154,7 @@ function InteractiveLetter({ char, index, colors }) {
     rotateY.set((mouseX / (rect.width / 2)) * 28);
   };
 
-  const handleMouseEnter = () => z.set(40);
+  const handleMouseEnter = () => z.set(30);
 
   const handleMouseLeave = () => {
     rotateX.set(0);
@@ -171,9 +172,12 @@ function InteractiveLetter({ char, index, colors }) {
       onMouseLeave={handleMouseLeave}
     >
       {/* Ground glow shadow */}
-      <div
+      <span
         className="t3d-ground-shadow"
-        style={{ background: color.glow }}
+        style={{
+          boxShadow: `0 30px 40px ${color.glow}`,
+        }}
+        aria-hidden="true"
       />
 
       {/* Extrusion depth layer */}
@@ -195,13 +199,13 @@ function InteractiveLetter({ char, index, colors }) {
           top: 0, left: 0,
           fontFamily: LETTER_FONT,
           fontWeight: 900,
-          fontSize: "128px",
+          fontSize: "inherit",
           lineHeight: 1,
           backgroundImage: color.depthGradient,
           backgroundClip: "text",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
-          transform: "translate(6px, 7px)",
+          transform: "translate(0.045em, 0.055em)",
           zIndex: 0,
           pointerEvents: "none",
           opacity: 0.95,

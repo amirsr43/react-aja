@@ -118,8 +118,22 @@ export default function PxToRemConverter() {
 
   return (
     <div className="px-to-rem-container text-zinc-100 flex flex-col gap-6 max-w-5xl mx-auto">
+      <style>{`
+        @media (max-width: 640px) {
+          .px-to-rem-card-padding {
+            padding: 16px !important;
+          }
+          .px-to-rem-inner-padding {
+            padding: 12px !important;
+          }
+          .px-to-rem-table th, .px-to-rem-table td {
+            padding: 8px 10px !important;
+          }
+        }
+      `}</style>
+
       {/* Header Panel */}
-      <div className="bg-zinc-900/40 backdrop-blur-md border border-white/5 p-6 rounded-2xl flex flex-col gap-4 shadow-xl">
+      <div className="bg-zinc-900/40 backdrop-blur-md border border-white/5 p-6 rounded-2xl flex flex-col gap-4 shadow-xl px-to-rem-card-padding">
         <h2 className="text-xl font-bold text-white flex items-center gap-2">
           <span>Px to Rem & Tailwind Calculator</span>
           <span className="text-xs bg-white/10 px-2 py-0.5 rounded text-zinc-300 font-normal">Utility</span>
@@ -130,79 +144,79 @@ export default function PxToRemConverter() {
       </div>
 
       {/* SECTION 1: CONVERTER BOX */}
-      <div className="bg-zinc-950/70 border border-white/5 rounded-2xl p-6 flex flex-col gap-5">
-        <div className="flex justify-between items-center border-b border-white/5 pb-3">
+      <div className="bg-zinc-950/70 border border-white/5 rounded-2xl p-6 flex flex-col gap-5 px-to-rem-card-padding">
+        <div className="flex flex-row justify-between items-center border-b border-white/5 pb-3">
           <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
             <Minimize2 size={13} className="text-indigo-400" />
             <span>Interactive Converter</span>
           </span>
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] text-zinc-400">Base Root Font-size:</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] sm:text-[11px] text-zinc-400">Base:</span>
             <input
               type="number"
               value={basePx}
               onChange={(e) => setBasePx(e.target.value)}
-              className="w-12 bg-zinc-900/60 border border-white/5 rounded px-2 py-0.5 font-mono text-xs text-center text-white focus:outline-none focus:border-white/20"
+              className="w-10 bg-zinc-900/60 border border-white/5 rounded px-1.5 py-0.5 font-mono text-xs text-center text-white focus:outline-none focus:border-white/20"
             />
             <span className="text-[10px] text-zinc-500">px</span>
           </div>
         </div>
 
-        {/* Inputs Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Inputs Grid - Unified 3 columns for mobile and desktop */}
+        <div className="grid grid-cols-3 gap-3">
           {/* Pixel Card */}
-          <div className="bg-zinc-900/30 border border-white/5 p-4 rounded-xl flex flex-col gap-2">
-            <label className="text-xs text-zinc-300 font-semibold">Pixels (px)</label>
+          <div className="bg-zinc-900/30 border border-white/5 p-3 rounded-xl flex flex-col gap-1.5 px-to-rem-inner-padding">
+            <label className="text-[10px] sm:text-xs text-zinc-300 font-semibold uppercase tracking-wider">Pixels</label>
             <div className="relative flex items-center">
               <input
                 type="number"
                 value={pxValue}
                 onChange={(e) => handlePxChange(e.target.value)}
                 placeholder="0"
-                className="w-full bg-zinc-900/60 border border-white/5 rounded-lg pl-3 pr-8 py-2 font-mono text-sm text-white focus:outline-none focus:border-white/20"
+                className="w-full bg-zinc-900/60 border border-white/5 rounded-lg pl-2 sm:pl-3 pr-7 py-2 font-mono text-xs sm:text-sm text-white focus:outline-none focus:border-white/20"
               />
-              <span className="absolute right-3 text-xs text-zinc-500 font-mono">px</span>
+              <span className="absolute right-2 text-[10px] text-zinc-500 font-mono">px</span>
             </div>
-            <span className="text-[10px] text-zinc-500">Traditional CSS designs metric.</span>
           </div>
 
           {/* REM Card */}
-          <div className="bg-zinc-900/30 border border-white/5 p-4 rounded-xl flex flex-col gap-2">
-            <label className="text-xs text-zinc-300 font-semibold">REM (rem)</label>
+          <div className="bg-zinc-900/30 border border-white/5 p-3 rounded-xl flex flex-col gap-1.5 px-to-rem-inner-padding">
+            <label className="text-[10px] sm:text-xs text-zinc-300 font-semibold uppercase tracking-wider">REM</label>
             <div className="relative flex items-center">
               <input
                 type="number"
                 value={remValue}
                 onChange={(e) => handleRemChange(e.target.value)}
                 placeholder="0"
-                className="w-full bg-zinc-900/60 border border-white/5 rounded-lg pl-3 pr-10 py-2 font-mono text-sm text-white focus:outline-none focus:border-white/20"
+                className="w-full bg-zinc-900/60 border border-white/5 rounded-lg pl-2 sm:pl-3 pr-8 py-2 font-mono text-xs sm:text-sm text-white focus:outline-none focus:border-white/20"
               />
-              <span className="absolute right-3 text-xs text-zinc-500 font-mono">rem</span>
+              <span className="absolute right-2 text-[10px] text-zinc-500 font-mono">rem</span>
             </div>
-            <span className="text-[10px] text-zinc-500">Relative browser font root metric.</span>
           </div>
 
           {/* Tailwind Card */}
-          <div className="bg-zinc-900/30 border border-white/5 p-4 rounded-xl flex flex-col gap-2">
-            <label className="text-xs text-zinc-300 font-semibold">Tailwind Spacing Value</label>
+          <div className="bg-zinc-900/30 border border-white/5 p-3 rounded-xl flex flex-col gap-1.5 px-to-rem-inner-padding">
+            <label className="text-[10px] sm:text-xs text-zinc-300 font-semibold uppercase tracking-wider">Tailwind</label>
             <div className="relative flex items-center">
               <input
                 type="number"
                 value={twValue}
                 onChange={(e) => handleTwChange(e.target.value)}
                 placeholder="0"
-                className="w-full bg-zinc-900/60 border border-white/5 rounded-lg pl-3 pr-10 py-2 font-mono text-sm text-white focus:outline-none focus:border-white/20"
+                className="w-full bg-zinc-900/60 border border-white/5 rounded-lg pl-2 sm:pl-3 pr-8 py-2 font-mono text-xs sm:text-sm text-white focus:outline-none focus:border-white/20"
               />
-              <span className="absolute right-3 text-xs text-zinc-500 font-mono">scale</span>
+              <span className="absolute right-2 text-[10px] text-zinc-500 font-mono">tw</span>
             </div>
-            <span className="text-[10px] text-zinc-500">Equivalent spacing index (e.g. `p-4` = 4).</span>
           </div>
         </div>
+        <p className="text-[10px] text-zinc-500">
+          * Calculated with a Base root font-size: {basePx}px (1rem = {basePx}px). Spacing scale uses Tailwind's 4x multiplier (1 unit = 0.25rem = 4px).
+        </p>
 
         {/* Dynamic Class Output Suggestion Box */}
         <div className="border-t border-white/5 pt-4 mt-1 flex flex-col gap-3">
           <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Suggested Tailwind Classes</span>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 min-[340px]:grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { type: "Width / Height", prefix: "w-", prefix2: "h-" },
               { type: "Padding", prefix: "p-", prefix2: "px-" },
@@ -243,7 +257,7 @@ export default function PxToRemConverter() {
       </div>
 
       {/* SECTION 2: CHEAT SHEET TABLE */}
-      <div className="bg-zinc-950/70 border border-white/5 rounded-2xl p-6 flex flex-col gap-4">
+      <div className="bg-zinc-950/70 border border-white/5 rounded-2xl p-6 flex flex-col gap-4 px-to-rem-card-padding">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/5 pb-3">
           <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
             <Hash size={13} className="text-indigo-400" />
@@ -264,13 +278,13 @@ export default function PxToRemConverter() {
 
         {/* Cheat sheet table */}
         <div className="w-full overflow-x-auto rounded-xl border border-white/5 max-h-[360px]">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="w-full text-left border-collapse text-xs px-to-rem-table">
             <thead>
               <tr className="bg-zinc-900/80 text-zinc-400 border-b border-white/5 font-semibold">
-                <th className="p-3">Tailwind Scale</th>
-                <th className="p-3">Pixels (px)</th>
-                <th className="p-3">REM (rem)</th>
-                <th className="p-3">Sample Classes</th>
+                <th className="p-3">Scale</th>
+                <th className="p-3">Pixels</th>
+                <th className="p-3">REM</th>
+                <th className="p-3 hidden sm:table-cell">Sample Classes</th>
                 <th className="p-3 text-right">Action</th>
               </tr>
             </thead>
@@ -286,7 +300,7 @@ export default function PxToRemConverter() {
                       <td className="p-3 font-mono font-bold text-white">{item.tw}</td>
                       <td className="p-3 font-mono text-zinc-300">{item.px}px</td>
                       <td className="p-3 font-mono text-zinc-300">{item.rem}rem</td>
-                      <td className="p-3 font-mono text-zinc-400">
+                      <td className="p-3 font-mono text-zinc-400 hidden sm:table-cell">
                         <code>{`w-${item.tw} | p-${item.tw} | m-${item.tw}`}</code>
                       </td>
                       <td className="p-3 text-right">
@@ -297,12 +311,12 @@ export default function PxToRemConverter() {
                           {copiedRowId === `row-${index}` ? (
                             <>
                               <Check size={10} className="text-green-400" />
-                              <span>Copied!</span>
+                              <span className="hidden sm:inline">Copied!</span>
                             </>
                           ) : (
                             <>
                               <Copy size={10} />
-                              <span>Copy p-{item.tw}</span>
+                              <span className="hidden sm:inline">Copy p-{item.tw}</span>
                             </>
                           )}
                         </button>

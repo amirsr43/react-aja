@@ -13,7 +13,7 @@ const DocsSidebar = ({ onClose }) => {
       <div className="docs-sidebar-inner">
         {/* Mobile Main Navigation */}
         <div className="sidebar-group mobile-main-nav">
-          
+
           <ul className="sidebar-links-list">
             <li>
               <Link

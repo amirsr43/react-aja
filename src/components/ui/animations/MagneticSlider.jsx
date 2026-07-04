@@ -17,7 +17,8 @@ const SLIDER_STYLES = `
 /* Outer anti-reflective glass shell */
 .magnetic-slider-capsule {
   position: relative;
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
   height: 80px;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.02);
@@ -240,12 +241,22 @@ export function MagneticSlider({
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
-  // Position limits based on 320px capsule width, 50px handle width, and 8px padding
-  // Sleep (Left) limit: ~ -95px
-  // Work (Right) limit: ~ 95px
-  // Idle (Center) limit: 0px
-  const SLEEP_X = -95;
-  const WORK_X = 95;
+  const [capsuleWidth, setCapsuleWidth] = useState(320);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setCapsuleWidth(entry.contentRect.width);
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const dragRange = Math.max(30, (capsuleWidth / 2) - 65);
+  const SLEEP_X = -dragRange;
+  const WORK_X = dragRange;
   const IDLE_X = 0;
 
   const getTargetX = () => {
@@ -344,13 +355,11 @@ export function MagneticSlider({
             const absoluteReleaseX = info.point.x;
             const relativeReleaseX = absoluteReleaseX - centerX;
 
-            // Snap zones:
-            // Sleep: x < -45px
-            // Work: x > 45px
-            // Center: -45px <= x <= 45px
-            if (relativeReleaseX < -45) {
+            // Snap zones based on half of the active drag range
+            const snapThreshold = dragRange * 0.5;
+            if (relativeReleaseX < -snapThreshold) {
               updateState("sleep");
-            } else if (relativeReleaseX > 45) {
+            } else if (relativeReleaseX > snapThreshold) {
               updateState("work");
             } else {
               updateState("idle");

@@ -367,7 +367,7 @@ export default function ProfileCardCustomizer() {
               {/* Format selectors row */}
               <div className="format-selectors-row">
                 <div className="selector-group">
-                  <span className="selector-label">Language:</span>
+                  <span className="selector-label">Lang:</span>
                   <div className="selector-buttons">
                     <button
                       onClick={() => setLangType("js")}
@@ -385,7 +385,7 @@ export default function ProfileCardCustomizer() {
                 </div>
 
                 <div className="selector-group">
-                  <span className="selector-label">Styling:</span>
+                  <span className="selector-label">Style:</span>
                   <div className="selector-buttons">
                     <button
                       onClick={() => setStyleType("css")}
@@ -397,7 +397,7 @@ export default function ProfileCardCustomizer() {
                       onClick={() => setStyleType("tailwind")}
                       className={`selector-btn ${styleType === "tailwind" ? "active" : ""}`}
                     >
-                      Tailwind
+                      TW
                     </button>
                   </div>
                 </div>

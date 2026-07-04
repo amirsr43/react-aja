@@ -16,11 +16,13 @@ const LINKS = [
 ];
 
 export default function PortfolioNavbar({
-  logo        = "amir.",
-  links       = LINKS,
-  ctaLabel    = "Hire Me",
-  onCtaClick  = () => {},
-  onLinkClick = () => {},
+  logo            = "amir.",
+  links           = LINKS,
+  ctaLabel        = "Hire Me",
+  onCtaClick      = () => {},
+  onLinkClick     = () => {},
+  onMenuOpenChange = () => {},
+  fixed           = true
 }) {
   const [active,    setActive]    = useState("home");
   const [scrolled,  setScrolled]  = useState(false);
@@ -28,10 +30,15 @@ export default function PortfolioNavbar({
   const rootRef = useRef(null);
 
   useEffect(() => {
+    onMenuOpenChange(menuOpen);
+  }, [menuOpen, onMenuOpenChange]);
+
+  useEffect(() => {
+    if (!fixed) return;
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [fixed]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -44,7 +51,10 @@ export default function PortfolioNavbar({
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  const handleLink = (link) => {
+  const handleLink = (e, link) => {
+    if (!fixed) {
+      e.preventDefault();
+    }
     setActive(link.href.replace("#", ""));
     setMenuOpen(false);
     onLinkClick(link);
@@ -68,7 +78,7 @@ export default function PortfolioNavbar({
                 key={link.label}
                 href={link.href}
                 className={\`pnav-link\${isActive ? " active" : ""}\`}
-                onClick={() => handleLink(link)}
+                onClick={(e) => handleLink(e, link)}
               >
                 {isActive && (
                   <motion.div
@@ -112,16 +122,26 @@ export default function PortfolioNavbar({
             style={{ transformOrigin: "top" }}
           >
             <div className="pnav-mobile-links">
-              {links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="pnav-mobile-link"
-                  onClick={() => handleLink(link)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) => {
+                const isActive = active === link.href.replace("#", "");
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={\`pnav-mobile-link\${isActive ? " active" : ""}\`}
+                    onClick={(e) => handleLink(e, link)}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="pnav-mobile-pill"
+                        className="pnav-mobile-active-pill"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span style={{ position: "relative" }}>{link.label}</span>
+                  </a>
+                );
+              })}
             </div>
             <div className="pnav-mobile-divider" />
             <button className="pnav-mobile-cta" onClick={() => { setMenuOpen(false); onCtaClick(); }}>
@@ -145,11 +165,13 @@ const LINKS = [
 ];
 
 export default function PortfolioNavbar({
-  logo        = "amir.",
-  links       = LINKS,
-  ctaLabel    = "Hire Me",
-  onCtaClick  = () => {},
-  onLinkClick = () => {},
+  logo            = "amir.",
+  links           = LINKS,
+  ctaLabel        = "Hire Me",
+  onCtaClick      = () => {},
+  onLinkClick     = () => {},
+  onMenuOpenChange = () => {},
+  fixed           = true
 }) {
   const [active,    setActive]    = useState("home");
   const [scrolled,  setScrolled]  = useState(false);
@@ -157,10 +179,15 @@ export default function PortfolioNavbar({
   const rootRef = useRef(null);
 
   useEffect(() => {
+    onMenuOpenChange(menuOpen);
+  }, [menuOpen, onMenuOpenChange]);
+
+  useEffect(() => {
+    if (!fixed) return;
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [fixed]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -173,14 +200,17 @@ export default function PortfolioNavbar({
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  const handleLink = (link) => {
+  const handleLink = (e, link) => {
+    if (!fixed) {
+      e.preventDefault();
+    }
     setActive(link.href.replace("#", ""));
     setMenuOpen(false);
     onLinkClick(link);
   };
 
   return (
-    <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-[680px] px-5 box-border pointer-events-none" ref={rootRef}>
+    <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-[680px] px-5 box-border pointer-events-none" ref={rootRef} style={!fixed ? { position: "absolute", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: 10, width: "100%", maxWidth: "680px", padding: "0 20px", boxSizing: "border-box" } : {}}>
       <div className={\`flex items-center justify-between gap-3 p-2.5 pl-5 rounded-[20px] pointer-events-auto transition-all duration-300 \${
         scrolled 
           ? "bg-[#08080e]/88 border border-white/5 shadow-[0_8px_40px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)]" 
@@ -203,7 +233,7 @@ export default function PortfolioNavbar({
                 className={\`relative px-3.5 py-1.5 rounded-xl text-[13.5px] font-medium no-underline transition-colors duration-200 \${
                   isActive ? "text-white font-semibold" : "text-white/60 hover:text-white hover:bg-white/5"
                 }\`}
-                onClick={() => handleLink(link)}
+                onClick={(e) => handleLink(e, link)}
               >
                 {isActive && (
                   <motion.div
@@ -242,7 +272,7 @@ export default function PortfolioNavbar({
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="absolute top-[calc(100%+10px)] left-0 right-0 rounded-2xl bg-[#0a0a10]/95 backdrop-blur-[20px] border border-white/8 overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+            className="absolute top-[calc(100%+10px)] left-5 right-5 rounded-2xl bg-[#0a0a10]/95 backdrop-blur-[20px] border border-white/8 overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.5)] pointer-events-auto"
             initial={{ opacity: 0, y: -8, scaleY: 0.94 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
             exit={{ opacity: 0, y: -8, scaleY: 0.94 }}
@@ -250,20 +280,32 @@ export default function PortfolioNavbar({
             style={{ transformOrigin: "top" }}
           >
             <div className="flex flex-col p-2.5 gap-0.5">
-              {links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-3.5 rounded-xl font-medium text-[14.5px] text-white/70 hover:text-white hover:bg-white/5 no-underline text-left cursor-pointer"
-                  onClick={() => handleLink(link)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) => {
+                const isActive = active === link.href.replace("#", "");
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={\`relative px-4 py-3.5 rounded-xl font-medium text-[14.5px] no-underline text-left cursor-pointer transition-colors \${
+                      isActive ? "text-white font-semibold" : "text-white/70 hover:text-white hover:bg-white/5"
+                    }\`}
+                    onClick={(e) => handleLink(e, link)}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="pnav-mobile-pill"
+                        className="absolute inset-0 rounded-xl bg-white/8 border border-white/[0.07] pointer-events-none"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative">{link.label}</span>
+                  </a>
+                );
+              })}
             </div>
             <div className="h-[1px] bg-white/5 mx-4 my-1.5" />
             <button 
-              className="block m-2.5 mt-1 px-3 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#a855f7] to-[#ec4899] font-semibold text-sm text-white text-center cursor-pointer border-none"
+              className="block w-[calc(100%-20px)] box-border m-2.5 mt-1 px-3 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#a855f7] to-[#ec4899] font-semibold text-sm text-white text-center cursor-pointer border-none"
               onClick={() => { setMenuOpen(false); onCtaClick(); }}
             >
               {ctaLabel}
@@ -292,6 +334,8 @@ interface PortfolioNavbarProps {
   ctaLabel?: string;
   onCtaClick?: () => void;
   onLinkClick?: (link: NavLink) => void;
+  onMenuOpenChange?: (open: boolean) => void;
+  fixed?: boolean;
 }
 
 const LINKS: NavLink[] = [
@@ -302,11 +346,13 @@ const LINKS: NavLink[] = [
 ];
 
 export default function PortfolioNavbar({
-  logo        = "amir.",
-  links       = LINKS,
-  ctaLabel    = "Hire Me",
-  onCtaClick  = () => {},
-  onLinkClick = () => {},
+  logo            = "amir.",
+  links           = LINKS,
+  ctaLabel        = "Hire Me",
+  onCtaClick      = () => {},
+  onLinkClick     = () => {},
+  onMenuOpenChange = () => {},
+  fixed           = true
 }: PortfolioNavbarProps) {
   const [active,    setActive]    = useState<string>("home");
   const [scrolled,  setScrolled]  = useState<boolean>(false);
@@ -314,10 +360,15 @@ export default function PortfolioNavbar({
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    onMenuOpenChange(menuOpen);
+  }, [menuOpen, onMenuOpenChange]);
+
+  useEffect(() => {
+    if (!fixed) return;
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [fixed]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -330,7 +381,10 @@ export default function PortfolioNavbar({
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  const handleLink = (link: NavLink) => {
+  const handleLink = (e: React.MouseEvent, link: NavLink) => {
+    if (!fixed) {
+      e.preventDefault();
+    }
     setActive(link.href.replace("#", ""));
     setMenuOpen(false);
     onLinkClick(link);
@@ -354,7 +408,7 @@ export default function PortfolioNavbar({
                 key={link.label}
                 href={link.href}
                 className={\`pnav-link\${isActive ? " active" : ""}\`}
-                onClick={() => handleLink(link)}
+                onClick={(e) => handleLink(e, link)}
               >
                 {isActive && (
                   <motion.div
@@ -398,16 +452,26 @@ export default function PortfolioNavbar({
             style={{ transformOrigin: "top" }}
           >
             <div className="pnav-mobile-links">
-              {links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="pnav-mobile-link"
-                  onClick={() => handleLink(link)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) => {
+                const isActive = active === link.href.replace("#", "");
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={\`pnav-mobile-link\${isActive ? " active" : ""}\`}
+                    onClick={(e) => handleLink(e, link)}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="pnav-mobile-pill"
+                        className="pnav-mobile-active-pill"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span style={{ position: "relative" }}>{link.label}</span>
+                  </a>
+                );
+              })}
             </div>
             <div className="pnav-mobile-divider" />
             <button className="pnav-mobile-cta" onClick={() => { setMenuOpen(false); onCtaClick(); }}>
@@ -434,6 +498,8 @@ interface PortfolioNavbarProps {
   ctaLabel?: string;
   onCtaClick?: () => void;
   onLinkClick?: (link: NavLink) => void;
+  onMenuOpenChange?: (open: boolean) => void;
+  fixed?: boolean;
 }
 
 const LINKS: NavLink[] = [
@@ -444,11 +510,13 @@ const LINKS: NavLink[] = [
 ];
 
 export default function PortfolioNavbar({
-  logo        = "amir.",
-  links       = LINKS,
-  ctaLabel    = "Hire Me",
-  onCtaClick  = () => {},
-  onLinkClick = () => {},
+  logo            = "amir.",
+  links           = LINKS,
+  ctaLabel        = "Hire Me",
+  onCtaClick      = () => {},
+  onLinkClick     = () => {},
+  onMenuOpenChange = () => {},
+  fixed           = true
 }: PortfolioNavbarProps) {
   const [active,    setActive]    = useState<string>("home");
   const [scrolled,  setScrolled]  = useState<boolean>(false);
@@ -456,10 +524,15 @@ export default function PortfolioNavbar({
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    onMenuOpenChange(menuOpen);
+  }, [menuOpen, onMenuOpenChange]);
+
+  useEffect(() => {
+    if (!fixed) return;
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [fixed]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -472,14 +545,17 @@ export default function PortfolioNavbar({
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  const handleLink = (link: NavLink) => {
+  const handleLink = (e: React.MouseEvent, link: NavLink) => {
+    if (!fixed) {
+      e.preventDefault();
+    }
     setActive(link.href.replace("#", ""));
     setMenuOpen(false);
     onLinkClick(link);
   };
 
   return (
-    <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-[680px] px-5 box-border pointer-events-none" ref={rootRef}>
+    <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-[680px] px-5 box-border pointer-events-none" ref={rootRef} style={!fixed ? { position: "absolute", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: 10, width: "100%", maxWidth: "680px", padding: "0 20px", boxSizing: "border-box" } : {}}>
       <div className={\`flex items-center justify-between gap-3 p-2.5 pl-5 rounded-[20px] pointer-events-auto transition-all duration-300 \${
         scrolled 
           ? "bg-[#08080e]/88 border border-white/5 shadow-[0_8px_40px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.05)]" 
@@ -502,7 +578,7 @@ export default function PortfolioNavbar({
                 className={\`relative px-3.5 py-1.5 rounded-xl text-[13.5px] font-medium no-underline transition-colors duration-200 \${
                   isActive ? "text-white font-semibold" : "text-white/60 hover:text-white hover:bg-white/5"
                 }\`}
-                onClick={() => handleLink(link)}
+                onClick={(e) => handleLink(e, link)}
               >
                 {isActive && (
                   <motion.div
@@ -541,7 +617,7 @@ export default function PortfolioNavbar({
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="absolute top-[calc(100%+10px)] left-0 right-0 rounded-2xl bg-[#0a0a10]/95 backdrop-blur-[20px] border border-white/8 overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+            className="absolute top-[calc(100%+10px)] left-5 right-5 rounded-2xl bg-[#0a0a10]/95 backdrop-blur-[20px] border border-white/8 overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.5)] pointer-events-auto"
             initial={{ opacity: 0, y: -8, scaleY: 0.94 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
             exit={{ opacity: 0, y: -8, scaleY: 0.94 }}
@@ -549,20 +625,32 @@ export default function PortfolioNavbar({
             style={{ transformOrigin: "top" }}
           >
             <div className="flex flex-col p-2.5 gap-0.5">
-              {links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-3.5 rounded-xl font-medium text-[14.5px] text-white/70 hover:text-white hover:bg-white/5 no-underline text-left cursor-pointer"
-                  onClick={() => handleLink(link)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) => {
+                const isActive = active === link.href.replace("#", "");
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={\`relative px-4 py-3.5 rounded-xl font-medium text-[14.5px] no-underline text-left cursor-pointer transition-colors \${
+                      isActive ? "text-white font-semibold" : "text-white/70 hover:text-white hover:bg-white/5"
+                    }\`}
+                    onClick={(e) => handleLink(e, link)}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="pnav-mobile-pill"
+                        className="absolute inset-0 rounded-xl bg-white/8 border border-white/[0.07] pointer-events-none"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative">{link.label}</span>
+                  </a>
+                );
+              })}
             </div>
             <div className="h-[1px] bg-white/5 mx-4 my-1.5" />
             <button 
-              className="block m-2.5 mt-1 px-3 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#a855f7] to-[#ec4899] font-semibold text-sm text-white text-center cursor-pointer border-none"
+              className="block w-[calc(100%-20px)] box-border m-2.5 mt-1 px-3 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#a855f7] to-[#ec4899] font-semibold text-sm text-white text-center cursor-pointer border-none"
               onClick={() => { setMenuOpen(false); onCtaClick(); }}
             >
               {ctaLabel}
@@ -605,6 +693,8 @@ export default function PortfolioNavbar({
     0 1px 0 rgba(255, 255, 255, 0.06) inset;
   pointer-events: all;
   transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .pnav-bar.scrolled {
@@ -739,8 +829,8 @@ export default function PortfolioNavbar({
 .pnav-mobile-menu {
   position: absolute;
   top: calc(100% + 10px);
-  left: 0;
-  right: 0;
+  left: 20px;
+  right: 20px;
   border-radius: 18px;
   background: rgba(10, 10, 16, 0.95);
   backdrop-filter: blur(20px);
@@ -748,6 +838,7 @@ export default function PortfolioNavbar({
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  pointer-events: all;
 }
 
 .pnav-mobile-links {
@@ -758,6 +849,7 @@ export default function PortfolioNavbar({
 }
 
 .pnav-mobile-link {
+  position: relative;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14.5px;
   font-weight: 500;
@@ -777,6 +869,20 @@ export default function PortfolioNavbar({
   background: rgba(255, 255, 255, 0.06);
 }
 
+.pnav-mobile-link.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.pnav-mobile-active-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
 .pnav-mobile-divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.05);
@@ -784,6 +890,7 @@ export default function PortfolioNavbar({
 }
 
 .pnav-mobile-cta {
+  display: block;
   margin: 4px 10px 12px;
   padding: 13px;
   border-radius: 14px;
@@ -796,6 +903,8 @@ export default function PortfolioNavbar({
   cursor: pointer;
   border: none;
   transition: opacity 0.2s, transform 0.2s;
+  width: calc(100% - 20px);
+  box-sizing: border-box;
 }
 
 .pnav-mobile-cta:hover { opacity: 0.9; transform: scale(0.99); }

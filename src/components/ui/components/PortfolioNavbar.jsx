@@ -34,6 +34,8 @@ const NAV_STYLES = `
       0 1px 0 rgba(255, 255, 255, 0.06) inset;
     pointer-events: all;
     transition: background 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .pnav-bar.scrolled {
@@ -170,12 +172,11 @@ const NAV_STYLES = `
   .pnav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .pnav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-  /* ── Mobile menu dropdown ── */
   .pnav-mobile-menu {
     position: absolute;
     top: calc(100% + 10px);
-    left: 0;
-    right: 0;
+    left: 20px;
+    right: 20px;
     border-radius: 18px;
     background: rgba(10, 10, 16, 0.95);
     backdrop-filter: blur(20px);
@@ -183,6 +184,7 @@ const NAV_STYLES = `
     border: 1px solid rgba(255, 255, 255, 0.08);
     overflow: hidden;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    pointer-events: all;
   }
 
   .pnav-mobile-links {
@@ -193,6 +195,7 @@ const NAV_STYLES = `
   }
 
   .pnav-mobile-link {
+    position: relative;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14.5px;
     font-weight: 500;
@@ -212,6 +215,20 @@ const NAV_STYLES = `
     background: rgba(255, 255, 255, 0.06);
   }
 
+  .pnav-mobile-link.active {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .pnav-mobile-active-pill {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    pointer-events: none;
+  }
+
   .pnav-mobile-divider {
     height: 1px;
     background: rgba(255, 255, 255, 0.05);
@@ -219,6 +236,7 @@ const NAV_STYLES = `
   }
 
   .pnav-mobile-cta {
+    display: block;
     margin: 4px 10px 12px;
     padding: 13px;
     border-radius: 14px;
@@ -231,6 +249,8 @@ const NAV_STYLES = `
     cursor: pointer;
     border: none;
     transition: opacity 0.2s, transform 0.2s;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
   }
 
   .pnav-mobile-cta:hover { opacity: 0.9; transform: scale(0.99); }
@@ -250,17 +270,23 @@ const LINKS = [
 ];
 
 export default function PortfolioNavbar({
-  logo        = "amir.",
-  links       = LINKS,
-  ctaLabel    = "Hire Me",
-  onCtaClick  = () => {},
-  onLinkClick = () => {},
-  fixed       = true
+  logo            = "amir.",
+  links           = LINKS,
+  ctaLabel        = "Hire Me",
+  onCtaClick      = () => {},
+  onLinkClick     = () => {},
+  onMenuOpenChange = () => {},
+  fixed           = true
 }) {
   const [active,    setActive]    = useState("home");
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const rootRef = useRef(null);
+
+  // Trigger menu open change callback for parent layout tracking
+  useEffect(() => {
+    onMenuOpenChange(menuOpen);
+  }, [menuOpen, onMenuOpenChange]);
 
   // Scroll detection for frosted glass depth change
   useEffect(() => {
@@ -282,7 +308,10 @@ export default function PortfolioNavbar({
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  const handleLink = (link) => {
+  const handleLink = (e, link) => {
+    if (!fixed) {
+      e.preventDefault();
+    }
     setActive(link.href.replace("#", ""));
     setMenuOpen(false);
     onLinkClick(link);
@@ -292,7 +321,7 @@ export default function PortfolioNavbar({
     <div 
       className="pnav-root" 
       ref={rootRef}
-      style={!fixed ? { position: "absolute", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: 10 } : {}}
+      style={!fixed ? { position: "absolute", top: "20px", left: "50%", transform: "translateX(-50%)", zIndex: 10, width: "100%", maxWidth: "680px", padding: "0 20px", boxSizing: "border-box" } : {}}
     >
       <style>{NAV_STYLES}</style>
 
@@ -312,7 +341,7 @@ export default function PortfolioNavbar({
                 key={link.label}
                 href={link.href}
                 className={`pnav-link${isActive ? " active" : ""}`}
-                onClick={() => handleLink(link)}
+                onClick={(e) => handleLink(e, link)}
               >
                 {isActive && (
                   <motion.div
@@ -356,16 +385,26 @@ export default function PortfolioNavbar({
             style={{ transformOrigin: "top" }}
           >
             <div className="pnav-mobile-links">
-              {links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="pnav-mobile-link"
-                  onClick={() => handleLink(link)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) => {
+                const isActive = active === link.href.replace("#", "");
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={`pnav-mobile-link${isActive ? " active" : ""}`}
+                    onClick={(e) => handleLink(e, link)}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="pnav-mobile-pill"
+                        className="pnav-mobile-active-pill"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span style={{ position: "relative" }}>{link.label}</span>
+                  </a>
+                );
+              })}
             </div>
             <div className="pnav-mobile-divider" />
             <button className="pnav-mobile-cta" onClick={() => { setMenuOpen(false); onCtaClick(); }}>

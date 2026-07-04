@@ -313,7 +313,7 @@ const Docs = () => {
                           {/* Format selectors row */}
                           <div className="format-selectors-row">
                             <div className="selector-group">
-                              <span className="selector-label">Language:</span>
+                              <span className="selector-label">Lang:</span>
                               <div className="selector-buttons">
                                 <button
                                   onClick={() => setLangType("js")}
@@ -333,7 +333,7 @@ const Docs = () => {
                             </div>
 
                             <div className="selector-group">
-                              <span className="selector-label">Styling:</span>
+                              <span className="selector-label">Style:</span>
                               <div className="selector-buttons">
                                 <button
                                   onClick={() => setStyleType("css")}
@@ -345,7 +345,7 @@ const Docs = () => {
                                   onClick={() => setStyleType("tailwind")}
                                   className={`selector-btn ${styleType === "tailwind" ? "active" : ""}`}
                                 >
-                                  Tailwind
+                                  TW
                                 </button>
                               </div>
                             </div>
@@ -530,15 +530,22 @@ const Docs = () => {
           width: 100%;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
           padding: 0 24px 60px;
           gap: 40px;
           position: relative;
         }
 
+        @media (max-width: 768px) {
+          .docs-container {
+            padding: 0 12px 40px;
+            gap: 20px;
+          }
+        }
+
         @media (min-width: 1024px) {
           .docs-container {
-            grid-template-columns: 240px 1fr;
+            grid-template-columns: 240px minmax(0, 1fr);
           }
         }
 
@@ -662,6 +669,7 @@ const Docs = () => {
           padding-top: 16px;
           max-width: 820px;
           width: 100%;
+          min-width: 0;
         }
 
         @media (min-width: 1024px) {
@@ -818,12 +826,17 @@ const Docs = () => {
           border: 1px solid rgba(255, 255, 255, 0.05);
           background: rgba(10, 10, 10, 0.35);
           border-radius: 16px;
-          overflow: hidden;
+          overflow: visible;
           margin-bottom: 40px;
+          width: 100%;
+          max-width: 100%;
         }
 
         .tab-preview-pane {
           padding: 1px; /* Let preview element control layout */
+          width: 100%;
+          max-width: 100%;
+          overflow: visible;
         }
 
         .tab-code-pane {
@@ -849,20 +862,20 @@ const Docs = () => {
         .format-selectors-row {
           display: flex;
           flex-wrap: wrap;
-          gap: 20px;
-          margin-bottom: 24px;
-          padding-bottom: 16px;
+          gap: 12px;
+          margin-bottom: 20px;
+          padding-bottom: 12px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .selector-group {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 6px;
         }
 
         .selector-label {
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 600;
           color: #8e8e93;
         }
@@ -1279,7 +1292,7 @@ const DocVariantBlock = ({
               <div className="multi-code-container">
                 <div className="format-selectors-row" style={{ marginBottom: "16px" }}>
                   <div className="selector-group">
-                    <span className="selector-label">Language:</span>
+                    <span className="selector-label">Lang:</span>
                     <div className="selector-buttons">
                       <button
                         onClick={() => setLangType("js")}
@@ -1299,7 +1312,7 @@ const DocVariantBlock = ({
                   </div>
 
                   <div className="selector-group">
-                    <span className="selector-label">Styling:</span>
+                    <span className="selector-label">Style:</span>
                     <div className="selector-buttons">
                       <button
                         onClick={() => setStyleType("css")}
@@ -1311,7 +1324,7 @@ const DocVariantBlock = ({
                         onClick={() => setStyleType("tailwind")}
                         className={`selector-btn ${styleType === "tailwind" ? "active" : ""}`}
                       >
-                        Tailwind
+                        TW
                       </button>
                     </div>
                   </div>
