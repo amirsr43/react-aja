@@ -96,7 +96,7 @@ export default function FocusBlurText({ text = "Hover mouse to magnifying glass 
         {/* Layer 2: Sharp, colored, clip-path text */}
         {isHovered && (
           <div 
-            className="text-[26px] font-extrabold leading-snug tracking-tight text-center absolute inset-0 text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text pointer-events-none"
+            className="text-[26px] font-extrabold leading-snug tracking-tight text-center absolute inset-0 text-white pointer-events-none"
             style={{
               clipPath: \`circle(55px at \${mousePos.x}px \${mousePos.y}px)\`,
               WebkitClipPath: \`circle(55px at \${mousePos.x}px \${mousePos.y}px)\`,
@@ -227,7 +227,7 @@ export default function FocusBlurText({ text = "Hover mouse to magnifying glass 
         {/* Layer 2: Sharp, colored, clip-path text */}
         {isHovered && (
           <div 
-            className="text-[26px] font-extrabold leading-snug tracking-tight text-center absolute inset-0 text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text pointer-events-none"
+            className="text-[26px] font-extrabold leading-snug tracking-tight text-center absolute inset-0 text-white pointer-events-none"
             style={{
               clipPath: \`circle(55px at \${mousePos.x}px \${mousePos.y}px)\`,
               WebkitClipPath: \`circle(55px at \${mousePos.x}px \${mousePos.y}px)\`,
@@ -290,14 +290,11 @@ export default function FocusBlurText({ text = "Hover mouse to magnifying glass 
   filter: blur(6px);
 }
 
-/* Layer B: Sharp Foreground Text Gradient */
+/* Layer B: Sharp Foreground */
 .text-layer-sharp {
   position: absolute;
   inset: 0;
-  color: transparent;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: #ffffff;
   pointer-events: none;
 }
 

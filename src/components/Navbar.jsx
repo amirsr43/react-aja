@@ -409,7 +409,7 @@ const Navbar = () => {
         }
 
         @media (max-width: 480px) {
-          .docs-page-layout { padding-top: 64px !important; }
+          .docs-page-layout { padding-top: 100px !important; }
           .docs-container { padding: 0 14px 60px !important; gap: 20px !important; }
           .docs-title { font-size: 26px !important; }
           .docs-description { font-size: 13.5px !important; }

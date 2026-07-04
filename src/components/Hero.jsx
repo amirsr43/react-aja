@@ -1,4 +1,4 @@
-// src/components/Hero.jsx
+﻿// src/components/Hero.jsx
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -348,18 +348,18 @@ const Hero = () => {
         }
 
         .hero-heading {
-          font-size: clamp(38px, 5.2vw, 56px);
+          font-size: clamp(34px, 4.5vw, 48px);
           font-weight: 800;
           margin-bottom: 20px;
           color: #ffffff;
-          line-height: 1.12;
-          letter-spacing: -0.035em;
+          line-height: 1.15;
+          letter-spacing: -0.03em;
           font-family: 'Space Grotesk', 'Outfit', sans-serif;
         }
 
         .heading-accent-wrapper {
           display: inline-block;
-          min-width: 250px;
+          min-width: 220px;
           vertical-align: bottom;
         }
 

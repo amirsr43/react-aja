@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import GlobalStyles from "../styles/GlobalStyles";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import LandingFeatures from "../components/LandingFeatures";
 import ShowcaseGrid from "../components/ShowcaseGrid";
 import ScrollToTop from "../components/ScrollToTop";
 import SupportButton from "../components/SupportButton";
@@ -22,6 +23,7 @@ function Home() {
       <GlobalStyles />
       <Navbar />
       <Hero />
+      <LandingFeatures />
       <ShowcaseGrid />
       <Footer />
       <ScrollToTop />

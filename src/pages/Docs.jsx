@@ -286,6 +286,7 @@ const Docs = () => {
                                 "Text Animation": "text-animation",
                                 "Spotlight Focus Blur": "focus-blur-text",
                                 "Expanding Search Bar": "expanding-search",
+                                "Spotify-Style Scroll Text": "spotify-lyrics",
                                 "SVG to JSX": "svg-to-jsx",
                                 "Theme Generator": "theme-generator",
                                 "Px to Rem Spacing": "px-to-rem"
@@ -518,6 +519,12 @@ const Docs = () => {
           color: #ffffff;
         }
 
+        @media (max-width: 1023px) {
+          .docs-page-layout {
+            padding-top: 100px !important;
+          }
+        }
+
         .docs-container {
           max-width: 1240px;
           width: 100%;
@@ -564,6 +571,7 @@ const Docs = () => {
           padding: 10px 14px;
           border-radius: 12px;
           margin-top: 8px;
+          margin-bottom: 16px;
           gap: 12px;
         }
 

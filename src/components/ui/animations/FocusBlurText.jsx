@@ -46,10 +46,7 @@ const BLUR_STYLES = `
 .text-layer-sharp {
   position: absolute;
   inset: 0;
-  color: transparent;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: #ffffff;
   pointer-events: none;
   display: flex;
   justify-content: center;

@@ -14,21 +14,26 @@ export default function SearchBar({
   recentQueries = [],
   suggestedTags = [],
   onSearch,
-  onDeleteRecent
+  onDeleteRecent,
+  alwaysOpen = false,
+  onFocus,
+  onBlur
 }) {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
+    if (alwaysOpen) return;
     const handleOutsideClick = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setIsFocused(false);
+        if (onBlur) onBlur();
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  }, [alwaysOpen, onBlur]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -36,6 +41,7 @@ export default function SearchBar({
         onSearch(query.trim());
       }
       setIsFocused(false);
+      if (onBlur) onBlur();
     }
   };
 
@@ -43,25 +49,30 @@ export default function SearchBar({
     setQuery(val);
     if (onSearch) onSearch(val);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   const handleSelectTag = (tag) => {
     setQuery(tag);
     if (onSearch) onSearch(tag);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   return (
     <div className="search-wrapper" ref={containerRef}>
       {/* Search Input Box */}
-      <div className={\`search-input-box \${isFocused ? "focused" : ""}\`}>
+      <div className={\`search-input-box \${(isFocused || alwaysOpen) ? "focused" : ""}\`}>
         <Search size={18} className="search-icon-left" />
         <input
           type="text"
           className="search-input-field"
           placeholder={placeholder}
           value={query}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            if (onFocus) onFocus();
+          }}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
@@ -76,7 +87,7 @@ export default function SearchBar({
 
       {/* Suggestion Dropdown panel */}
       <AnimatePresence>
-        {isFocused && (recentQueries.length > 0 || suggestedTags.length > 0) && (
+        {(isFocused || alwaysOpen) && (recentQueries.length > 0 || suggestedTags.length > 0) && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -138,21 +149,26 @@ export default function SearchBar({
   recentQueries = [],
   suggestedTags = [],
   onSearch,
-  onDeleteRecent
+  onDeleteRecent,
+  alwaysOpen = false,
+  onFocus,
+  onBlur
 }) {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
+    if (alwaysOpen) return;
     const handleOutsideClick = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setIsFocused(false);
+        if (onBlur) onBlur();
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  }, [alwaysOpen, onBlur]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -160,6 +176,7 @@ export default function SearchBar({
         onSearch(query.trim());
       }
       setIsFocused(false);
+      if (onBlur) onBlur();
     }
   };
 
@@ -167,19 +184,21 @@ export default function SearchBar({
     setQuery(val);
     if (onSearch) onSearch(val);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   const handleSelectTag = (tag) => {
     setQuery(tag);
     if (onSearch) onSearch(tag);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   return (
     <div className="relative w-full max-w-[440px]" ref={containerRef}>
       {/* Search Input Box */}
       <div className={\`flex items-center bg-zinc-950/45 border rounded-2xl px-[18px] py-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)] backdrop-blur-md \${
-        isFocused ? "border-blue-500 bg-zinc-950/75 shadow-[0_15px_30px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.2)]" : "border-white/5"
+        (isFocused || alwaysOpen) ? "border-blue-500 bg-zinc-950/75 shadow-[0_15px_30px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.2)]" : "border-white/5"
       }\`}>
         <Search size={18} className="text-white/30 mr-3" />
         <input
@@ -187,7 +206,10 @@ export default function SearchBar({
           className="flex-grow bg-transparent border-none text-white outline-none h-12 w-full text-sm"
           placeholder={placeholder}
           value={query}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            if (onFocus) onFocus();
+          }}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
@@ -202,7 +224,7 @@ export default function SearchBar({
 
       {/* Suggestion Dropdown panel */}
       <AnimatePresence>
-        {isFocused && (recentQueries.length > 0 || suggestedTags.length > 0) && (
+        {(isFocused || alwaysOpen) && (recentQueries.length > 0 || suggestedTags.length > 0) && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -276,6 +298,9 @@ interface SearchBarProps {
   suggestedTags?: string[];
   onSearch?: (query: string) => void;
   onDeleteRecent?: (query: string) => void;
+  alwaysOpen?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export default function SearchBar({
@@ -283,21 +308,26 @@ export default function SearchBar({
   recentQueries = [],
   suggestedTags = [],
   onSearch,
-  onDeleteRecent
+  onDeleteRecent,
+  alwaysOpen = false,
+  onFocus,
+  onBlur
 }: SearchBarProps): React.JSX.Element {
   const [query, setQuery] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (alwaysOpen) return;
     const handleOutsideClick = (e: globalThis.MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsFocused(false);
+        if (onBlur) onBlur();
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  }, [alwaysOpen, onBlur]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -305,6 +335,7 @@ export default function SearchBar({
         onSearch(query.trim());
       }
       setIsFocused(false);
+      if (onBlur) onBlur();
     }
   };
 
@@ -312,25 +343,30 @@ export default function SearchBar({
     setQuery(val);
     if (onSearch) onSearch(val);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   const handleSelectTag = (tag: string) => {
     setQuery(tag);
     if (onSearch) onSearch(tag);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   return (
     <div className="search-wrapper" ref={containerRef}>
       {/* Search Input Box */}
-      <div className={\`search-input-box \${isFocused ? "focused" : ""}\`}>
+      <div className={\`search-input-box \${(isFocused || alwaysOpen) ? "focused" : ""}\`}>
         <Search size={18} className="search-icon-left" />
         <input
           type="text"
           className="search-input-field"
           placeholder={placeholder}
           value={query}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            if (onFocus) onFocus();
+          }}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
@@ -345,7 +381,7 @@ export default function SearchBar({
 
       {/* Suggestion Dropdown panel */}
       <AnimatePresence>
-        {isFocused && (recentQueries.length > 0 || suggestedTags.length > 0) && (
+        {(isFocused || alwaysOpen) && (recentQueries.length > 0 || suggestedTags.length > 0) && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -408,6 +444,9 @@ interface SearchBarProps {
   suggestedTags?: string[];
   onSearch?: (query: string) => void;
   onDeleteRecent?: (query: string) => void;
+  alwaysOpen?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export default function SearchBar({
@@ -415,21 +454,26 @@ export default function SearchBar({
   recentQueries = [],
   suggestedTags = [],
   onSearch,
-  onDeleteRecent
+  onDeleteRecent,
+  alwaysOpen = false,
+  onFocus,
+  onBlur
 }: SearchBarProps): React.JSX.Element {
   const [query, setQuery] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (alwaysOpen) return;
     const handleOutsideClick = (e: globalThis.MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsFocused(false);
+        if (onBlur) onBlur();
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  }, [alwaysOpen, onBlur]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -437,6 +481,7 @@ export default function SearchBar({
         onSearch(query.trim());
       }
       setIsFocused(false);
+      if (onBlur) onBlur();
     }
   };
 
@@ -444,19 +489,21 @@ export default function SearchBar({
     setQuery(val);
     if (onSearch) onSearch(val);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   const handleSelectTag = (tag: string) => {
     setQuery(tag);
     if (onSearch) onSearch(tag);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   return (
     <div className="relative w-full max-w-[440px]" ref={containerRef}>
       {/* Search Input Box */}
       <div className={\`flex items-center bg-zinc-950/45 border rounded-2xl px-[18px] py-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)] backdrop-blur-md \${
-        isFocused ? "border-blue-500 bg-zinc-950/75 shadow-[0_15px_30px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.2)]" : "border-white/5"
+        (isFocused || alwaysOpen) ? "border-blue-500 bg-zinc-950/75 shadow-[0_15px_30px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.2)]" : "border-white/5"
       }\`}>
         <Search size={18} className="text-white/30 mr-3" />
         <input
@@ -464,7 +511,10 @@ export default function SearchBar({
           className="flex-grow bg-transparent border-none text-white outline-none h-12 w-full text-sm"
           placeholder={placeholder}
           value={query}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            if (onFocus) onFocus();
+          }}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
@@ -479,7 +529,7 @@ export default function SearchBar({
 
       {/* Suggestion Dropdown panel */}
       <AnimatePresence>
-        {isFocused && (recentQueries.length > 0 || suggestedTags.length > 0) && (
+        {(isFocused || alwaysOpen) && (recentQueries.length > 0 || suggestedTags.length > 0) && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -582,6 +632,12 @@ export default function SearchBar({
   border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 3px 6px;
   border-radius: 6px;
+}
+
+@media (max-width: 640px) {
+  .search-shortcut-badge {
+    display: none;
+  }
 }
 
 /* Glassmorphic Dropdown overlay */

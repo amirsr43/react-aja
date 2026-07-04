@@ -90,6 +90,12 @@ const SEARCH_STYLES = `
   background: rgba(59, 130, 246, 0.05);
 }
 
+@media (max-width: 640px) {
+  .search-shortcut-badge {
+    display: none;
+  }
+}
+
 .search-clear-btn {
   background: transparent;
   border: none;
@@ -243,7 +249,10 @@ export function SearchBar({
   recentQueries = [],
   suggestedTags = [],
   onSearch,
-  onDeleteRecent
+  onDeleteRecent,
+  alwaysOpen = false,
+  onFocus,
+  onBlur
 }) {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
@@ -251,14 +260,16 @@ export function SearchBar({
 
   // Close suggestions on outside click
   useEffect(() => {
+    if (alwaysOpen) return;
     const handleOutsideClick = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setIsFocused(false);
+        if (onBlur) onBlur();
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  }, [alwaysOpen, onBlur]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -266,6 +277,7 @@ export function SearchBar({
         onSearch(query.trim());
       }
       setIsFocused(false);
+      if (onBlur) onBlur();
     }
   };
 
@@ -273,12 +285,14 @@ export function SearchBar({
     setQuery(val);
     if (onSearch) onSearch(val);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   const handleSelectTag = (tag) => {
     setQuery(tag);
     if (onSearch) onSearch(tag);
     setIsFocused(false);
+    if (onBlur) onBlur();
   };
 
   return (
@@ -286,14 +300,17 @@ export function SearchBar({
       <style>{SEARCH_STYLES}</style>
       
       {/* Input Field box wrapper */}
-      <div className={`search-input-box ${isFocused ? "focused" : ""}`}>
+      <div className={`search-input-box ${(isFocused || alwaysOpen) ? "focused" : ""}`}>
         <Search size={18} className="search-icon-left" />
         <input
           type="text"
           className="search-input-field"
           placeholder={placeholder}
           value={query}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            if (onFocus) onFocus();
+          }}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
@@ -308,7 +325,7 @@ export function SearchBar({
 
       {/* Suggested drop overlay */}
       <AnimatePresence>
-        {isFocused && (recentQueries.length > 0 || suggestedTags.length > 0) && (
+        {(isFocused || alwaysOpen) && (recentQueries.length > 0 || suggestedTags.length > 0) && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -379,6 +396,7 @@ export default function SearchBarShowcase() {
     "Glassmorphism gradients cards"
   ]);
   const [lastQuery, setLastQuery] = useState("None yet");
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSearchTrigger = (val) => {
     setLastQuery(val);
@@ -392,12 +410,21 @@ export default function SearchBarShowcase() {
   };
 
   return (
-    <div className="search-showcase">
+    <div 
+      className="search-showcase" 
+      style={{ 
+        paddingBottom: isFocused ? "330px" : "15px",
+        transition: "padding-bottom 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)"
+      }}
+    >
       <SearchBar
+        alwaysOpen={false}
         recentQueries={history}
         suggestedTags={["Tailwind", "Framer Motion", "Glassmorphic Cards"]}
         onSearch={handleSearchTrigger}
         onDeleteRecent={handleHistoryDelete}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
     </div>
   );

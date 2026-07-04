@@ -9,4 +9,4 @@ Disallow: /node_modules/
 Disallow: /private/
 
 # Menyertakan sitemap utama untuk mempermudah penemuan halaman baru
-Sitemap: https://reactaja.my.id/sitemap.xml
+Sitemap: https://www.reactaja.my.id/sitemap.xml

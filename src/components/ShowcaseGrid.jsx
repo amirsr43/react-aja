@@ -23,8 +23,11 @@ const SHOWCASE_STYLES = `
 }
 
 .showcase-grid-header {
-  text-align: center;
-  margin-bottom: 70px;
+  text-align: left;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .showcase-grid-tag {
@@ -44,15 +47,7 @@ const SHOWCASE_STYLES = `
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.025em;
-  margin-bottom: 18px;
-}
-
-.showcase-grid-desc {
-  font-size: 16.5px;
-  color: rgba(255, 255, 255, 0.55);
-  max-width: 680px;
-  margin: 0 auto;
-  line-height: 1.65;
+  margin-bottom: 0;
 }
 
 .showcase-grid-container {
@@ -323,9 +318,6 @@ export default function ShowcaseGrid() {
       <div className="showcase-grid-header">
         <span className="showcase-grid-tag">Interactive Gallery</span>
         <h2 className="showcase-grid-title">Explore Premium UI Animations</h2>
-        <p className="showcase-grid-desc">
-          Interact with these components directly inside their previews. Hover, toggle, or trigger updates, then click the card to copy the code.
-        </p>
       </div>
 
       <div className="showcase-grid-container">

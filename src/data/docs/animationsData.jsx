@@ -35,6 +35,8 @@ import GradientSweepText from "../../components/ui/animations/GradientSweepText"
 import { gradientSweepTextCode } from "../codes/gradientSweepText";
 import Interactive3DText from "../../components/ui/animations/Interactive3DText";
 import { interactive3DTextCode } from "../codes/interactive3DText";
+import SpotifyLyrics from "../../components/ui/animations/SpotifyLyrics";
+import { spotifyLyricsCode } from "../codes/spotifyLyrics";
 
 import { Link } from "react-router-dom";
 import { ToggleLeft, Users, Calendar, Sparkles, Sliders, Type, Binary, MessageSquare, Eye, Search, ArrowRight, Layers } from "lucide-react";
@@ -378,7 +380,7 @@ export const animationsDocs = {
     ),
     code: focusBlurTextCode.code,
     css: focusBlurTextCode.css,
-    prompt: "Create a spotlight magnifying lens focus blur text container in React. Text is blurred out by default, but hovering a magnifying glass circle reveals sharp, scaled-up, gradient-colored text.",
+    prompt: "Create a spotlight magnifying lens focus blur text container in React. Text is blurred out by default, but hovering a magnifying glass circle reveals sharp, scaled-up, solid white text.",
     props: [
       { name: "text", type: "string", default: '"Hover mouse to resolve and focus letters"', description: "Text content to display." }
     ],
@@ -392,7 +394,7 @@ export const animationsDocs = {
     category: "UI Animations",
     isGuide: false,
     preview: (
-      <div style={{ padding: "60px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505", position: "relative" }}>
+      <div style={{ padding: "60px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", position: "relative", boxSizing: "border-box" }}>
         <ExpandingSearch />
       </div>
     ),
@@ -533,5 +535,25 @@ export const animationsDocs = {
       { name: "colors", type: "array", default: "/* Alternating purple/pink themes */", description: "Array of color definition objects ({ gradient, depthGradient, depth, glow }) for each letter." }
     ],
     dependencies: ["framer-motion"]
+  },
+  "spotify-lyrics": {
+    id: "spotify-lyrics",
+    title: "Spotify-Style Scroll Text",
+    description: "An interactive, scroll-synchronized text reveal animation. Sentences smoothly focus, scale up, and turn bright white as they scroll to the center of the viewport, while out-of-focus lines fade and blur.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "40px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
+        <SpotifyLyrics />
+      </div>
+    ),
+    code: spotifyLyricsCode.code,
+    css: spotifyLyricsCode.css,
+    prompt: "Create an interactive scroll-synchronized text reveal in React. Sentences focus, scale up, and turn bright white as they scroll to the vertical center of the container viewport, while outer lines fade and blur away.",
+    props: [
+      { name: "lines", type: "array", default: "/* Array of 9 default text strings */", description: "Array of text strings/sentences to render in the scrollable view." },
+      { name: "height", type: "string", default: '"260px"', description: "Custom height of the scroll viewport container." }
+    ],
+    dependencies: []
   }
 };

@@ -854,6 +854,16 @@ export default function ModernForm(): React.JSX.Element {
   width: 100%;
 }
 
+/* Autofill overrides for Webkit/Blink browsers */
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover, 
+.form-input:-webkit-autofill:focus, 
+.form-input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+}
+
 /* Floating Label Transition */
 .form-label {
   position: absolute;

@@ -492,7 +492,7 @@ export function CircularBattery({ percent, charging }) {
 /* ─────────────────────────── MAIN SHOWCASE ─────────────────────────── */
 const VARIANTS = ["Classic", "Dot Grid", "Circular"];
 
-export default function BatteryLoader({ onVariantChange }) {
+export default function BatteryLoader({ onVariantChange, hideTabs = false }) {
   const [activeVariant, setActiveVariant] = useState("Classic");
   const [percent, setPercent] = useState(15);
   const [charging, setCharging] = useState(true);
@@ -534,17 +534,19 @@ export default function BatteryLoader({ onVariantChange }) {
       <style>{BATTERY_STYLES}</style>
 
       {/* Variant tabs */}
-      <div className="battery-tabs">
-        {VARIANTS.map((v) => (
-          <button
-            key={v}
-            className={`battery-tab-btn${activeVariant === v ? " active" : ""}`}
-            onClick={() => handleVariantChange(v)}
-          >
-            {v}
-          </button>
-        ))}
-      </div>
+      {!hideTabs && (
+        <div className="battery-tabs">
+          {VARIANTS.map((v) => (
+            <button
+              key={v}
+              className={`battery-tab-btn${activeVariant === v ? " active" : ""}`}
+              onClick={() => handleVariantChange(v)}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Display */}
       <AnimatePresence mode="wait">

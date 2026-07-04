@@ -41,7 +41,7 @@ animated, responsive, and ready to drop into any project.
 
 ## 🔗 Live Demo
 
-👉 [reactaja-ui](https://reactaja.my.id/)
+👉 [reactaja-ui](https://www.reactaja.my.id/)
 
 ---
 

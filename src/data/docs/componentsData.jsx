@@ -251,7 +251,7 @@ export const componentsDocs = {
     category: "UI Components",
     isGuide: false,
     preview: (
-      <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+      <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
         <LoadingShowcase />
       </div>
     ),
@@ -271,13 +271,13 @@ export const componentsDocs = {
     category: "UI Components",
     isGuide: false,
     preview: (
-      <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+      <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
         <ModernForm />
       </div>
     ),
     code: modernFormCode.code,
     css: modernFormCode.css,
-    prompt: "Create a dark glassmorphic signup/login form in React with floating labels that lift on focus, input validations with real-time error messages, and a multi-state submit button (idle, submitting, success).",
+    prompt: "Create a dark glassmorphic signup/login form in React with floating labels that lift on focus, input validations with real-time error messages, and a multi-state submit button (idle, submitting, success). Ensure autocomplete autofilled fields remain fully transparent with white text rather than showing browser-default colors.",
     props: [
       { name: "onSubmit", type: "function", default: "undefined", description: "Form submit callback function handler." }
     ],
@@ -291,7 +291,7 @@ export const componentsDocs = {
     category: "UI Components",
     isGuide: false,
     preview: (
-      <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+      <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
         <ProductCardShowcase />
       </div>
     ),
@@ -316,7 +316,7 @@ export const componentsDocs = {
     category: "UI Components",
     isGuide: false,
     preview: (
-      <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+      <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
         <ToastNotificationShowcase />
       </div>
     ),
@@ -339,18 +339,21 @@ export const componentsDocs = {
     category: "UI Components",
     isGuide: false,
     preview: (
-      <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+      <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
         <SearchBarShowcase />
       </div>
     ),
     code: searchBarCode.code,
     css: searchBarCode.css,
-    prompt: "Create an elegant search bar input field in React that expands on focus. It reveals a glassmorphic suggestion dropdown with search history entries (with individual close triggers) and clickable trending tags.",
+    prompt: "Create an elegant search bar input field in React that expands on focus. It reveals a glassmorphic suggestion dropdown with search history entries (with individual close triggers) and clickable trending tags. The dropdown should display on focus and close on blur, and it should hide the keyboard shortcut badge on mobile screens.",
     props: [
       { name: "placeholder", type: "string", default: '"Search documents..."', description: "Placeholder message inside empty field input." },
       { name: "recentQueries", type: "array", default: "[]", description: "List of previous text search strings." },
       { name: "suggestedTags", type: "array", default: "[]", description: "List of recommended click tags chips." },
-      { name: "onSearch", type: "function", default: "undefined", description: "Triggers on pressing Enter or clicking tags." }
+      { name: "onSearch", type: "function", default: "undefined", description: "Triggers on pressing Enter or clicking tags." },
+      { name: "alwaysOpen", type: "boolean", default: "false", description: "Forces the suggestions dropdown overlay to remain open constantly for showcase/display purposes." },
+      { name: "onFocus", type: "function", default: "undefined", description: "Fires when the search input field is focused." },
+      { name: "onBlur", type: "function", default: "undefined", description: "Fires when the suggestions dropdown is closed." }
     ],
     dependencies: ["framer-motion", "lucide-react"]
   },
@@ -390,7 +393,7 @@ export const componentsDocs = {
         name: "Classic Battery",
         description: "A physical battery bar loader with an animated wave fill and pulsing charging lightning bolt.",
         preview: (
-          <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+          <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
             <ClassicBatteryDemo />
           </div>
         ),
@@ -402,7 +405,7 @@ export const componentsDocs = {
         name: "Dot Grid Battery",
         description: "A futuristic rectangular grid of glowing squares that light up sequentially.",
         preview: (
-          <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+          <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
             <DotBatteryDemo />
           </div>
         ),
@@ -414,7 +417,7 @@ export const componentsDocs = {
         name: "Circular Battery",
         description: "An SVG ring battery loader that fills like a progress circle around status text.",
         preview: (
-          <div style={{ padding: "30px 0", display: "flex", justifyContent: "center", width: "100%", background: "#050505" }}>
+          <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
             <CircularBatteryDemo />
           </div>
         ),
