@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Copy, Check, Trash2 } from "lucide-react";
 import ProfileCard from "../ui/components/ProfileCard";
+import CodeHighlight from "../ui/CodeHighlight";
 import { docsData } from "../../data/docsData";
 
 const THEME_PRESETS = [
@@ -414,9 +415,11 @@ export default function ProfileCardCustomizer() {
                   <span>{copiedCode ? "Copied!" : "Copy Component"}</span>
                 </button>
               </div>
-              <pre className="code-pre-element">
-                <code>{getCustomizedCode(currentDoc.code[langType][styleType])}</code>
-              </pre>
+              <CodeHighlight
+                code={getCustomizedCode(currentDoc.code[langType][styleType])}
+                language={langType}
+                className="code-pre-element"
+              />
 
               {/* CSS Section (Only show if styleType === 'css') */}
               {styleType === "css" && currentDoc.css && (
@@ -431,9 +434,11 @@ export default function ProfileCardCustomizer() {
                       <span>{copiedCSS ? "Copied!" : "Copy CSS"}</span>
                     </button>
                   </div>
-                  <pre className="code-pre-element">
-                    <code>{getCustomizedCode(currentDoc.css)}</code>
-                  </pre>
+                  <CodeHighlight
+                    code={getCustomizedCode(currentDoc.css)}
+                    language="css"
+                    className="code-pre-element"
+                  />
                 </div>
               )}
 

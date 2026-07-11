@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import GlobalStyles from "../styles/GlobalStyles";
 import ProfileCardCustomizer from "../components/docs/ProfileCardCustomizer";
 import GradientSweepCustomizer from "../components/docs/GradientSweepCustomizer";
+import CodeHighlight from "../components/ui/CodeHighlight";
 
 const Docs = () => {
   const { docId } = useParams();
@@ -362,9 +363,7 @@ const Docs = () => {
                               <span>{copiedCode ? "Copied!" : "Copy Component"}</span>
                             </button>
                           </div>
-                          <pre className="code-pre-element">
-                            <code>{activeCodeGroup[styleType] || ""}</code>
-                          </pre>
+                          <CodeHighlight code={activeCodeGroup[styleType] || ""} language={activeLang} className="code-pre-element" />
 
                           {/* CSS Section (Only show if styleType === 'css') */}
                           {styleType === "css" && activeCSS && (
@@ -379,9 +378,7 @@ const Docs = () => {
                                   <span>{copiedCSS ? "Copied!" : "Copy CSS"}</span>
                                 </button>
                               </div>
-                              <pre className="code-pre-element">
-                                <code>{activeCSS}</code>
-                              </pre>
+                              <CodeHighlight code={activeCSS} language="css" className="code-pre-element" />
                             </div>
                           )}
 
@@ -392,9 +389,7 @@ const Docs = () => {
                           )}
                         </div>
                       ) : (
-                        <pre className="code-pre-element">
-                          <code>{currentDoc.code}</code>
-                        </pre>
+                        <CodeHighlight code={currentDoc.code} language="javascript" className="code-pre-element" />
                       )}
                     </div>
                   ) : (
@@ -1340,9 +1335,7 @@ const DocVariantBlock = ({
                     <span>{copiedCode ? "Copied!" : "Copy Component"}</span>
                   </button>
                 </div>
-                <pre className="code-pre-element">
-                  <code>{activeCodeGroup[styleType] || ""}</code>
-                </pre>
+                <CodeHighlight code={activeCodeGroup[styleType] || ""} language={activeLang} className="code-pre-element" />
 
                 {styleType === "css" && variant.css && (
                   <div className="css-code-section" style={{ marginTop: "24px", paddingTop: "24px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
@@ -1356,9 +1349,7 @@ const DocVariantBlock = ({
                         <span>{copiedCSS ? "Copied!" : "Copy CSS"}</span>
                       </button>
                     </div>
-                    <pre className="code-pre-element">
-                      <code>{variant.css}</code>
-                    </pre>
+                    <CodeHighlight code={variant.css} language="css" className="code-pre-element" />
                   </div>
                 )}
 
@@ -1380,9 +1371,7 @@ const DocVariantBlock = ({
                     <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
                   </button>
                 </div>
-                <pre className="code-pre-element">
-                  <code>{variant.code}</code>
-                </pre>
+                <CodeHighlight code={variant.code} language="javascript" className="code-pre-element" />
               </div>
             )}
           </div>

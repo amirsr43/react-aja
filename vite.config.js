@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// Touch config to force Vite reload new dependency (shiki)
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
