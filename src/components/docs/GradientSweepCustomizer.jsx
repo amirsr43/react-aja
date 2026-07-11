@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Copy, Check, Sparkles } from "lucide-react";
 import GradientSweepText from "../ui/animations/GradientSweepText";
+import CodeHighlight from "../ui/CodeHighlight";
 import { docsData } from "../../data/docsData";
 
 const PRESETS = [
@@ -337,15 +338,18 @@ export default function GradientSweepCustomizer() {
                   <span>{copiedCode ? "Copied!" : "Copy Usage JSX"}</span>
                 </button>
               </div>
-              <pre className="code-pre-element" style={{ marginBottom: "28px" }}>
-                <code>{`<GradientSweepText
+              <CodeHighlight
+                code={`<GradientSweepText
   text="${text}"
   colors={["${colorStart}", "${colorEnd}"]}
   duration={${duration}}
   baseColor="${baseColor}"
   showReplay={${showReplay}}
-/>`}</code>
-              </pre>
+/>`}
+                language="javascript"
+                className="code-pre-element"
+                style={{ marginBottom: "28px" }}
+              />
 
               {/* Component Code Section */}
               <div className="code-section-header">
@@ -358,9 +362,11 @@ export default function GradientSweepCustomizer() {
                   <span>{copiedCode ? "Copied!" : "Copy Implementation"}</span>
                 </button>
               </div>
-              <pre className="code-pre-element">
-                <code>{getCustomizedCode(activeCodeGroup[styleType] || "")}</code>
-              </pre>
+              <CodeHighlight
+                code={getCustomizedCode(activeCodeGroup[styleType] || "")}
+                language={activeLang}
+                className="code-pre-element"
+              />
 
               {/* CSS Section (Only show if styleType === 'css') */}
               {styleType === "css" && currentDoc.css && (
@@ -375,9 +381,11 @@ export default function GradientSweepCustomizer() {
                       <span>{copiedCSS ? "Copied!" : "Copy CSS"}</span>
                     </button>
                   </div>
-                  <pre className="code-pre-element">
-                    <code>{getCustomizedCSS(currentDoc.css)}</code>
-                  </pre>
+                  <CodeHighlight
+                    code={getCustomizedCSS(currentDoc.css)}
+                    language="css"
+                    className="code-pre-element"
+                  />
                 </div>
               )}
 

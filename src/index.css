@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Shiki syntax highlighting overrides */
+.shiki-highlight-wrapper pre {
+  margin: 0 !important;
+  background-color: transparent !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 12.5px !important;
+  line-height: 1.6 !important;
+  overflow-x: auto !important;
+  color: #e4e4e7 !important;
+  padding: 0 !important;
+}

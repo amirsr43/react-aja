@@ -1,0 +1,11 @@
+services:
+  reactaja:
+    build: .
+    container_name: reactaja
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
