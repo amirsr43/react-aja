@@ -56,7 +56,8 @@ export const docsCategories = [
       { id: "double-hover-text", name: "Double-Layer Hover" },
       { id: "gradient-sweep-text", name: "Gradient Sweep Reveal" },
       { id: "interactive-3d-text", name: "Interactive 3D Letters" },
-      { id: "spotify-lyrics", name: "Spotify-Style Scroll Text" }
+      { id: "spotify-lyrics", name: "Spotify-Style Scroll Text" },
+      { id: "scroll-phone-reveal", name: "Scroll Phone Reveal" }
     ]
   },
   {
