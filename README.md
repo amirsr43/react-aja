@@ -29,7 +29,7 @@ animated, responsive, and ready to drop into any project.
 
 ## 🧩 Component Highlights
 
-`GlowingButton` · `FluidSwitch` · `MagneticSlider` · `AnimatedModal` · `ProductCard` · `ProfileCard` · `ToastNotification` · `ExpandingSearch` · `InteractiveTimeline` · `ModernForm` · `CyberDecoderText` · `AnimatedProfileStack` · and more...
+`GlowingButton` · `FluidSwitch` · `MagneticSlider` · `ProductCard` · `ProfileCard` · `ToastNotification` · `ExpandingSearch` · `InteractiveTimeline` · `ModernForm` · `CyberDecoderText` · `AnimatedProfileStack` · and more...
 
 ---
 

@@ -124,7 +124,7 @@ const DEFAULT_COLORS = [
   },
 ];
 
-const LETTER_SIZE = "text-[128px] leading-none font-black";
+const LETTER_SIZE = "text-[clamp(80px,18vw,128px)] leading-none font-black";
 
 function InteractiveLetter({ char, index, colors }) {
   const ref = useRef(null);
@@ -145,7 +145,7 @@ function InteractiveLetter({ char, index, colors }) {
   return (
     <motion.div
       ref={ref}
-      className="relative inline-block cursor-pointer select-none -mx-1 [transform-style:preserve-3d] hover:brightness-105"
+      className="relative inline-block cursor-pointer select-none md:-mx-[0.05em] -mx-[0.11em] [transform-style:preserve-3d] hover:brightness-105"
       style={{ rotateX, rotateY, scale, fontFamily: LETTER_FONT }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => scale.set(1.06)}
@@ -258,6 +258,7 @@ export const interactive3DTextCode = {
   perspective: 700px;
   transform-style: preserve-3d;
   position: relative;
+  font-size: clamp(80px, 18vw, 128px);
 }
 
 .i3d-letter-root {
@@ -265,9 +266,15 @@ export const interactive3DTextCode = {
   display: inline-block;
   cursor: pointer;
   user-select: none;
-  margin: 0 -4px;
+  margin: 0 -0.05em;
   transform-style: preserve-3d;
   transition: filter 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .i3d-letter-root {
+    margin: 0 -0.11em;
+  }
 }
 
 .i3d-letter-root:hover { filter: brightness(1.08); }
@@ -275,7 +282,7 @@ export const interactive3DTextCode = {
 .i3d-depth, .i3d-face, .i3d-gloss, .i3d-rim {
   font-family: 'Outfit', 'Plus Jakarta Sans', 'Arial Black', sans-serif;
   font-weight: 900;
-  font-size: 128px;
+  font-size: inherit;
   line-height: 1;
   display: block;
 }

@@ -37,9 +37,11 @@ import Interactive3DText from "../../components/ui/animations/Interactive3DText"
 import { interactive3DTextCode } from "../codes/interactive3DText";
 import SpotifyLyrics from "../../components/ui/animations/SpotifyLyrics";
 import { spotifyLyricsCode } from "../codes/spotifyLyrics";
+import ScrollPhoneReveal from "../../components/ui/animations/ScrollPhoneReveal";
+import { scrollPhoneRevealCode } from "../codes/scrollPhoneReveal";
 
 import { Link } from "react-router-dom";
-import { ToggleLeft, Users, Calendar, Sparkles, Sliders, Type, Binary, MessageSquare, Eye, Search, ArrowRight, Layers } from "lucide-react";
+import { ToggleLeft, Users, Calendar, Sparkles, Sliders, Type, Binary, MessageSquare, Eye, Search, ArrowRight, Layers, Smartphone } from "lucide-react";
 
 export const animationsDocs = {
   "ui-animations": {
@@ -94,6 +96,7 @@ export const animationsDocs = {
             { id: "double-hover-text", name: "Double-Layer Hover Slide", desc: "Satisfying hover slide duplicate copy text shift for premium navigation items.", icon: <ArrowRight size={20} /> },
             { id: "gradient-sweep-text", name: "Gradient Sweep Reveal", desc: "A colorful gradient sweeps over the text to fill it from left to right on load.", icon: <Sparkles size={20} /> },
             { id: "interactive-3d-text", name: "Interactive 3D Letters", desc: "Tactile, glossy 3D letters with spring tilts and custom coloring on hover.", icon: <Sparkles size={20} /> },
+            { id: "scroll-phone-reveal", name: "Scroll Phone Reveal", desc: "Scroll-driven portal animation: phone rotates landscape, zooms into screen, reveals immersive full-screen content stages.", icon: <Smartphone size={20} /> },
           ].map((item) => (
             <Link to={`/docs/${item.id}`} key={item.id} className="category-card">
               <div className="category-card-icon" style={{
@@ -553,6 +556,23 @@ export const animationsDocs = {
     props: [
       { name: "lines", type: "array", default: "/* Array of 9 default text strings */", description: "Array of text strings/sentences to render in the scrollable view." },
       { name: "height", type: "string", default: '"260px"', description: "Custom height of the scroll viewport container." }
+    ],
+    dependencies: []
+  },
+  "scroll-phone-reveal": {
+    id: "scroll-phone-reveal",
+    title: "Scroll Phone Reveal",
+    description: "A scroll-driven portal animation featuring a phone mockup that rotates landscape, dramatically zooms into the screen, and reveals immersive full-screen content stages — all driven by pure scroll progress with no animation library.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <ScrollPhoneReveal height="520px" />
+    ),
+    code: scrollPhoneRevealCode.code,
+    css: scrollPhoneRevealCode.css,
+    prompt: "Create a scroll-triggered portal animation in React (no external animation library). A phone mockup rotates landscape then zooms dramatically into the screen (scale up to 14x with easeIn). The phone frame and content dissolve as the background crossfades, transitioning seamlessly into full-screen immersive content stages with eyebrow label, display heading (Fraunces serif), body text (Inter), and animated progress dots. Three content stages cycle based on scroll progress.",
+    props: [
+      { name: "(self-contained)", type: "—", default: "—", description: "Embed inside a full-page section. The component owns a 400vh scroll room and sticky viewport internally." }
     ],
     dependencies: []
   }

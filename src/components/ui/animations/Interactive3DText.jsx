@@ -34,16 +34,22 @@ const STYLES = `
     align-items: center;
     perspective: 900px;
     gap: 0px;
-    font-size: clamp(48px, 13vw, 128px);
+    font-size: clamp(80px, 18vw, 128px);
   }
 
   .t3d-letter-root {
     position: relative;
     display: inline-block;
-    margin: 0 -0.04em;
+    margin: 0 -0.05em;
     cursor: pointer;
     user-select: none;
     transform-style: preserve-3d;
+  }
+
+  @media (max-width: 768px) {
+    .t3d-letter-root {
+      margin: 0 -0.11em;
+    }
   }
 
   .t3d-depth {
