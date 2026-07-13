@@ -12,7 +12,7 @@ const Footer = () => {
   ];
 
   const communityLinks = [
-    { name: "GitHub", href: "https://github.com/amirsr43" },
+    { name: "GitHub", href: "https://github.com/amirsr43/react-aja" },
     { name: "LinkedIn", href: "https://www.linkedin.com/in/amir-syahrul-ramadhan-9a61b124a" },
     { name: "Instagram", href: "https://www.instagram.com/amirsyahrulramadhan" }
   ];

@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import LoadingScreen from "./components/ui/animations/LoadingScreen";
 
 // Lazy load pages — these are code-split into separate chunks at build time
@@ -81,6 +82,7 @@ function App() {
     <BrowserRouter>
       <AppContent />
       <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
