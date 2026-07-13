@@ -1,15 +1,40 @@
 <div align="center">
   <img src="public/reactaja.png" alt="ReactAja Logo" width="500" />
+
+  <h3>Premium React UI components. Copy. Paste. Ship.</h3>
+
+  <p>
+    A curated collection of beautifully crafted, production-ready React components —
+    animated, responsive, and ready to drop into any project.
+  </p>
+
+  <p>
+    <a href="https://www.reactaja.my.id/"><img src="https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge" alt="Live Demo" /></a>
+    <img src="https://img.shields.io/github/stars/amirsr43/react-aja?style=for-the-badge&color=yellow" alt="Stars" />
+    <img src="https://img.shields.io/github/forks/amirsr43/react-aja?style=for-the-badge&color=blue" alt="Forks" />
+    <img src="https://img.shields.io/github/license/amirsr43/react-aja?style=for-the-badge&color=orange" alt="License" />
+  </p>
+
+  <p>
+    <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 19" />
+    <img src="https://img.shields.io/badge/Vite-Powered-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+    <img src="https://img.shields.io/badge/Framer_Motion-black?style=flat-square&logo=framer&logoColor=blue" alt="Framer Motion" />
+  </p>
 </div>
 
-<div align="center">
-  
-**Premium React UI components. Copy. Paste. Ship.**
+---
 
-A curated collection of beautifully crafted, production-ready React components —
-animated, responsive, and ready to drop into any project.
+## 📋 Daftar Isi
 
-</div>
+- [✨ What's Inside](#-whats-inside)
+- [🧩 Component Highlights](#-component-highlights)
+- [🛠 Built With](#-built-with)
+- [🚀 Getting Started](#-getting-started)
+- [🔗 Live Demo](#-live-demo)
+- [🤝 Contributing](#-contributing)
+- [👥 Contributors](#-contributors)
+- [👨‍💻 Developer](#-developer)
 
 ---
 
@@ -29,7 +54,12 @@ animated, responsive, and ready to drop into any project.
 
 ## 🧩 Component Highlights
 
-`GlowingButton` · `FluidSwitch` · `MagneticSlider` · `ProductCard` · `ProfileCard` · `ToastNotification` · `ExpandingSearch` · `InteractiveTimeline` · `ModernForm` · `CyberDecoderText` · `AnimatedProfileStack` · and more...
+| Component | Component | Component |
+|---|---|---|
+| `GlowingButton` | `FluidSwitch` | `MagneticSlider` |
+| `ProductCard` | `ProfileCard` | `ToastNotification` |
+| `ExpandingSearch` | `InteractiveTimeline` | `ModernForm` |
+| `CyberDecoderText` | `AnimatedProfileStack` | ...and more |
 
 ---
 
@@ -39,14 +69,53 @@ animated, responsive, and ready to drop into any project.
 
 ---
 
+## 🚀 Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/amirsr43/react-aja.git
+
+# Move into the project
+cd react-aja
+
+# Install dependencies
+npm install
+
+# Run the dev server
+npm run dev
+```
+
+Buka `http://localhost:5173` dan mulai eksplorasi komponennya.
+
+---
+
 ## 🔗 Live Demo
 
-👉 [reactaja-ui](https://www.reactaja.my.id/)
+👉 **[reactaja-ui](https://www.reactaja.my.id/)**
+
+---
+
+## 🤝 Contributing
+
+Kontribusi sangat welcome! Sebelum mulai, baca dulu panduan lengkapnya di **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
+
+Setiap kontributor yang PR-nya di-merge akan otomatis muncul di section [Contributors](#-contributors) di bawah ✨
+
+---
+
+## 👥 Contributors
+
+Terima kasih untuk semua yang sudah berkontribusi ke ReactAja 🙌
+
+<a href="https://github.com/amirsr43/react-aja/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=amirsr43/react-aja" />
+</a>
 
 ---
 
 ## 👨‍💻 Developer
 
-Made by [@amirsr43](https://github.com/amirsr43)
+Made with ❤️ by [@amirsr43](https://github.com/amirsr43)
 
 > Open source. Free to use. Built for developers who care about design.
+</div>
