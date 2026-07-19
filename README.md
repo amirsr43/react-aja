@@ -10,9 +10,9 @@
 
   <p>
     <a href="https://www.reactaja.my.id/"><img src="https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge" alt="Live Demo" /></a>
-    <img src="https://img.shields.io/github/stars/amirsr43/react-aja?style=for-the-badge&color=yellow" alt="Stars" />
-    <img src="https://img.shields.io/github/forks/amirsr43/react-aja?style=for-the-badge&color=blue" alt="Forks" />
-    <img src="https://img.shields.io/github/license/amirsr43/react-aja?style=for-the-badge&color=orange" alt="License" />
+    <img src="https://img.shields.io/github/stars/amirsr43/web-react-template?style=for-the-badge&color=yellow" alt="Stars" />
+    <img src="https://img.shields.io/github/forks/amirsr43/web-react-template?style=for-the-badge&color=blue" alt="Forks" />
+    <img src="https://img.shields.io/github/license/amirsr43/web-react-template?style=for-the-badge&color=orange" alt="License" />
   </p>
 
   <p>
@@ -73,10 +73,10 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/amirsr43/react-aja.git
+git clone https://github.com/amirsr43/web-react-template.git
 
 # Move into the project
-cd react-aja
+cd web-react-template
 
 # Install dependencies
 npm install
@@ -107,8 +107,8 @@ Every contributor whose PR gets merged will automatically appear in the [Contrib
 
 Thank you to everyone who has contributed to ReactAja 🙌
 
-<a href="https://github.com/amirsr43/react-aja/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=amirsr43/react-aja" />
+<a href="https://github.com/amirsr43/web-react-template/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=amirsr43/web-react-template" />
 </a>
 
 ---
