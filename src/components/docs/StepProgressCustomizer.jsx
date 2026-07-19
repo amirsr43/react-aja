@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Copy, Check, Trash2, Plus, ArrowRight, ArrowLeft } from "lucide-react";
+import { Copy, Check, ArrowRight, ArrowLeft } from "lucide-react";
 import StepProgress from "../ui/components/StepProgress";
 import CodeHighlight from "../ui/CodeHighlight";
 import { docsData } from "../../data/docsData";
 
 const SCHEMES = ["blue", "indigo", "emerald", "violet", "rose"];
+
+const STEPS = [
+  { label: "Account Setup" },
+  { label: "Profile Details" },
+  { label: "Verification" },
+  { label: "Finished" }
+];
 
 export default function StepProgressCustomizer() {
   const [activeTab, setActiveTab] = useState("preview"); // "preview" | "code"
@@ -13,59 +20,17 @@ export default function StepProgressCustomizer() {
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedCSS, setCopiedCSS] = useState(false);
 
-  // Customizer States
-  const [steps, setSteps] = useState([
-    { label: "Account Setup" },
-    { label: "Profile Details" },
-    { label: "Verification" },
-    { label: "Finished" }
-  ]);
   const [currentStep, setCurrentStep] = useState(2);
   const [colorScheme, setColorScheme] = useState("blue");
   const [interactive, setInteractive] = useState(true);
 
-  // Temp form for adding step
-  const [newLabel, setNewLabel] = useState("");
-
   const currentDoc = docsData["step-progress"];
-
-  const handleAddStep = (e) => {
-    e.preventDefault();
-    if (!newLabel.trim()) return;
-    setSteps([...steps, { label: newLabel.trim() }]);
-    setNewLabel("");
-  };
-
-  const handleRemoveStep = (index) => {
-    if (steps.length <= 2) return; // Keep at least 2 steps
-    const newSteps = steps.filter((_, idx) => idx !== index);
-    setSteps(newSteps);
-    if (currentStep > newSteps.length) {
-      setCurrentStep(newSteps.length);
-    }
-  };
-
-  const handleStepValueChange = (index, field, value) => {
-    const updated = [...steps];
-    updated[index][field] = value;
-    setSteps(updated);
-  };
 
   const getCustomizedCode = (baseCode) => {
     if (!baseCode) return "";
     let code = baseCode;
 
-    // Stringify the steps list format for injection
-    const stepsString = JSON.stringify(steps, null, 4)
-      .replace(/"label"/g, "label");
-
-    // Replace the default steps array
-    code = code.replace(
-      /steps\s*=\s*\[[\s\S]*?\s*\]/g,
-      `steps = ${stepsString}`
-    );
-
-    // Replace other configs
+    // Replace configurations
     code = code.replace(/currentStep\s*=\s*\d+/g, `currentStep = ${currentStep}`);
     code = code.replace(/interactive\s*=\s*(true|false)/g, `interactive = ${interactive}`);
     code = code.replace(/colorScheme\s*=\s*"[a-z]+"/g, `colorScheme = "${colorScheme}"`);
@@ -104,6 +69,14 @@ export default function StepProgressCustomizer() {
           >
             Source Code
           </button>
+          {currentDoc.prompt && (
+            <button
+              onClick={() => setActiveTab("prompt")}
+              className={`docs-tab-trigger ${activeTab === "prompt" ? "active" : ""}`}
+            >
+              AI Prompt
+            </button>
+          )}
         </div>
       </div>
 
@@ -118,7 +91,7 @@ export default function StepProgressCustomizer() {
                 {/* Step Progress Component View */}
                 <div className="w-full pt-6 pb-2">
                   <StepProgress
-                    steps={steps}
+                    steps={STEPS}
                     currentStep={currentStep}
                     colorScheme={colorScheme}
                     interactive={interactive}
@@ -136,11 +109,11 @@ export default function StepProgressCustomizer() {
                     <ArrowLeft size={14} /> Back
                   </button>
                   <span className="text-xs text-slate-400 font-mono">
-                    Step {currentStep} of {steps.length}
+                    Step {currentStep} of {STEPS.length}
                   </span>
                   <button
-                    onClick={() => setCurrentStep(prev => Math.min(steps.length, prev + 1))}
-                    disabled={currentStep === steps.length}
+                    onClick={() => setCurrentStep(prev => Math.min(STEPS.length, prev + 1))}
+                    disabled={currentStep === STEPS.length}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-medium text-xs hover:bg-slate-850 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next <ArrowRight size={14} />
@@ -198,59 +171,10 @@ export default function StepProgressCustomizer() {
                     </div>
                   </div>
                 </div>
-
-                {/* Edit Steps List */}
-                <div className="customizer-section-title">Modify Steps</div>
-                <div className="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-1">
-                  {steps.map((step, index) => (
-                    <div key={index} className="flex gap-2 items-center bg-[#0a0a0c] p-2 rounded-lg border border-slate-900">
-                      <span className="w-6 h-6 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-bold flex items-center justify-center flex-shrink-0">
-                        {index + 1}
-                      </span>
-                      <div className="flex-1 min-w-0">
-                        <input
-                          type="text"
-                          value={step.label}
-                          onChange={(e) => handleStepValueChange(index, "label", e.target.value)}
-                          className="customizer-input text-xs py-1 px-2 w-full"
-                          placeholder="Label"
-                        />
-                      </div>
-                      <button
-                        onClick={() => handleRemoveStep(index)}
-                        disabled={steps.length <= 2}
-                        className="p-1.5 rounded-md hover:bg-rose-500/10 text-slate-500 hover:text-rose-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Add New Step Form */}
-                <form onSubmit={handleAddStep} className="mt-2 p-3 bg-[#0a0a0c] border border-slate-900 rounded-lg flex flex-col gap-2">
-                  <div className="text-xs font-bold text-slate-400">Add New Step</div>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="Step Label (e.g. Finish)"
-                      value={newLabel}
-                      onChange={(e) => setNewLabel(e.target.value)}
-                      className="customizer-input text-xs py-1 px-2 flex-1"
-                    />
-                    <button
-                      type="submit"
-                      className="flex items-center justify-center gap-1.5 py-1.5 px-3 rounded bg-slate-900 hover:bg-slate-850 text-slate-200 text-xs font-semibold border border-slate-800 transition-all flex-shrink-0"
-                    >
-                      <Plus size={14} /> Add Step
-                    </button>
-                  </div>
-                </form>
-
               </div>
             </div>
           </div>
-        ) : (
+        ) : activeTab === "code" ? (
           /* CODE TAB */
           <div className="tab-code-pane">
             <div className="multi-code-container">
@@ -332,6 +256,31 @@ export default function StepProgressCustomizer() {
               )}
             </div>
           </div>
+        ) : (
+          /* PROMPT TAB */
+          <div className="tab-prompt-pane" style={{
+            padding: "24px",
+            background: "rgba(0, 0, 0, 0.25)",
+            border: "1px solid rgba(255, 255, 255, 0.05)",
+            borderRadius: "12px",
+            color: "#f0f0f5",
+            lineHeight: "1.6",
+            fontSize: "14.5px"
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+              <span style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", background: "rgba(139, 92, 246, 0.15)", color: "#a78bfa", padding: "4px 8px", borderRadius: "6px" }}>
+                AI Generation Prompt
+              </span>
+              <button
+                onClick={() => handleCopy(currentDoc.prompt, setCopiedCode)}
+                className="docs-copy-source-btn"
+              >
+                {copiedCode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                <span>{copiedCode ? "Copied!" : "Copy Prompt"}</span>
+              </button>
+            </div>
+            <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{currentDoc.prompt}</p>
+          </div>
         )}
       </div>
 
@@ -380,20 +329,6 @@ export default function StepProgressCustomizer() {
           transition: all 0.2s;
         }
         .customizer-input:focus {
-          border-color: #3b82f6;
-        }
-        .customizer-textarea {
-          background-color: #0f172a;
-          border: 1px solid #1e293b;
-          border-radius: 6px;
-          color: #f8fafc;
-          padding: 8px 12px;
-          font-size: 13px;
-          outline: none;
-          resize: none;
-          font-family: inherit;
-        }
-        .customizer-textarea:focus {
           border-color: #3b82f6;
         }
       `}</style>
