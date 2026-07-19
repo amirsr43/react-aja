@@ -14,7 +14,7 @@ Fork this repository to your own GitHub account by clicking the **Fork** button 
 ### Step 2: Clone Locally
 Open your terminal and clone the forked repository to your machine:
 ```bash
-git clone https://github.com/amirsr43/react-aja.git
+git clone https://github.com/USERNAME/react-aja.git
 cd react-aja
 ```
 *(Replace `USERNAME` with your GitHub username)*
