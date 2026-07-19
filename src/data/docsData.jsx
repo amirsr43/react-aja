@@ -33,7 +33,8 @@ export const docsCategories = [
       { id: "toast-notification", name: "Toast Notifications" },
       { id: "search-bar", name: "Interactive SearchBar" },
       { id: "portfolio-navbar", name: "Portfolio Navbar" },
-      { id: "tab-bar", name: "Interactive TabBar" }
+      { id: "tab-bar", name: "Interactive TabBar" },
+      { id: "step-progress", name: "Step Progress Bar" }
     ]
   },
   {

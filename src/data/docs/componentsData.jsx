@@ -23,9 +23,10 @@ import PortfolioNavbar from "../../components/ui/components/PortfolioNavbar";
 import { portfolioNavbarCode } from "../codes/portfolioNavbar";
 import { TabBarShowcase } from "../../components/ui/components/TabBar";
 import { tabBarCode } from "../codes/tabBar";
+import { stepProgressCode } from "../codes/stepProgress";
 
 import { Link } from "react-router-dom";
-import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight, Menu, BatteryCharging } from "lucide-react";
+import { Square, User, Loader, Clipboard, ShoppingBag, Bell, Search, ArrowRight, Menu, BatteryCharging, GitCommit } from "lucide-react";
 
 function ClassicBatteryDemo() {
   const [percent, setPercent] = useState(15);
@@ -162,6 +163,7 @@ export const componentsDocs = {
             { id: "toast-notification", name: "Toast Notifications", desc: "Triggerable notification queue manager with progress countdowns.", icon: <Bell size={20} /> },
             { id: "search-bar", name: "Interactive SearchBar", desc: "Focus-expanding search input with history cache and trend tags.", icon: <Search size={20} /> },
             { id: "portfolio-navbar", name: "Portfolio Navbar", desc: "Frosted-glass floating pill navbar with active-pill transitions and mobile overlay.", icon: <Menu size={20} /> },
+            { id: "step-progress", name: "Step Progress Bar", desc: "A clean, modern stepper component with smooth progress lines and interactive transition checkmarks.", icon: <GitCommit size={20} /> }
           ].map((item) => (
             <Link to={`/docs/${item.id}`} key={item.id} className="category-card">
               <div className="category-card-icon" style={{
@@ -475,5 +477,24 @@ export const componentsDocs = {
       { name: "showLabels", type: "boolean", default: "true", description: "Whether to reveal text labels for active tab elements." }
     ],
     dependencies: ["framer-motion", "lucide-react"]
+  },
+  "step-progress": {
+    id: "step-progress",
+    title: "Step Progress Bar",
+    description: "A clean, modern, and professional steps progress tracker with interactive clicks, custom themes, and clean responsive labels.",
+    category: "UI Components",
+    isGuide: false,
+    preview: null, // handled by customizer
+    code: stepProgressCode.code,
+    css: stepProgressCode.css,
+    prompt: "Create a highly clean, responsive step progress indicator React component. Features a progress track line that fills dynamically based on current step, checkmark indicators for completed states, and customizable text/description labels. The layout looks like a professional SaaS onboarding stepper.",
+    props: [
+      { name: "steps", type: "array", default: "/* default steps */", description: "An array of step configurations with label and description." },
+      { name: "currentStep", type: "number", default: "2", description: "Active step index (1-indexed)." },
+      { name: "interactive", type: "boolean", default: "true", description: "Enable jumping to steps directly via click event." },
+      { name: "onStepChange", type: "function", default: "null", description: "Callback triggered when clicking on a step." },
+      { name: "colorScheme", type: "string", default: '"blue"', description: "Border and active color theme: blue | indigo | emerald | violet | rose." }
+    ],
+    dependencies: ["lucide-react"]
   }
 };

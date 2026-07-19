@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import GlobalStyles from "../styles/GlobalStyles";
 import ProfileCardCustomizer from "../components/docs/ProfileCardCustomizer";
 import GradientSweepCustomizer from "../components/docs/GradientSweepCustomizer";
+import StepProgressCustomizer from "../components/docs/StepProgressCustomizer";
 import CodeHighlight from "../components/ui/CodeHighlight";
 
 const Docs = () => {
@@ -178,6 +179,8 @@ const Docs = () => {
               <ProfileCardCustomizer />
             ) : activeId === "gradient-sweep-text" ? (
               <GradientSweepCustomizer />
+            ) : activeId === "step-progress" ? (
+              <StepProgressCustomizer />
             ) : currentDoc.variants ? (
               // Renders a list of component variants vertically down the page
               <div className="docs-variants-list" style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
