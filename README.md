@@ -25,7 +25,7 @@
 
 ---
 
-## 📋 Daftar Isi
+## 📋 Table of Contents
 
 - [✨ What's Inside](#-whats-inside)
 - [🧩 Component Highlights](#-component-highlights)
@@ -85,7 +85,7 @@ npm install
 npm run dev
 ```
 
-Buka `http://localhost:5173` dan mulai eksplorasi komponennya.
+Open `http://localhost:5173` and start exploring the components.
 
 ---
 
@@ -97,15 +97,15 @@ Buka `http://localhost:5173` dan mulai eksplorasi komponennya.
 
 ## 🤝 Contributing
 
-Kontribusi sangat welcome! Sebelum mulai, baca dulu panduan lengkapnya di **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
+Contributions are always welcome! Before you start, please read the full guide in **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
 
-Setiap kontributor yang PR-nya di-merge akan otomatis muncul di section [Contributors](#-contributors) di bawah ✨
+Every contributor whose PR gets merged will automatically appear in the [Contributors](#-contributors) section below ✨
 
 ---
 
 ## 👥 Contributors
 
-Terima kasih untuk semua yang sudah berkontribusi ke ReactAja 🙌
+Thank you to everyone who has contributed to ReactAja 🙌
 
 <a href="https://github.com/amirsr43/react-aja/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=amirsr43/react-aja" />
