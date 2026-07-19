@@ -73,10 +73,10 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/amirsr43/web-react-template.git
+git clone https://github.com/amirsr43/react-aja.git
 
 # Move into the project
-cd web-react-template
+cd react-aja
 
 # Install dependencies
 npm install
