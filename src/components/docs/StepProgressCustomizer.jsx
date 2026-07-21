@@ -211,7 +211,7 @@ export default function StepProgressCustomizer() {
                       onClick={() => setStyleType("tailwind")}
                       className={`selector-btn ${styleType === "tailwind" ? "active" : ""}`}
                     >
-                      Tailwind
+                      TW
                     </button>
                   </div>
                 </div>

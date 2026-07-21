@@ -37,6 +37,9 @@ import Interactive3DText from "../../components/ui/animations/Interactive3DText"
 import { interactive3DTextCode } from "../codes/interactive3DText";
 import SpotifyLyrics from "../../components/ui/animations/SpotifyLyrics";
 import { spotifyLyricsCode } from "../codes/spotifyLyrics";
+import FallingLetters from "../../components/ui/animations/FallingLetters";
+import { fallingLettersCode } from "../codes/fallingLetters";
+import FallingLettersCustomizer from "../../components/docs/FallingLettersCustomizer";
 
 import { Link } from "react-router-dom";
 import { ToggleLeft, Users, Calendar, Sparkles, Sliders, Type, Binary, MessageSquare, Eye, Search, ArrowRight, Layers, Smartphone } from "lucide-react";
@@ -94,6 +97,7 @@ export const animationsDocs = {
             { id: "double-hover-text", name: "Double-Layer Hover Slide", desc: "Satisfying hover slide duplicate copy text shift for premium navigation items.", icon: <ArrowRight size={20} /> },
             { id: "gradient-sweep-text", name: "Gradient Sweep Reveal", desc: "A colorful gradient sweeps over the text to fill it from left to right on load.", icon: <Sparkles size={20} /> },
             { id: "interactive-3d-text", name: "Interactive 3D Letters", desc: "Tactile, glossy 3D letters with spring tilts and custom coloring on hover.", icon: <Sparkles size={20} /> },
+            { id: "falling-letters", name: "Falling Letters", desc: "Physics-driven outline letters that tumble from above and land with spring bounce, overlapping into an organic typographic pile.", icon: <Type size={20} /> },
           ].map((item) => (
             <Link to={`/docs/${item.id}`} key={item.id} className="category-card">
               <div className="category-card-icon" style={{
@@ -555,5 +559,33 @@ export const animationsDocs = {
       { name: "height", type: "string", default: '"260px"', description: "Custom height of the scroll viewport container." }
     ],
     dependencies: []
+  },
+  "falling-letters": {
+    id: "falling-letters",
+    title: "Falling Letters",
+    description: "Physics-driven outline text animation where each letter tumbles from above, spins in mid-air, and lands with a spring bounce — creating an organic, typographic tumble effect. Fully customizable text, color, and spring physics.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: null, // handled by customizer
+    customizer: <FallingLettersCustomizer />,
+    code: fallingLettersCode.code,
+    css: fallingLettersCode.css,
+    prompt: "Create a falling letters animation in React using Framer Motion. Split a text string into individual characters, each falling from off-screen with a random spin and x-drift, landing with spring bounce physics at a slightly random rotation (±12°) and position. Render letters as outline/stroke text only (-webkit-text-stroke, transparent fill) with no background container. Letters fall in staggered sequence. Include an optional blurred drop-shadow per letter for depth, a seeded RNG for reproducible layouts, and a replay button.",
+    props: [
+      { name: "text", type: "string", default: '"PORTFOLIO"', description: "The text to display. Each character becomes an independent animated element." },
+      { name: "color", type: "string", default: '"#ffffff"', description: "CSS color for the letter stroke outline." },
+      { name: "strokeWidth", type: "number", default: "2", description: "Thickness in pixels of the text outline stroke." },
+      { name: "fontSize", type: "number | string", default: '"clamp(52px, 12vw, 96px)"', description: "Font size — accepts px, em, rem, or clamp()." },
+      { name: "fontFamily", type: "string", default: "'Inter', Arial Black, sans-serif", description: "CSS font-family stack for the letters." },
+      { name: "staggerDelay", type: "number", default: "0.12", description: "Delay in seconds between each successive letter starting its fall." },
+      { name: "fallDuration", type: "number", default: "0.6", description: "Approximate fall duration in seconds (spring physics override the exact timing)." },
+      { name: "bounciness", type: "number", default: "0.5", description: "0–1 scale controlling spring bounce intensity on landing (0 = no bounce, 1 = very springy)." },
+      { name: "position", type: "string", default: '"center"', description: "Letter cluster anchor: 'bottom-right' | 'bottom-left' | 'center'." },
+      { name: "dropShadow", type: "boolean", default: "true", description: "Adds a blurred depth shadow behind each letter after landing for a 3D feel." },
+      { name: "seed", type: "number", default: "undefined", description: "Optional integer seed for a reproducible, consistent layout across renders." },
+      { name: "showReplay", type: "boolean", default: "true", description: "Whether to render a replay button to re-trigger the animation." },
+      { name: "className", type: "string", default: '""', description: "Additional CSS class names for the container wrapper." }
+    ],
+    dependencies: ["framer-motion"]
   }
 };
