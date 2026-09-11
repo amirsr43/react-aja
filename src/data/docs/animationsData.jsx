@@ -47,6 +47,8 @@ import FlickerTextCustomizer from "../../components/docs/FlickerTextCustomizer";
 import TestimonialMarquee from "../../components/ui/animations/TestimonialMarquee";
 import { testimonialMarqueeCode } from "../codes/testimonialMarquee";
 import TestimonialMarqueeCustomizer from "../../components/docs/TestimonialMarqueeCustomizer";
+import SwipeCardStack from "../../components/ui/animations/SwipeCardStack";
+import { swipeCardStackCode } from "../codes/swipeCardStack";
 
 import { Link } from "react-router-dom";
 import { ToggleLeft, Users, Calendar, Sparkles, Sliders, Type, Binary, MessageSquare, Eye, Search, ArrowRight, Layers, Smartphone, Image } from "lucide-react";
@@ -107,6 +109,7 @@ export const animationsDocs = {
             { id: "infinite-image-marquee", name: "Infinite Image Marquee", desc: "Seamless multi-row horizontal image gallery with smooth hover-pause and spring-deceleration physics.", icon: <Image size={20} /> },
             { id: "flicker-text", name: "Flicker Text", desc: "Neon dying-light flicker effect with irregular timing keyframes — opacity + glow animate together for a realistic lamp effect.", icon: <Type size={20} /> },
             { id: "testimonial-marquee", name: "Testimonial Marquee", desc: "Seamless multi-row testimonial gallery with opposing direction rows, pill-shaped cards, and smooth hover-pause physics.", icon: <MessageSquare size={20} /> },
+            { id: "swipe-card-stack", name: "Swipe Card Stack", desc: "Interactive swipe-to-discard project stack showcasing JS+CSS, JS+Tailwind, TS+CSS, and TS+Tailwind implementations.", icon: <Layers size={20} /> },
           ].map((item) => (
             <Link to={`/docs/${item.id}`} key={item.id} className="category-card">
               <div className="category-card-icon" style={{
@@ -642,5 +645,26 @@ export const animationsDocs = {
       { name: "reverseFirstRow", type: "boolean", default: "false", description: "Reverses default movement order (first row scrolls left instead of right)." }
     ],
     dependencies: ["framer-motion"]
+  },
+  "swipe-card-stack": {
+    id: "swipe-card-stack",
+    title: "Swipe-to-Discard Card Stack",
+    description: "A fluid Tinder-style card stack featuring drag-to-discard gestures, velocity/distance threshold detection, fly-out trajectories, spring snap-backs, and interactive LIKE/PASS stamps.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "10px 0", display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
+        <SwipeCardStack />
+      </div>
+    ),
+    code: swipeCardStackCode.code,
+    css: swipeCardStackCode.css,
+    prompt: "Create a swipe-to-discard project card stack in React using Framer Motion with realistic spring physics. The top card can be dragged left or right with dynamic rotation and opacity. Crossing threshold width or high velocity flies the card out with directional rotation. Underneath cards seamlessly promote upward with scale and offset transitions.",
+    props: [
+      { name: "initialCards", type: "Array<CardData>", default: "DEFAULT_CARDS", description: "Array of project card objects with { id, title, subtitle, tag, badge, description, image }." },
+      { name: "onDiscard", type: "(card, direction) => void", default: "undefined", description: "Callback fired when a card is discarded via drag gesture." },
+      { name: "onEmpty", type: "() => void", default: "undefined", description: "Callback triggered when all cards have been swiped away." }
+    ],
+    dependencies: ["framer-motion", "lucide-react"]
   }
 };

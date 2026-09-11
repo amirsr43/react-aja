@@ -60,7 +60,8 @@ export const docsCategories = [
       { id: "falling-letters", name: "Falling Letters" },
       { id: "infinite-image-marquee", name: "Infinite Image Marquee" },
       { id: "flicker-text", name: "Flicker Text" },
-      { id: "testimonial-marquee", name: "Testimonial Marquee" }
+      { id: "testimonial-marquee", name: "Testimonial Marquee" },
+      { id: "swipe-card-stack", name: "Swipe Card Stack" }
     ]
   },
   {
