@@ -4,7 +4,7 @@ export const loadingShowcaseCode = {
   code: {
     js: {
       css: `// LoadingShowcase.jsx (JavaScript + Custom CSS)
-import React from "react";
+import React, { useState } from "react";
 import "./LoadingShowcase.css"; // Include the CSS stylesheet below
 
 // 1. Skeleton Loader Card
@@ -41,9 +41,31 @@ export function AuraSpinner() {
       </div>
     </div>
   );
+}
+
+export default function LoadingShowcase({ initialVariant = "skeleton" }) {
+  const [activeVariant, setActiveVariant] = useState(initialVariant);
+
+  return (
+    <div className="loading-showcase">
+      <div style={{ display: "flex", gap: "4px", padding: "4px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px" }}>
+        <button type="button" onClick={() => setActiveVariant("skeleton")}>Skeleton Shimmer</button>
+        <button type="button" onClick={() => setActiveVariant("spinner")}>Glowing Spinner</button>
+      </div>
+      <div className="loading-grid">
+        {activeVariant === "skeleton" ? (
+          <SkeletonLoader />
+        ) : (
+          <div className="loading-card" style={{ alignItems: "center", justifyContent: "center", minHeight: "220px", padding: "40px" }}>
+            <AuraSpinner />
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }`,
       tailwind: `// LoadingShowcase.jsx (JavaScript + Tailwind CSS)
-import React from "react";
+import React, { useState } from "react";
 
 // 1. Skeleton Loader Card
 export function SkeletonLoader() {
@@ -104,6 +126,28 @@ export function AuraSpinner() {
         <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-violet-400 border-b-violet-400/15 spin-cw" />
         <div className="absolute w-[50px] h-[50px] rounded-full border-2 border-transparent border-l-violet-400/50 border-r-violet-400/10 spin-ccw" />
         <div className="absolute w-3.5 h-3.5 rounded-full bg-violet-400 shadow-[0_0_20px_rgba(167,139,250,0.6)] pulse-core" />
+      </div>
+    </div>
+  );
+}
+
+export default function LoadingShowcase({ initialVariant = "skeleton" }) {
+  const [activeVariant, setActiveVariant] = useState(initialVariant);
+
+  return (
+    <div className="flex flex-col items-center gap-8 text-white">
+      <div className="flex gap-1 rounded-xl border border-white/5 bg-white/[0.02] p-1">
+        <button type="button" className="rounded-lg px-4 py-2 text-xs font-semibold" onClick={() => setActiveVariant("skeleton")}>Skeleton Shimmer</button>
+        <button type="button" className="rounded-lg px-4 py-2 text-xs font-semibold" onClick={() => setActiveVariant("spinner")}>Glowing Spinner</button>
+      </div>
+      <div className="w-full max-w-sm">
+        {activeVariant === "skeleton" ? (
+          <SkeletonLoader />
+        ) : (
+          <div className="flex min-h-[220px] items-center justify-center rounded-2xl border border-white/5 bg-zinc-900/45 p-10 backdrop-blur-xl">
+            <AuraSpinner />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -111,7 +155,7 @@ export function AuraSpinner() {
     },
     ts: {
       css: `// LoadingShowcase.tsx (TypeScript + Custom CSS)
-import React from "react";
+import React, { useState } from "react";
 import "./LoadingShowcase.css"; // Include the CSS stylesheet below
 
 // 1. Skeleton Loader Card
@@ -148,9 +192,31 @@ export function AuraSpinner(): React.JSX.Element {
       </div>
     </div>
   );
+}
+
+export default function LoadingShowcase({ initialVariant = "skeleton" }: { initialVariant?: "skeleton" | "spinner" }): React.JSX.Element {
+  const [activeVariant, setActiveVariant] = useState(initialVariant);
+
+  return (
+    <div className="loading-showcase">
+      <div style={{ display: "flex", gap: "4px", padding: "4px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px" }}>
+        <button type="button" onClick={() => setActiveVariant("skeleton")}>Skeleton Shimmer</button>
+        <button type="button" onClick={() => setActiveVariant("spinner")}>Glowing Spinner</button>
+      </div>
+      <div className="loading-grid">
+        {activeVariant === "skeleton" ? (
+          <SkeletonLoader />
+        ) : (
+          <div className="loading-card" style={{ alignItems: "center", justifyContent: "center", minHeight: "220px", padding: "40px" }}>
+            <AuraSpinner />
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }`,
       tailwind: `// LoadingShowcase.tsx (TypeScript + Tailwind CSS)
-import React from "react";
+import React, { useState } from "react";
 
 // 1. Skeleton Loader Card
 export function SkeletonLoader(): React.JSX.Element {
@@ -211,6 +277,28 @@ export function AuraSpinner(): React.JSX.Element {
         <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-violet-400 border-b-violet-400/15 spin-cw" />
         <div className="absolute w-[50px] h-[50px] rounded-full border-2 border-transparent border-l-violet-400/50 border-r-violet-400/10 spin-ccw" />
         <div className="absolute w-3.5 h-3.5 rounded-full bg-violet-400 shadow-[0_0_20px_rgba(167,139,250,0.6)] pulse-core" />
+      </div>
+    </div>
+  );
+}
+
+export default function LoadingShowcase({ initialVariant = "skeleton" }: { initialVariant?: "skeleton" | "spinner" }): React.JSX.Element {
+  const [activeVariant, setActiveVariant] = useState(initialVariant);
+
+  return (
+    <div className="flex flex-col items-center gap-8 text-white">
+      <div className="flex gap-1 rounded-xl border border-white/5 bg-white/[0.02] p-1">
+        <button type="button" className="rounded-lg px-4 py-2 text-xs font-semibold" onClick={() => setActiveVariant("skeleton")}>Skeleton Shimmer</button>
+        <button type="button" className="rounded-lg px-4 py-2 text-xs font-semibold" onClick={() => setActiveVariant("spinner")}>Glowing Spinner</button>
+      </div>
+      <div className="w-full max-w-sm">
+        {activeVariant === "skeleton" ? (
+          <SkeletonLoader />
+        ) : (
+          <div className="flex min-h-[220px] items-center justify-center rounded-2xl border border-white/5 bg-zinc-900/45 p-10 backdrop-blur-xl">
+            <AuraSpinner />
+          </div>
+        )}
       </div>
     </div>
   );

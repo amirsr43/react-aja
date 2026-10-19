@@ -1,7 +1,5 @@
 // src/components/ui/LoadingShowcase.jsx
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { RotateCw, RefreshCw } from "lucide-react";
+import { useState } from "react";
 
 const LOADING_STYLES = `
 /* ── LOADING CORE STYLES ── */
@@ -210,8 +208,8 @@ export function AuraSpinner() {
 }
 
 // ── Showcase Demo ──
-export default function LoadingShowcase() {
-  const [activeVariant, setActiveVariant] = useState("skeleton"); // "skeleton" | "spinner"
+export default function LoadingShowcase({ initialVariant = "skeleton" }) {
+  const [activeVariant, setActiveVariant] = useState(initialVariant);
 
   return (
     <div className="loading-showcase">

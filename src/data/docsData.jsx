@@ -34,7 +34,8 @@ export const docsCategories = [
       { id: "search-bar", name: "Interactive SearchBar" },
       { id: "portfolio-navbar", name: "Portfolio Navbar" },
       { id: "tab-bar", name: "Interactive TabBar" },
-      { id: "step-progress", name: "Step Progress Bar" }
+      { id: "step-progress", name: "Step Progress Bar" },
+      { id: "interactive-alert", name: "Interactive Alert" }
     ]
   },
   {
@@ -49,10 +50,13 @@ export const docsCategories = [
       { id: "glowing-button", name: "Glowing Outline Button" },
       { id: "fluid-switch", name: "Interactive Fluid Switch" },
       { id: "text-animation", name: "Text Animation" },
+      { id: "cyber-decoder", name: "Cyber Decoder Text" },
+      { id: "floating-spring", name: "Floating Spring Text" },
       { id: "focus-blur-text", name: "Spotlight Focus Blur" },
       { id: "expanding-search", name: "Expanding Search Bar" },
       { id: "masked-slide-text", name: "Masked Slide-Up Text" },
       { id: "cinematic-blur-text", name: "Cinematic Blur Reveal" },
+      { id: "scroll-highlight-paragraph", name: "Scroll Highlight Paragraph" },
       { id: "hero-word-swapper", name: "Hero Word Swapper" },
       { id: "double-hover-text", name: "Double-Layer Hover" },
       { id: "gradient-sweep-text", name: "Gradient Sweep Reveal" },
