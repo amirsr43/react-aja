@@ -17,6 +17,8 @@ import ProductCardShowcase from "../../components/ui/components/ProductCard";
 import { productCardCode } from "../codes/productCard";
 import ToastNotificationShowcase from "../../components/ui/components/ToastNotification";
 import { toastNotificationCode } from "../codes/toastNotification";
+import InteractiveAlertShowcase from "../../components/ui/animations/InteractiveAlert";
+import { interactiveAlertCode } from "../codes/interactiveAlert";
 import SearchBarShowcase from "../../components/ui/components/SearchBar";
 import { searchBarCode } from "../codes/searchBar";
 import PortfolioNavbar from "../../components/ui/components/PortfolioNavbar";
@@ -161,6 +163,7 @@ export const componentsDocs = {
             { id: "form", name: "Modern Form", desc: "Dark glassmorphic signup/login form with floating labels and error states.", icon: <Clipboard size={20} /> },
             { id: "product-card", name: "Product Card", desc: "Sleek product display card with parallax zoom and color selectors.", icon: <ShoppingBag size={20} /> },
             { id: "toast-notification", name: "Toast Notifications", desc: "Triggerable notification queue manager with progress countdowns.", icon: <Bell size={20} /> },
+            { id: "interactive-alert", name: "Interactive Alert", desc: "Expandable status alerts with optional actions and animated detail panels.", icon: <Bell size={20} /> },
             { id: "search-bar", name: "Interactive SearchBar", desc: "Focus-expanding search input with history cache and trend tags.", icon: <Search size={20} /> },
             { id: "portfolio-navbar", name: "Portfolio Navbar", desc: "Frosted-glass floating pill navbar with active-pill transitions and mobile overlay.", icon: <Menu size={20} /> },
             { id: "step-progress", name: "Step Progress Bar", desc: "A clean, modern stepper component with smooth progress lines and interactive transition checkmarks.", icon: <GitCommit size={20} /> }
@@ -288,9 +291,9 @@ export const componentsDocs = {
     css: loadingShowcaseCode.css,
     prompt: "Create two premium loading indicators in React. 1) A Skeleton Loader Card with a linear shimmer sweep animation over circles and text blocks. 2) A minimalist, clean Concentric Gyroscope Spinner featuring an inner pulsing core dot and two concentric border rings spinning in opposite directions, all using a unified violet accent color scheme.",
     props: [
-      { name: "variant", type: "string", default: '"skeleton"', description: "Active loading display mode: 'skeleton' | 'spinner'." }
+      { name: "initialVariant", type: "string", default: '"skeleton"', description: "The loading display selected when the showcase mounts: 'skeleton' | 'spinner'." }
     ],
-    dependencies: ["framer-motion"]
+    dependencies: []
   },
 
   "form": {
@@ -357,6 +360,33 @@ export const componentsDocs = {
       { name: "title", type: "string", default: '"Notification"', description: "Primary bold header message." },
       { name: "description", type: "string", default: '""', description: "Sub-level description text payload." },
       { name: "duration", type: "number", default: "4000", description: "Auto-dismiss timer delay in milliseconds." }
+    ],
+    dependencies: ["framer-motion", "lucide-react"]
+  },
+
+  "interactive-alert": {
+    id: "interactive-alert",
+    title: "Interactive Alert",
+    description: "Expandable status alerts with animated detail panels, type-specific icons, dismiss controls, and optional actions.",
+    category: "UI Components",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "30px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
+        <InteractiveAlertShowcase />
+      </div>
+    ),
+    code: interactiveAlertCode.code,
+    css: interactiveAlertCode.css,
+    prompt: "Create an interactive status alert in React with success, warning, info, and error variants. Allow details to expand and collapse, include optional action buttons, and support dismissal.",
+    props: [
+      { name: "type", type: "string", default: '"info"', description: "Alert theme: 'success' | 'warning' | 'info' | 'error'." },
+      { name: "title", type: "string", default: '"System Update"', description: "Alert heading." },
+      { name: "description", type: "string", default: '"A new software release is available..."', description: "Short alert description." },
+      { name: "details", type: "string", default: '""', description: "Optional expandable details content." },
+      { name: "showActionButtons", type: "boolean", default: "false", description: "Show action controls inside the expanded details panel." },
+      { name: "actionLabel", type: "string", default: '"Retry"', description: "Label for the optional action button." },
+      { name: "onAction", type: "function", default: "undefined", description: "Callback fired when the optional action button is clicked." },
+      { name: "onDismiss", type: "function", default: "undefined", description: "Callback fired when the alert is dismissed." }
     ],
     dependencies: ["framer-motion", "lucide-react"]
   },

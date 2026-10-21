@@ -1,5 +1,5 @@
 // src/components/ui/CodeHighlight.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createHighlighter } from "shiki";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
@@ -10,7 +10,7 @@ function getHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: ["github-dark"],
-      langs: ["javascript", "typescript", "css", "html", "jsx", "tsx"],
+      langs: ["javascript", "typescript", "css", "html", "jsx", "tsx", "bash"],
       engine: createJavaScriptRegexEngine(),
     });
   }
@@ -28,8 +28,7 @@ function escapeHtml(text) {
 }
 
 export default function CodeHighlight({ code, language, className = "", ...props }) {
-  const [html, setHtml] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [highlighted, setHighlighted] = useState(null);
 
   // Normalize shorthand languages used in components to Shiki identifiers
   const lang = (() => {
@@ -41,44 +40,51 @@ export default function CodeHighlight({ code, language, className = "", ...props
     if (l === "html") return "html";
     return l;
   })();
+  const normalizedCode = code || "";
+  const loading = !highlighted || highlighted.code !== normalizedCode || highlighted.lang !== lang;
 
   useEffect(() => {
     let active = true;
-    setLoading(true);
 
     getHighlighter()
       .then((highlighter) => {
         if (!active) return;
         try {
-          const highlightedHtml = highlighter.codeToHtml(code || "", {
+          const highlightedHtml = highlighter.codeToHtml(normalizedCode, {
             lang,
             theme: "github-dark",
           });
-          setHtml(highlightedHtml);
+          setHighlighted({ code: normalizedCode, lang, html: highlightedHtml });
         } catch (err) {
           console.error("Shiki highlighting error:", err);
           // Fallback to simple unhighlighted pre/code block
-          setHtml(`<pre class="code-pre-element"><code>${escapeHtml(code || "")}</code></pre>`);
+          setHighlighted({
+            code: normalizedCode,
+            lang,
+            html: `<pre class="code-pre-element"><code>${escapeHtml(normalizedCode)}</code></pre>`,
+          });
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to load Shiki highlighter:", err);
         if (active) {
-          setHtml(`<pre class="code-pre-element"><code>${escapeHtml(code || "")}</code></pre>`);
-          setLoading(false);
+          setHighlighted({
+            code: normalizedCode,
+            lang,
+            html: `<pre class="code-pre-element"><code>${escapeHtml(normalizedCode)}</code></pre>`,
+          });
         }
       });
 
     return () => {
       active = false;
     };
-  }, [code, lang]);
+  }, [normalizedCode, lang]);
 
   if (loading) {
     return (
       <pre className={`code-pre-element loading-code-pre ${className}`} {...props}>
-        <code>{code || ""}</code>
+        <code>{normalizedCode}</code>
       </pre>
     );
   }
@@ -86,7 +92,7 @@ export default function CodeHighlight({ code, language, className = "", ...props
   return (
     <div
       className={`shiki-highlight-wrapper ${className}`}
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: highlighted.html }}
       {...props}
     />
   );

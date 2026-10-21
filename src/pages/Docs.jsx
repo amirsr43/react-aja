@@ -300,7 +300,11 @@ const Docs = () => {
                                 "Glowing Outline Button": "glowing-button",
                                 "Interactive Fluid Switch": "fluid-switch",
                                 "Text Animation": "text-animation",
+                                "Cyber Decoder Text": "cyber-decoder",
+                                "Floating Spring Text": "floating-spring",
                                 "Spotlight Focus Blur": "focus-blur-text",
+                                "Scroll Highlight Paragraph": "scroll-highlight-paragraph",
+                                "Interactive Alert": "interactive-alert",
                                 "Expanding Search Bar": "expanding-search",
                                 "Spotify-Style Scroll Text": "spotify-lyrics",
                                 "SVG to JSX": "svg-to-jsx",
@@ -449,6 +453,20 @@ const Docs = () => {
                           {dep}
                         </span>
                       ))}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", marginTop: "12px", padding: "10px 12px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px" }}>
+                      <code style={{ color: "#e4e4e7", fontSize: "12px", overflowWrap: "anywhere" }}>
+                        npm install {currentDoc.dependencies.join(" ")}
+                      </code>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyCode(`npm install ${currentDoc.dependencies.join(" ")}`)}
+                        className="docs-copy-source-btn"
+                        aria-label={copiedCode ? "Install command copied" : "Copy install command"}
+                      >
+                        {copiedCode ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                        <span>{copiedCode ? "Copied!" : "Copy"}</span>
+                      </button>
                     </div>
                   </div>
                 )}

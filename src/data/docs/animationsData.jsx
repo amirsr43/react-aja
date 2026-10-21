@@ -35,6 +35,8 @@ import GradientSweepText from "../../components/ui/animations/GradientSweepText"
 import { gradientSweepTextCode } from "../codes/gradientSweepText";
 import SpotifyLyrics from "../../components/ui/animations/SpotifyLyrics";
 import { spotifyLyricsCode } from "../codes/spotifyLyrics";
+import ScrollHighlightParagraph from "../../components/ui/animations/ScrollHighlightParagraph";
+import { scrollHighlightParagraphCode } from "../codes/scrollHighlightParagraph";
 import FallingLetters from "../../components/ui/animations/FallingLetters";
 import { fallingLettersCode } from "../codes/fallingLetters";
 import FallingLettersCustomizer from "../../components/docs/FallingLettersCustomizer";
@@ -102,6 +104,7 @@ export const animationsDocs = {
             { id: "expanding-search", name: "Expanding Search Bar", desc: "Spring-loaded search pill expanding from a search icon on hover/click.", icon: <Search size={20} /> },
             { id: "masked-slide-text", name: "Masked Slide-Up Text", desc: "Elegant word slide-up reveal from an overflow mask, perfect for clean portfolio titles.", icon: <Type size={20} /> },
             { id: "cinematic-blur-text", name: "Cinematic Blur Reveal", desc: "Atmospheric letter fade-in with a transitioning blur-to-sharp effect for headers.", icon: <Eye size={20} /> },
+            { id: "scroll-highlight-paragraph", name: "Scroll Highlight Paragraph", desc: "Words brighten progressively as the paragraph scrolls, either inside the component or with the page.", icon: <Type size={20} /> },
             { id: "hero-word-swapper", name: "Hero Word Swapper", desc: "Sleek vertical word swapper for dynamic tagline rotation in hero sections.", icon: <Sliders size={20} /> },
             { id: "double-hover-text", name: "Double-Layer Hover Slide", desc: "Satisfying hover slide duplicate copy text shift for premium navigation items.", icon: <ArrowRight size={20} /> },
             { id: "gradient-sweep-text", name: "Gradient Sweep Reveal", desc: "A colorful gradient sweeps over the text to fill it from left to right on load.", icon: <Sparkles size={20} /> },
@@ -154,7 +157,7 @@ export const animationsDocs = {
     props: [
       { name: "(self-contained)", type: "—", default: "—", description: "Hover-driven widget. Import and render directly to let users hover and interact with the collage." }
     ],
-    dependencies: ["framer-motion", "lucide-react"]
+    dependencies: ["framer-motion"]
   },
   "card-carousel-3d": {
     id: "card-carousel-3d",
@@ -295,7 +298,7 @@ export const animationsDocs = {
       { name: "onClick", type: "function", default: "undefined", description: "Click event handler function." },
       { name: "className", type: "string", default: '""', description: "Additional CSS class for container custom overrides." }
     ],
-    dependencies: ["lucide-react"]
+    dependencies: []
   },
 
   "fluid-switch": {
@@ -443,7 +446,7 @@ export const animationsDocs = {
       { name: "once", type: "boolean", default: "true", description: "Whether to trigger the animation only once when scrolling into view." },
       { name: "showReplay", type: "boolean", default: "true", description: "Whether to render a button to replay the animation." }
     ],
-    dependencies: ["framer-motion"]
+    dependencies: ["framer-motion", "lucide-react"]
   },
   "cinematic-blur-text": {
     id: "cinematic-blur-text",
@@ -464,7 +467,7 @@ export const animationsDocs = {
       { name: "once", type: "boolean", default: "true", description: "Whether to trigger the animation only once when scrolling into view." },
       { name: "showReplay", type: "boolean", default: "true", description: "Whether to render a button to replay the animation." }
     ],
-    dependencies: ["framer-motion"]
+    dependencies: ["framer-motion", "lucide-react"]
   },
   "hero-word-swapper": {
     id: "hero-word-swapper",
@@ -530,7 +533,7 @@ export const animationsDocs = {
       { name: "baseColor", type: "string", default: '"rgba(255, 255, 255, 0.15)"', description: "CSS color for the un-highlighted text state." },
       { name: "duration", type: "number", default: "1.2", description: "Animation duration in seconds (larger is slower)." }
     ],
-    dependencies: ["framer-motion"]
+    dependencies: ["framer-motion", "lucide-react"]
   },
   "spotify-lyrics": {
     id: "spotify-lyrics",
@@ -551,6 +554,30 @@ export const animationsDocs = {
       { name: "height", type: "string", default: '"260px"', description: "Custom height of the scroll viewport container." }
     ],
     dependencies: []
+  },
+  "scroll-highlight-paragraph": {
+    id: "scroll-highlight-paragraph",
+    title: "Scroll Highlight Paragraph",
+    description: "A scroll-synchronized reading effect that progressively reveals words as they move through the component or page viewport.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "24px 16px", display: "flex", justifyContent: "center", width: "100%", background: "#050505", boxSizing: "border-box" }}>
+        <ScrollHighlightParagraph
+          text="Scroll inside this panel to reveal the paragraph one word at a time. The effect can also follow page scrolling."
+          className="text-sm"
+        />
+      </div>
+    ),
+    code: scrollHighlightParagraphCode.code,
+    css: scrollHighlightParagraphCode.css,
+    prompt: "Create a scroll-synchronized paragraph animation in React using Framer Motion. Reveal each word progressively as a local scroll container or the page scrolls, and provide a localScroll option to select the behavior.",
+    props: [
+      { name: "text", type: "string", default: '"Scroll down to reveal this elegant text..."', description: "The paragraph content to reveal word by word." },
+      { name: "className", type: "string", default: '""', description: "Additional CSS classes for the paragraph." },
+      { name: "localScroll", type: "boolean", default: "true", description: "Use the component's own scroll container; set false to follow page scrolling." }
+    ],
+    dependencies: ["framer-motion"]
   },
   "falling-letters": {
     id: "falling-letters",

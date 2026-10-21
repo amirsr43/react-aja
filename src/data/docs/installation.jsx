@@ -1,4 +1,3 @@
-import React from "react";
 import CodeHighlight from "../../components/ui/CodeHighlight";
 
 export const installationDoc = {
@@ -11,41 +10,61 @@ export const installationDoc = {
     <div className="guide-content">
       <h3 className="guide-subtitle">1. Copy and Paste Components</h3>
       <p className="guide-p">
-        All components in this library are copy-paste. You do not need to install an npm package! Simply select the code style you prefer (JS/TS, CSS/Tailwind) from the documentation, copy it, and paste it directly into your codebase.
+        Choose a component, copy its source, and save it in your project. React and React DOM should already be installed in your app. Each component page lists the additional packages its copied source needs, along with an install command.
       </p>
 
-      <h3 className="guide-subtitle">2. Setup Tailwind CSS (Optional)</h3>
+      <h3 className="guide-subtitle">2. Install Component Dependencies</h3>
       <p className="guide-p">
-        If you plan to use the Tailwind CSS version of the components, make sure Tailwind CSS is installed in your project and your content paths in <code className="text-white bg-zinc-900 px-1 py-0.5 rounded text-xs">tailwind.config.js</code> cover your source files:
+        Install only the packages required by the components you use. Most animated examples use Framer Motion, and examples with icons use Lucide React. If you use examples that need both, run:
       </p>
       <CodeHighlight
-        code={`/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}`}
+        code="npm install framer-motion lucide-react"
+        language="bash"
+        className="code-pre-element p-3 bg-zinc-900 rounded-md text-xs"
+      />
+      <p className="guide-p">
+        You do not need to install both for every component. Use the per-component install command shown beside its dependencies. Components with no dependencies need no additional package.
+      </p>
+
+      <h3 className="guide-subtitle">3. Set Up Tailwind CSS (Optional)</h3>
+      <p className="guide-p">
+        Use the Tailwind version of a component only if Tailwind CSS is configured in your app. For a Vite project with Tailwind CSS v4, install the Vite plugin:
+      </p>
+      <CodeHighlight
+        code="npm install tailwindcss @tailwindcss/vite"
+        language="bash"
+        className="code-pre-element p-3 bg-zinc-900 rounded-md text-xs"
+      />
+      <p className="guide-p">
+        Add the plugin to <code className="text-white bg-zinc-900 px-1 py-0.5 rounded text-xs">vite.config.js</code> and import Tailwind in the stylesheet already loaded by your app:
+      </p>
+      <CodeHighlight
+        code={`import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});`}
         language="javascript"
         className="code-pre-element p-3 bg-zinc-900 rounded-md text-xs"
       />
+      <CodeHighlight
+        code={`@import "tailwindcss";`}
+        language="css"
+        className="code-pre-element p-3 bg-zinc-900 rounded-md text-xs"
+      />
 
-      <h3 className="guide-subtitle">3. Import and Render</h3>
+      <h3 className="guide-subtitle">4. Import and Render</h3>
       <p className="guide-p">
-        Import the component locally using relative paths:
+        Save the copied source as a local component, then import it using its relative path:
       </p>
       <CodeHighlight
-        code={`import ProfileCard from "./components/ui/components/ProfileCard";
+        code={`import ProfileCard from "./ProfileCard";
 
 export default function App() {
   return (
-    <div>
-      <ProfileCard />
-    </div>
+    <ProfileCard />
   );
 }`}
         language="jsx"
