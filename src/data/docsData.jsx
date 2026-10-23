@@ -44,6 +44,7 @@ export const docsCategories = [
     items: [
       { id: "collage-animator", name: "Collage Animator" },
       { id: "card-carousel-3d", name: "3D Card Carousel" },
+      { id: "card-fan", name: "Card Fan Animation" },
       { id: "magnetic-slider", name: "Magnetic Slider" },
       { id: "profile-stack", name: "Animated Profile Stack" },
       { id: "interactive-timeline", name: "Interactive Timeline" },
