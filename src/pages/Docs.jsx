@@ -62,10 +62,6 @@ const Docs = () => {
     ? currentDoc.code[selectedBatteryVariant].code
     : currentDoc.code;
 
-  const activeCSS = (activeId === "battery-loader" && currentDoc.code && currentDoc.code[selectedBatteryVariant])
-    ? currentDoc.code[selectedBatteryVariant].css
-    : currentDoc.css;
-
   const activeLang = (currentDoc && batteryDocCode && typeof batteryDocCode === "object" && batteryDocCode[langType])
     ? langType
     : "js";
@@ -73,6 +69,12 @@ const Docs = () => {
   const activeCodeGroup = (currentDoc && typeof batteryDocCode === "object")
     ? (batteryDocCode[activeLang] || {})
     : {};
+
+  const activeCSS = (activeId === "battery-loader" && currentDoc.code && currentDoc.code[selectedBatteryVariant])
+    ? currentDoc.code[selectedBatteryVariant].css
+    : (typeof currentDoc.code === "object"
+      ? currentDoc.code[activeLang]?.css || currentDoc.css
+      : currentDoc.css);
 
   // Dynamic SEO Title and Description
   useEffect(() => {

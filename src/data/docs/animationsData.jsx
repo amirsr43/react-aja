@@ -5,6 +5,8 @@ import MagneticSlider from "../../components/ui/animations/MagneticSlider";
 import { magneticSliderCode } from "../codes/magneticSlider";
 import CardCarousel3D from "../../components/ui/animations/CardCarousel3D";
 import { cardCarousel3DCode } from "../codes/cardCarousel3D";
+import CardFan from "../../components/ui/animations/CardFan";
+import { cardFanCode } from "../codes/cardFan";
 import AnimatedProfileStack from "../../components/ui/animations/AnimatedProfileStack";
 import { animatedProfileStackCode } from "../codes/animatedProfileStack";
 import InteractiveTimeline from "../../components/ui/animations/InteractiveTimeline";
@@ -92,6 +94,7 @@ export const animationsDocs = {
           {[
             { id: "collage-animator", name: "Collage Animator", desc: "Interactive overlapping collage layouts with timeline scrubbing and live spring physics tuning.", icon: <Layers size={20} /> },
             { id: "card-carousel-3d", name: "3D Card Carousel", desc: "A premium travel card stack featuring 3D depth, scale adjustments, and spring mechanics.", icon: <Layers size={20} /> },
+            { id: "card-fan", name: "Card Fan Animation", desc: "A spring-animated collection of cards that fans out, lifts on hover, and responds to selection.", icon: <Layers size={20} /> },
             { id: "magnetic-slider", name: "Magnetic Slider", desc: "Glassmorphic slider with a floating magnetic sphere snapping on spring physics.", icon: <Sliders size={20} /> },
             { id: "profile-stack", name: "Animated Profile Stack", desc: "Expandable avatar stack with silhouette slide-ins and volume pulsing.", icon: <Users size={20} /> },
             { id: "interactive-timeline", name: "Interactive Timeline", desc: "Curved timeline scrolling years along a circular arc with drag snaps.", icon: <Calendar size={20} /> },
@@ -270,6 +273,25 @@ export const animationsDocs = {
       { name: "accentColor", type: "string", default: '"#3b82f6"', description: "Hex theme accent color used for the active year glow." },
       { name: "onChange", type: "function", default: "undefined", description: "Callback function triggered when the active year changes." },
       { name: "className", type: "string", default: '""', description: "Additional CSS class for the container element." }
+    ],
+    dependencies: ["framer-motion"]
+  },
+  "card-fan": {
+    id: "card-fan",
+    title: "Card Fan Animation",
+    description: "Three framed cards fan out with spring motion, hover lift, selectable focus, and subtle pivot pulses. Includes JavaScript and TypeScript examples in CSS and Tailwind.",
+    category: "UI Animations",
+    isGuide: false,
+    preview: (
+      <div style={{ padding: "10px 0", display: "flex", justifyContent: "center", width: "100%" }}>
+        <CardFan />
+      </div>
+    ),
+    code: cardFanCode.code,
+    css: cardFanCode.css,
+    prompt: "Create a responsive card fan animation in React using Framer Motion. Show only three framed cards with inset image placeholders and pivot dots, fanned out with staggered spring motion. Cards should lift and straighten on hover, become selectable with a raised z-index and dimmed siblings, and include replay and reduced-motion support. Provide JavaScript and TypeScript versions using CSS or Tailwind.",
+    props: [
+      { name: "(self-contained)", type: "—", default: "—", description: "Interactive preview with three cards. Select a card to bring it forward or use Replay animation to restart the fan-out." }
     ],
     dependencies: ["framer-motion"]
   },
